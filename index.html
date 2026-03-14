@@ -166,22 +166,28 @@
 
       @media (max-width: 768px) {
     nav {
-        padding: 0.4rem 0.75rem;   /* add horizontal padding */
+        padding: 0.4rem 0.4rem;
     }
 
     nav ul {
-        gap: 0.2rem;           /* less space between items */
-        flex-wrap: nowrap;     /* keep everything on one line */
-        overflow-x: auto;      /* allow horizontal scroll if needed */
+        display: flex;
+        justify-content: space-between;  /* spread items evenly */
+        align-items: center;
+        flex-wrap: nowrap;               /* single line */
+        gap: 0.2rem;
+        overflow: visible;               /* no scroll */
     }
- nav ul li {
-        flex: 0 0 auto;           /* prevent shrinking/cutting */
+
+    nav ul li {
+        flex: 1 1 auto;                  /* allow flexible widths */
+        text-align: center;
     }
 
     nav ul li a {
-        font-size: 0.75rem;
-        padding: 0 4px;
-        white-space: nowrap;      /* no word breaks */
+        display: block;
+        font-size: 0.65rem;              /* small text to fit */
+        padding: 0.1rem 0.1rem;
+        white-space: nowrap;             /* no broken words */
     }
 
     .container {
