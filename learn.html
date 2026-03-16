@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bird Bam Mahjong Club - Home</title>
+    <title>Bird Bam Mahjong Club - Learn</title>
     <style>
         * {
             margin: 0;
@@ -64,95 +64,22 @@
             width: 100%;
             margin: 0 auto;
             padding: 40px 20px;
-            text-align: center;
         }
 
-        .logo {
-            display: block;
-            margin: -20px 0 8px -20px;
-            max-width: 700px;
-            width: 150%;
-            height: auto;
-        }
+        .lessons-image {
+    display: block;
+    max-width: 900px;
+    width: 100%;          /* was 120% */
+    height: auto;
+    margin: 40px auto 0;  /* centers horizontally */
+}
 
-        .tagline {
-            margin: 0 0 16px;
-            font-size: 1.5rem;
-            color: #2B2B2B;
-            line-height: 1.3;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-
-        .coming-soon {
-            font-size: 4rem;
-            color: #7a2321;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .email-signup {
-            max-width: 500px;
-            margin: 0 auto 50px;
-        }
-
-        .form-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        input[type="email"] {
-            flex: 1;
-            padding: 15px 20px;
-            font-size: .95rem;
-            font-weight: 600;
-            border: 2px solid #2B2B2B;
-            border-radius: 4px;
-            background-color: white;
-            color: #2B2B2B;
-            text-align: center;
-        }
-
-        input[type="email"]:focus {
-            outline: none;
-            border-color: #7a2321;
-        }
-
-        button[type="submit"] {
-            padding: 15px 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            background-color: #7a2321;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #5a1a19;
-        }
-
-        .submit-btn {
-            padding: 0;
-            background: none;
-            border: none;
-        }
-
-        .submit-img {
-            width: 50px;
-            height: auto;
-            cursor: pointer;
-        }
 
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 40px;
+            margin: 40px 0;
         }
 
         .social-icons a {
@@ -164,99 +91,68 @@
             color: #7a2321;
         }
 
-      @media (max-width: 768px) {
-    nav {
-        padding: 0.4rem 0.4rem;
-    }
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.4rem 0.4rem;
+            }
 
-    nav ul {
-        display: flex;
-        justify-content: space-between;  /* spread items evenly */
-        align-items: center;
-        flex-wrap: nowrap;               /* single line */
-        gap: 0.2rem;
-        overflow: visible;               /* no scroll */
-    }
+            nav ul {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+                gap: 0.2rem;
+                overflow: visible;
+            }
 
-    nav ul li {
-        flex: 1 1 auto;                  /* allow flexible widths */
-        text-align: center;
-    }
+            nav ul li {
+                flex: 1 1 auto;
+                text-align: center;
+            }
 
-    nav ul li a {
-        display: block;
-        font-size: 0.65rem;              /* small text to fit */
-        padding: 0.1rem 0.1rem;
-        white-space: nowrap;             /* no broken words */
-    }
+            nav ul li a {
+                display: block;
+                font-size: 0.65rem;
+                padding: 0.1rem 0.1rem;
+                white-space: nowrap;
+            }
 
-    .container {
-        max-width: 100%;
-        padding: 24px 16px;
-    }
+            .container {
+                max-width: 100%;
+                padding: 24px 16px;
+            }
 
-    .logo {
-        width: 100%;          /* override 150% only on mobile */
-        margin: -10px auto 8px;
-    }
+            .lessons-image {
+                max-width: 90%;
+                width: 100%;
+                margin-top: 24px;
+            }
 
-    .tagline {
-        font-size: clamp(0.9rem, 2.8vw, 1.05rem);
-        line-height: 1.3;
-        padding: 0 4px;
-    }
+            .social-icons {
+                gap: 20px;
+                margin: 32px 0;
+            }
 
-    .coming-soon {
-        font-size: clamp(2.2rem, 8vw, 2.8rem);
-        letter-spacing: 1px;
-    }
-
-      .form-group {
-        flex-direction: row;
-        gap: 6px;
-    }
-  input[type="email"] {
-        font-size: 0.9rem;
-        padding: 10px 12px;
-    }
-
-    .submit-btn {
-        width: 100%;
-    }
-
-    .submit-img {
-        width: 40px;  /* smaller button */
-    }
-    button[type="submit"] {
-        width: 100%;
-    }
-
-    .social-icons {
-        gap: 20px;
-        margin-top: 32px;
-    }
-
-    .social-icons svg {
-        width: 32px;
-        height: 32px;
-    }
-}
-
+            .social-icons svg {
+                width: 32px;
+                height: 32px;
+            }
+        }
     </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="index.html">About</a></li>
             <li><a href="index.html">Play</a></li>
-            <li><a href="index.html">Learn</a></li>
+            <li><a href="learn.html" class="active">Learn</a></li>
             <li>
-              <a href="https://birdbammahjongclub.etsy.com/"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Shop
-              </a>
+                <a href="https://birdbammahjongclub.etsy.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Shop
+                </a>
             </li>
             <li><a href="index.html">Memberships</a></li>
             <li><a href="index.html">Events</a></li>
@@ -265,26 +161,7 @@
     </nav>
 
     <div class="container">
-        <img src="logo.svg" alt="Bird Bam Mahjong Club" class="logo">
-        
-        <div class="tagline">
-            A PREMIERE MAHJONG DESTINATION IN<br>
-            THE HEART OF THE SAN FERNANDO VALLEY
-        </div>
-
-        <h1 class="coming-soon">COMING SOON</h1>
-
-        <div class="email-signup">
-            <form id="waitlist-form">
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Enter email address for updates" required>
-                    <button type="submit" class="submit-btn">
-    Submit
-</button>
-                </div>
-            </form>
-            <p id="waitlist-message" style="margin-top: 8px; font-size: 0.9rem;"></p>
-        </div>
+        <img src="lessons.png" alt="Mahjong Lessons" class="lessons-image">
 
         <div class="social-icons">
             <a href="https://www.instagram.com/bbmahjclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -315,38 +192,5 @@
             </a>
         </div>
     </div>
-
-        <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwoECO9nOgLN2JzrsdI3TKDGDx4lclX2LyOQOZ2PHJdNmlt8i4xkCi1pDFAgbtqnFJE/exec';
-        
-        const form = document.getElementById('waitlist-form');
-        const message = document.getElementById('waitlist-message');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            message.textContent = 'Submitting...';
-            
-            try {
-                const formData = new FormData(form);
-                formData.append('source', 'landing-page');
-                
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    message.textContent = 'Thank you! You are on the list.';
-                    form.reset();
-                } else {
-                    message.textContent = 'There was an issue. Please try again.';
-                }
-            } catch (err) {
-                message.textContent = 'Network error. Please try again.';
-            }
-        });
-    </script>
 </body>
 </html>
-
