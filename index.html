@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bird Bam Mahjong Club - Home</title>
+   <link rel="icon" type="image/png" href="/favicon.png">
     <style>
         * {
             margin: 0;
@@ -83,6 +84,27 @@
             font-weight: 400;
             letter-spacing: 0.5px;
         }
+
+.location-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 22px;
+    color: #7a2321;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.location-link:hover {
+    color: #5a1a19;
+    text-decoration: underline;
+}
+
+.location-link svg {
+    flex-shrink: 0;
+}
 
         .coming-soon {
             font-size: 4rem;
@@ -269,10 +291,17 @@
         
         <div class="tagline">
             A PREMIERE MAHJONG DESTINATION IN<br>
-            THE HEART OF THE SAN FERNANDO VALLEY
+            THE ENCINO TOWN CENTER - LOWER LEVEL
         </div>
 
-        <h1 class="coming-soon">COMING SOON</h1>
+<a href="https://maps.app.goo.gl/vJqeMvYfitUMzFzLA" class="location-link" target="_blank" rel="noopener noreferrer" aria-label="Open Bird Bam Mahjong Club location in Google Maps">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+    </svg>
+    <span>View on Google Maps</span>
+</a>
+
+        <h1 class="coming-soon">OPENING MAY 2026</h1>
 
         <div class="email-signup">
             <form id="waitlist-form">
