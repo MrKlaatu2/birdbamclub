@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        // PlaybyPoint Store URLs
+        var iosUrl = "https://apps.apple.com/us/app/playbypoint/id1555133217";
+        var androidUrl = "https://play.google.com/store/apps/details?id=com.playbypoint.appx&hl=en_US&pli=1";
+        var webUrl = "https://birdbammahjongclub.playbypoint.com/"; // Fallback for desktops
+
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        if (/android/i.test(userAgent)) {
+            window.location.replace(androidUrl);
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            window.location.replace(iosUrl);
+        } else {
+            window.location.replace(webUrl);
+        }
+    </script>
+</head>
+<body>
+    <p>If you are not redirected, <a id="manual-link" href="#">click here</a>.</p>
+    <script>
+        // Sets manual link just in case auto-redirect is blocked
+        document.getElementById('manual-link').href = webUrl;
+    </script>
+</body>
+</html>
