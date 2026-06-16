@@ -12,12 +12,23 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f3efe1;
-            color: #2B2B2B;
-            min-height: 100vh;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3efe1;
+    color: #2B2B2B;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("club.jpg") center center / cover no-repeat;
+    opacity: 0.28;
+    pointer-events: none;
+    z-index: -1;
+}
 
         /* Navigation */
         nav {
@@ -104,6 +115,65 @@
 
 .location-link svg {
     flex-shrink: 0;
+}
+
+.offerings-section {
+    max-width: 680px;
+    margin: 0 auto 34px;
+    padding: 28px 26px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(43, 43, 43, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    backdrop-filter: blur(3px);
+}
+
+.offerings-intro {
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: #2B2B2B;
+    margin-bottom: 18px;
+}
+
+.offerings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.offering-item {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #2B2B2B;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(43, 43, 43, 0.12);
+}
+
+.offering-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.offering-item strong {
+    color: #7a2321;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .offerings-section {
+        padding: 22px 18px;
+        margin: 0 auto 28px;
+    }
+
+    .offerings-intro {
+        font-size: 1rem;
+    }
+
+    .offering-item {
+        font-size: 0.97rem;
+        line-height: 1.55;
+    }
 }
 
         .coming-soon {
@@ -280,7 +350,6 @@
                 Shop
               </a>
             </li>
-            <li><a href="index.html">Memberships</a></li>
             <li><a href="index.html">Events</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -300,6 +369,26 @@
     </svg>
     <span>View on Google Maps</span>
 </a>
+
+<section class="offerings-section" aria-labelledby="offerings-heading">
+    <p class="offerings-intro" id="offerings-heading">
+        Bird Bam Mahjong Club is a comfortable, inviting, dedicated mahjong space featuring 15 standard tables and 2 automatic tables.
+    </p>
+
+    <div class="offerings-list">
+        <p class="offering-item"><strong>Looking for a game?</strong> Join one of our Open Play sessions — come solo or bring a friend.</p>
+
+        <p class="offering-item"><strong>Already have a group?</strong> Book a private table that fits your schedule.</p>
+
+        <p class="offering-item"><strong>Want to learn?</strong> Sign up for our Introduction to American Mahjong class for beginners.</p>
+
+        <p class="offering-item"><strong>Feeling rusty?</strong> Take a Refresher Guided Play class.</p>
+
+        <p class="offering-item"><strong>Need mahjong gear?</strong> Shop in-person at our boutique or in our online shop.</p>
+
+        <p class="offering-item"><strong>Planning an event?</strong> Host your party or private event at Bird Bam.</p>
+    </div>
+</section>
 
         <div class="email-signup">
             <form id="waitlist-form">
