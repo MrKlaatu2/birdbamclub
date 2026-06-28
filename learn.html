@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bird Bam Mahjong Club - Learn</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3efe1;
+      color: #2B2B2B;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(196,154,67,0.12), transparent 30%),
+        radial-gradient(circle at 85% 0%, rgba(122,35,33,0.08), transparent 26%),
+        linear-gradient(180deg, #f9f4ea 0%, #f6f0e4 100%);
+      opacity: 1;
+      pointer-events: none;
+      z-index: -1;
+    }
+
     :root {
       --bg: #f6f0e4;
       --paper: #fffaf2;
@@ -22,56 +49,46 @@
       --max: 1180px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(196,154,67,0.12), transparent 30%),
-        radial-gradient(circle at 85% 0%, rgba(122,35,33,0.08), transparent 26%),
-        linear-gradient(180deg, #f9f4ea 0%, var(--bg) 100%);
-      min-height: 100vh;
-    }
-
     a { color: inherit; }
 
-    /* Navigation */
-    .nav {
+    /* Navigation (exact match to index.html, just active on Learn) */
+    nav {
+      background-color: #7a2321;
+      padding: 1rem 2rem;
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(12px);
-      background: rgba(122, 35, 33, 0.92);
-      box-shadow: 0 8px 24px rgba(55, 20, 18, 0.18);
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .nav-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 14px 20px;
+    nav ul {
+      list-style: none;
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 28px;
+      align-items: center;
       flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .nav a {
+    nav ul li a {
+      color: #f3efe1;
       text-decoration: none;
-      color: #f8efe6;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      padding-bottom: 3px;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      letter-spacing: 0.5px;
     }
 
-    .nav a:hover,
-    .nav a.active {
-      color: #fff;
-      border-color: rgba(255,255,255,0.75);
+    nav ul li a:hover {
+      color: white;
+    }
+
+    nav ul li a.active {
+      font-weight: 700;
+      border-bottom: 2px solid #f3efe1;
+      padding-bottom: 2px;
     }
 
     .page {
@@ -81,11 +98,11 @@
     }
 
     /* Hero layout with bird logo */
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 24px;
-  align-items: center;
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 24px;
+      align-items: center;
       background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,248,239,0.7));
       border: 1px solid rgba(122,35,33,0.1);
       border-radius: var(--radius-xl);
@@ -93,6 +110,7 @@
       padding: 40px;
       position: relative;
       overflow: hidden;
+      margin-top: 26px;
       margin-bottom: 26px;
     }
 
@@ -132,12 +150,12 @@
       padding-top: 8px;
     }
 
-.hero-bird {
-  display: block;
-  max-width: 400px; /* try 240–280px and adjust by eye */
-  width: 100%;
-  height: auto;
-}
+    .hero-bird {
+      display: block;
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -303,7 +321,7 @@
       font-size: 1.35rem;
       line-height: 1.2;
       color: #321d18;
-      white-space: nowrap; /* keep titles on one line */
+      white-space: nowrap;
     }
 
     .class-snippet {
@@ -409,7 +427,7 @@
       }
 
       .hero-bird {
-        max-width: 140px;
+        max-width: 200px;
       }
 
       .classes-grid,
@@ -422,16 +440,34 @@
       }
     }
 
+    @media (max-width: 768px) {
+      nav {
+        padding: 0.4rem 0.4rem;
+      }
+
+      nav ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0.2rem;
+        overflow: visible;
+      }
+
+      nav ul li {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+
+      nav ul li a {
+        display: block;
+        font-size: 0.65rem;
+        padding: 0.1rem 0.1rem;
+        white-space: nowrap;
+      }
+    }
+
     @media (max-width: 640px) {
-      .nav-inner {
-        gap: 14px;
-        padding: 12px 10px;
-      }
-
-      .nav a {
-        font-size: 0.88rem;
-      }
-
       .page {
         padding: 18px 12px 48px;
       }
@@ -461,19 +497,24 @@
   </style>
 </head>
 <body>
-  <nav class="nav" aria-label="Primary">
-    <div class="nav-inner">
-      <a href="index.html">Home</a>
-      <a href="learn.html" class="active">Learn</a>
-      <a href="https://birdbammahjongclub.playbypoint.com/users/sign_up" target="_blank" rel="noopener noreferrer">Play</a>
-      <a href="https://birdbammahjongclub.etsy.com" target="_blank" rel="noopener noreferrer">Shop</a>
-      <a href="index.html#events">Events</a>
-      <a href="contact.html">Contact</a>
-    </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="learn.html" class="active">Learn</a></li>
+      <li><a href="https://birdbammahjongclub.playbypoint.com/users/sign_up">Play</a></li>
+      <li>
+        <a href="https://birdbammahjongclub.etsy.com/"
+           target="_blank"
+           rel="noopener noreferrer">
+          Shop
+        </a>
+      </li>
+      <li><a href="index.html">Events</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </nav>
 
   <main class="page">
-    <!-- Hero with bird logo -->
     <section class="hero">
       <div class="hero-left">
         <div class="eyebrow">Learn at Bird Bam</div>
@@ -499,7 +540,6 @@
       </div>
     </section>
 
-    <!-- Classes -->
     <section id="class-list">
       <div class="classes-grid">
         <!-- Intro class -->
@@ -612,72 +652,20 @@
             </div>
           </div>
         </details>
-<!--
-<details class="class-card">
-  <summary>
-    <div class="summary-top">
-      <div>
-        <div class="status soon">Coming Soon</div>
-        <h3>Mahjong Tournament Clinic</h3>
       </div>
-      <div class="chevron">⌄</div>
-    </div>
-    <p class="class-snippet">Get comfortable with tournament structure, etiquette, seating, scoring, and mock rounds before entering your first event.</p>
-    <div class="class-meta">
-      <span class="pill">$75 · 3 hours</span>
-      <span class="pill">Experience needed: Comfortable playing full games with the current card</span>
-    </div>
-  </summary>
-  <div class="class-body">
-    <div class="class-body-inner">
-      <p>Thinking about entering your first tournament? This clinic walks you through how American Mahjong tournaments work so you’ll know exactly what to expect before you sit down at the table.</p>
-      <p>You’ll learn how rounds are structured, how seating and scoring work, and what common tournament rules and etiquette look like. Then you’ll play through mock tournament-style rounds so you can practice managing the clock, recording scores, and staying focused under pressure.</p>
-      <div class="fact-list">
-        <div class="fact"><strong>What’s provided:</strong> Table, players, tiles, score sheets</div>
-        <div class="fact"><strong>Free bonus:</strong> Bird Bam Mahjong Club’s First Tournament Prep Checklist to keep</div>
-      </div>
-    </div>
-  </div>
-</details>
--->
+    </section>
 
-<!--
-<details class="class-card">
-  <summary>
-    <div class="summary-top">
-      <div>
-        <div class="status soon">Coming Soon</div>
-        <h3>Mahjong Betting &amp; Scoring Clinic</h3>
-      </div>
-      <div class="chevron">⌄</div>
-    </div>
-    <p class="class-snippet">Demystify betting, payouts, point values, and who pays whom—using chips to simulate coins, never actual money.</p>
-    <div class="class-meta">
-      <span class="pill">$75 · 3 hours</span>
-      <span class="pill">Experience needed: Knowledge of gameplay and the card</span>
-    </div>
-  </summary>
-  <div class="class-body">
-    <div class="class-body-inner">
-      <p>Curious how betting, payouts, and point values work in mahjong? This clinic demystifies the numbers on the card and teaches you how money games are structured—using chips to simulate coins (no actual money used).</p>
-      <p>You’ll learn how to read values on the card, set table stakes, and calculate payouts, including when payouts are doubled, who pays whom, and how to handle jokers, wall games, and special hands. Using chips at the table, you’ll run through realistic scenarios so you can confidently host or join money-style games with friends.</p>
-      <div class="fact-list">
-        <div class="fact"><strong>What’s provided:</strong> Table, players, tiles, chips (no real money)</div>
-        <div class="fact"><strong>Free bonus:</strong> Bird Bam Mahjong Club’s Betting &amp; Payouts Guide to keep</div>
-      </div>
-    </div>
-  </div>
-</details>
--->
-
-    <!-- CTA band -->
     <section id="cta-band">
-    <section class="cta-band">
-      <div>
-        <h2>Ready to enroll or want more info?</h2>
-        <p>Call, text, or email Bird Bam Mahjong Club: <a href="mailto:info@birdbamclub.com"><b>info@birdbamclub.com</b></a> <b>| (818) 564-7289</b></p>
-      </div>
-      <a class="button primary" href="https://birdbammahjongclub.playbypoint.com/users/sign_up" target="_blank" rel="noopener noreferrer">Reserve your spot</a>
+      <section class="cta-band">
+        <div>
+          <h2>Ready to enroll or want more info?</h2>
+          <p>Call, text, or email Bird Bam Mahjong Club:
+            <a href="mailto:info@birdbamclub.com"><b>info@birdbamclub.com</b></a>
+            <b>| (818) 564-7289</b>
+          </p>
+        </div>
+        <a class="button primary" href="https://birdbammahjongclub.playbypoint.com/users/sign_up" target="_blank" rel="noopener noreferrer">Reserve your spot</a>
+      </section>
     </section>
   </main>
 </body>
