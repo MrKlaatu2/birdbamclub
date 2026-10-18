@@ -30,6 +30,9 @@
       "url": "https://birdbamclub.com/",
       "telephone": "+1-818-564-7289",
       "email": "info@birdbamclub.com",
+      "image": ["https://birdbamclub.com/images/open-play.jpg", "https://birdbamclub.com/images/private-event.jpg"],
+      "logo": "https://birdbamclub.com/images/logo.svg",
+      "priceRange": "$$",
       "address": {"@type": "PostalAddress", "streetAddress": "17200 Ventura Blvd, Suite 115", "addressLocality": "Encino", "addressRegion": "CA", "postalCode": "91316", "addressCountry": "US"},
       "geo": {"@type": "GeoCoordinates", "latitude": 34.15986, "longitude": -118.50760},
       "sameAs": ["https://www.instagram.com/bbmahjclub/", "https://www.facebook.com/bbmahjclub", "https://www.tiktok.com/@bbmahjclub", "https://birdbammahjongclub.etsy.com/"]
@@ -37,12 +40,15 @@
     {
       "@type": "Event",
       "name": "Monster Mahj",
+      "description": "Halloween mahjong night at Bird Bam Mahjong Club: bonus Halloween hands, spooky snacks, costume prizes, and up to 6 hours of open play. Members free, non-members $35.",
+      "image": "https://birdbamclub.com/images/monster-mahj.jpg",
+      "eventStatus": "https://schema.org/EventScheduled",
       "startDate": "2026-10-26T18:00:00-07:00",
       "endDate": "2026-10-27T00:00:00-07:00",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "location": {"@id": "https://birdbamclub.com/#club"},
       "organizer": {"@id": "https://birdbamclub.com/#club"},
-      "offers": {"@type": "Offer", "price": "35", "priceCurrency": "USD", "url": "https://birdbammahjongclub.playbypoint.com/programs/monster-mahj"}
+      "offers": {"@type": "Offer", "price": "35", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://birdbammahjongclub.playbypoint.com/programs/monster-mahj"}
     },
     {
       "@type": "Course",
@@ -315,6 +321,7 @@ dialog.lightbox .close{background:var(--cream);color:var(--charcoal);border:0;bo
 /* shop */
 .shop{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
 .shop>*{min-width:0}
+.shop.solo{grid-template-columns:minmax(0,1fr);max-width:960px}
 .shop .placeholder{aspect-ratio:4/3}
 .shop h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
 .shop-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
@@ -666,8 +673,7 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
 
   <!-- SHOP -->
   <section class="block" id="shop">
-    <div class="wrap shop">
-      <div class="placeholder" role="img" aria-label="Boutique photo coming soon">Boutique photo<br>coming soon</div>
+    <div class="wrap shop solo">
       <div>
         <div class="shop-head">
           <div>
