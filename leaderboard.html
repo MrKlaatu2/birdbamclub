@@ -48,6 +48,13 @@ td.rank{width:3.2em;font-family:var(--display);font-weight:800;font-size:1.3rem;
 td.pts{font-weight:700}
 td .prizes{margin-left:6px;white-space:nowrap}
 tr.top td{background:#FBF4E2}
+tr.top td.rank{box-shadow:inset 5px 0 0 var(--gold)}
+.win{display:inline-block;margin-left:8px;background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:1px 8px;border-radius:999px;vertical-align:2px}
+details.points{margin-top:16px;background:var(--white);border:2px solid var(--line);border-radius:12px;padding:12px 18px}
+details.points summary{cursor:pointer;font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:.06em;text-transform:uppercase;color:var(--burgundy)}
+details.points dl{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:6px 18px;margin:12px 0 4px}
+details.points dt{font-weight:600}
+details.points dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 tr.top td.rank{color:var(--burgundy)}
 tr.match td{background:var(--gold-soft)}
 tr[hidden]{display:none}
@@ -75,9 +82,11 @@ footer a{color:#D9D4C4}
 <main class="wrap">
   <p class="eyebrow" id="label">Open play contest leaderboard</p>
   <h1 id="title">Hallo<span class="hl">win</span></h1>
-  <p class="intro">Points update as we record them at the club. Every open play you attend earns another draw, so there's still time to climb!</p>
+  <p class="intro">The top <span id="winners-n">5</span> players, highlighted below, are in prize position. Points update as we record them at the club. Every open play you attend earns another draw, so there's still time to climb!</p>
 
   <div class="key" id="key"><b>Instant win prizes</b><ul></ul></div>
+
+  <details class="points" id="points"><summary>How points work</summary><dl></dl><p class="fine" id="winners-line"></p></details>
 
   <div class="find">
     <label for="search">Find your name</label>
@@ -112,10 +121,15 @@ footer a{color:#D9D4C4}
   document.getElementById("label").textContent = `${months[+c.month.slice(5)-1]}'s open play contest leaderboard`;
   document.getElementById("rules").href = c.rules;
   document.querySelector("#key ul").innerHTML = c.key.map(k => `<li>${k[0]} ${esc(k[1])}</li>`).join("");
+  const pts = document.getElementById("points");
+  if(c.points && c.points.length){ pts.querySelector("dl").innerHTML = c.points.map(p => `<dt>${esc(p[0])}</dt><dd>${esc(p[1])}</dd>`).join(""); }
+  else pts.hidden = true;
+  document.getElementById("winners-n").textContent = c.winners || 5;
+  document.getElementById("winners-line").textContent = `The top ${c.winners || 5} players at the end of the month win prizes. Ties go to whoever reached that score first. See the official rules for details.`;
 
   const {list} = await window.loadLeaderboard();
   const body = document.getElementById("rows");
-  body.innerHTML = list.map(p => `<tr class="${p.rank <= 3 ? "top" : ""}" data-name="${esc(p.name.toLowerCase())}"><td class="rank">${p.rank}</td><td>${esc(p.name)}${p.prizes ? `<span class="prizes">${esc(p.prizes)}</span>` : ""}</td><td class="pts">${p.pts}</td></tr>`).join("");
+  body.innerHTML = list.map(p => `<tr class="${p.rank <= (c.winners || 5) ? "top" : ""}" data-name="${esc(p.name.toLowerCase())}"><td class="rank">${p.rank}</td><td>${esc(p.name)}${p.prizes ? `<span class="prizes">${esc(p.prizes)}</span>` : ""}</td><td class="pts">${p.pts}</td></tr>`).join("");
 
   const input = document.getElementById("search"), status = document.getElementById("status");
   input.addEventListener("input", () => {
