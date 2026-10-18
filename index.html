@@ -319,10 +319,10 @@ dialog.lightbox .close{background:var(--cream);color:var(--charcoal);border:0;bo
 @media (max-width:760px){.learn-more{grid-template-columns:minmax(0,1fr)}}
 
 /* shop */
-.shop{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
+.shop{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.shop-photo{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:18px;border:3px solid var(--charcoal);display:block}
 .shop>*{min-width:0}
 .shop.solo{grid-template-columns:minmax(0,1fr);max-width:960px}
-.shop .placeholder{aspect-ratio:4/3}
 .shop h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
 .shop-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
 .shop-head img{width:140px;transform:scaleX(-1)}
@@ -335,7 +335,7 @@ dialog.lightbox .close{background:var(--cream);color:var(--charcoal);border:0;bo
 .etsy .stars{color:var(--gold);font-weight:700}
 .also{margin-top:14px;color:var(--muted)}
 .also a{font-weight:600}
-@media (max-width:860px){.shop{grid-template-columns:minmax(0,1fr)}.shop .placeholder{order:2}}
+@media (max-width:860px){.shop{grid-template-columns:minmax(0,1fr)}}
 
 /* membership band */
 .member{background:var(--brown);color:var(--cream)}
@@ -673,7 +673,7 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
 
   <!-- SHOP -->
   <section class="block" id="shop">
-    <div class="wrap shop solo">
+    <div class="wrap shop">
       <div>
         <div class="shop-head">
           <div>
@@ -692,6 +692,7 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
         </div>
         <p class="also">Also: <a href="https://shop.birdbamclub.com" target="_blank" rel="noopener">Bird Bam Shop</a> · <a href="https://mahjong-mats.com" target="_blank" rel="noopener">Custom Mahjong Mats</a> · <a href="https://checkout.yourgift.cards/29982598-332b-41a9-a807-b48d6b77d2b9" target="_blank" rel="noopener">Gift Certificates</a></p>
       </div>
+      <img class="shop-photo" src="images/boutique.jpg" alt="The Bird Bam boutique, with shelves of mahjong tile sets, racks, mats, bags, and gifts" width="1600" height="900" loading="lazy">
     </div>
   </section>
 
