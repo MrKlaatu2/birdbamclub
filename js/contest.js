@@ -7,6 +7,8 @@ window.CONTEST = {
   rules: "hallowin.html",
   sheetId: "1iG343i1XB4FFVFYNLmLlYAfweuvKpJaipB6JhAoMstc",
   sheetTab: "Sheet1",
+  /* "Publish to web" CSV link for this month's leaderboard sheet (File > Share > Publish to web > Sheet1 > CSV) */
+  csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT1IYkLAnJTBHznZ48DeUFrOJV5598wN84yUfM7kqg_A6njcO8uTiXVWiQFWfj0alUlJfeVgycL3BvO/pub?gid=0&single=true&output=csv",
   key: [["👻","Free open play pass"],["🎃","$10 gift certificate"],["🦇","Snack bag"]],
   winners: 5,   /* how many top places win prizes (highlighted on the leaderboard) */
   points: [["Bams, Dots, Craks","+1 to +9 (face value)"],["Flowers","+10"],["Green Dragon","+15"],["Red Dragon","+20"],["Bird Bam","+25"],["Soap","0"],["Winds","Trick! −5"],["Joker","Draw 2 more tiles"]],
@@ -16,15 +18,16 @@ window.CONTEST = {
 
 window.loadLeaderboard = async function(){
   const c = window.CONTEST;
-  const url = `https://docs.google.com/spreadsheets/d/${c.sheetId}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodeURIComponent(c.sheetTab)}`;
+  const urls = [c.csvUrl, `https://docs.google.com/spreadsheets/d/${c.sheetId}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodeURIComponent(c.sheetTab)}`].filter(Boolean);
   let rows = c.snapshot, live = false;
-  try {
-    const res = await fetch(url, {cache: "no-store"});
-    if(res.ok){
+  for(const url of urls){
+    try {
+      const res = await fetch(url, {cache: "no-store"});
+      if(!res.ok) continue;
       const parsed = parseCSV(await res.text()).filter(r => r[0] && r[0].trim() && r[1] !== undefined && r[1] !== "" && !isNaN(+r[1]));
-      if(parsed.length){ rows = parsed; live = true; }
-    }
-  } catch(e){ /* use snapshot */ }
+      if(parsed.length){ rows = parsed; live = true; break; }
+    } catch(e){ /* try the next source, then the snapshot */ }
+  }
   const list = rows.map(r => ({name: String(r[0]).trim(), pts: +r[1], prizes: (r[2] || "").trim()}))
                    .sort((a,b) => b.pts - a.pts || a.name.localeCompare(b.name));
   let rank = 0, prev = null;
