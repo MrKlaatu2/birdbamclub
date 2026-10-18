@@ -1,470 +1,965 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bird Bam Mahjong Club - Home</title>
-   <link rel="icon" type="image/png" href="/favicon.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3efe1;
-    color: #2B2B2B;
-    min-height: 100vh;
-    position: relative;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://birdbamclub.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bird Bam Mahjong Club">
+<meta property="og:title" content="Bird Bam Mahjong Club | L.A.'s Premier Mahjong Destination">
+<meta property="og:description" content="American Mahjong open play, beginner classes, private and automatic tables, parties, and a mahjong boutique in the Encino Town Center.">
+<meta property="og:url" content="https://birdbamclub.com/">
+<meta property="og:image" content="https://birdbamclub.com/images/open-play.jpg">
+<title>Bird Bam Mahjong Club | L.A.'s Premier Mahjong Destination in Encino</title>
+<meta name="description" content="L.A.'s Premier Mahjong Destination, in the Encino Town Center. American Mahjong open play six times a week, beginner classes, private and automatic tables, parties, and a mahjong boutique.">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "Store"],
+      "@id": "https://birdbamclub.com/#club",
+      "name": "Bird Bam Mahjong Club",
+      "legalName": "Bird Bam Mahjong Club LLC",
+      "slogan": "L.A.'s Premier Mahjong Destination",
+      "description": "Mahjong club and shop in the Encino Town Center with 16 standard tables and 2 automatic tables. American Mahjong open play, beginner classes, private table rentals, private events, and a mahjong boutique.",
+      "url": "https://birdbamclub.com/",
+      "telephone": "+1-818-564-7289",
+      "email": "info@birdbamclub.com",
+      "address": {"@type": "PostalAddress", "streetAddress": "17200 Ventura Blvd, Suite 115", "addressLocality": "Encino", "addressRegion": "CA", "postalCode": "91316", "addressCountry": "US"},
+      "geo": {"@type": "GeoCoordinates", "latitude": 34.15986, "longitude": -118.50760},
+      "sameAs": ["https://www.instagram.com/bbmahjclub/", "https://www.facebook.com/bbmahjclub", "https://www.tiktok.com/@bbmahjclub", "https://birdbammahjongclub.etsy.com/"]
+    },
+    {
+      "@type": "Event",
+      "name": "Monster Mahj",
+      "startDate": "2026-10-26T18:00:00-07:00",
+      "endDate": "2026-10-27T00:00:00-07:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {"@id": "https://birdbamclub.com/#club"},
+      "organizer": {"@id": "https://birdbamclub.com/#club"},
+      "offers": {"@type": "Offer", "price": "35", "priceCurrency": "USD", "url": "https://birdbammahjongclub.playbypoint.com/programs/monster-mahj"}
+    },
+    {
+      "@type": "Course",
+      "name": "Learn Mahjong 1: Introductory Class",
+      "description": "Learn American Mahjong from scratch in a small 3-hour class. No experience or equipment needed.",
+      "provider": {"@id": "https://birdbamclub.com/#club"},
+      "offers": {"@type": "Offer", "price": "75", "priceCurrency": "USD", "category": "Paid"}
+    },
+    {
+      "@type": "Course",
+      "name": "Learn Mahjong 2: Guided Play Session",
+      "description": "A 30-minute refresher followed by guided American Mahjong games with an instructor.",
+      "provider": {"@id": "https://birdbamclub.com/#club"},
+      "offers": {"@type": "Offer", "price": "75", "priceCurrency": "USD", "category": "Paid"}
+    }
+  ]
 }
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("club.jpg") center center / cover no-repeat;
-    opacity: 0.28;
-    pointer-events: none;
-    z-index: -1;
+</script>
+<style>
+/* Layout: a cream club room. Burgundy carries action, brown carries the name, gold marks deals; the schedule is a rack of upright mahjong tiles. */
+:root{
+  --cream:#F8F7F1;      /* tile face, page */
+  --sand:#EFEADB;       /* bands */
+  --tile-edge:#E7E2D4;  /* tile side, from logo */
+  --line:#DDD5BF;
+  --charcoal:#2C2B28;   /* outlines, text */
+  --muted:#5F5B4E;      /* olive-gray secondary text */
+  --brown:#A77347;      /* BIRD BAM */
+  --burgundy:#7A2423;   /* MAHJONG CLUB, actions */
+  --burgundy-dark:#5E1A19;
+  --gold:#C8963A;       /* flyer mustard */
+  --gold-soft:#F3E6C4;
+  --bamboo:#5E6E2C;
+  --orange:#E0611C;     /* HalloWIN */
+  --white:#FFFFFF;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
 }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--cream);color:var(--charcoal);font-family:var(--body);font-size:18px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--burgundy)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:.005em}
+h2{font-size:clamp(2.4rem,5.5vw,3.6rem);text-transform:uppercase;color:var(--burgundy)}
+h3{font-size:1.7rem;text-transform:uppercase}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);line-height:1.1}
+.lede{font-size:1.15rem;color:var(--muted);max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 24px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);transition:background .15s,color .15s;cursor:pointer;text-align:center}
+.btn.primary{background:var(--burgundy);color:var(--cream)}
+.btn.primary:hover{background:var(--burgundy-dark);border-color:var(--burgundy-dark)}
+.btn.ghost{color:var(--burgundy);background:transparent}
+.btn.ghost:hover{background:var(--burgundy);color:var(--cream)}
+.btn.small{min-height:42px;font-size:1.05rem;padding:6px 18px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.note{font-size:.95rem;color:var(--muted)}
+.phone,.mail{font-weight:700;color:var(--charcoal);text-decoration:none;overflow-wrap:anywhere;white-space:nowrap}
+.phone:hover,.mail:hover{color:var(--burgundy);text-decoration:underline}
+.placeholder{display:grid;place-items:center;text-align:center;background:repeating-linear-gradient(45deg,var(--sand),var(--sand) 12px,var(--cream) 12px,var(--cream) 24px);border:2px dashed var(--line);border-radius:14px;color:var(--muted);font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:20px;max-width:100%}
 
-        /* Navigation */
-        nav {
-            background-color: #7a2321;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        nav ul li a {
-            color: #f3efe1;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-            letter-spacing: 0.5px;
-        }
-
-        nav ul li a:hover {
-            color: white;
-        }
-
-        nav ul li a.active {
-            font-weight: 700;
-            border-bottom: 2px solid #f3efe1;
-            padding-bottom: 2px;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .logo {
-            display: block;
-            margin: -20px 0 8px -20px;
-            max-width: 700px;
-            width: 150%;
-            height: auto;
-        }
-
-        .tagline {
-            margin: 0 0 16px;
-            font-size: 1.5rem;
-            color: #2B2B2B;
-            line-height: 1.3;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-
-.location-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 0 0 22px;
-    color: #7a2321;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--cream)}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--cream);border-bottom:2px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:22px;padding-block:12px;transition:padding .2s}
+.logo{display:block;margin-right:auto;flex-shrink:0}
+.logo img{height:78px;width:auto;transition:height .2s}
+header.site.scrolled .wrap{padding-block:6px}
+header.site.scrolled .logo img{height:52px}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:16px}
+nav.main a{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:.05em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;white-space:nowrap}
+nav.main a:hover{color:var(--burgundy)}
+.head-actions{display:flex;align-items:center;gap:14px}
+.head-actions .btn{white-space:nowrap}
+.head-phone{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:.03em;color:var(--charcoal);text-decoration:none;white-space:nowrap}
+.head-phone:hover{color:var(--burgundy)}
+.head-phone .short{display:none}
+.menu{display:none;position:relative}
+.menu summary{list-style:none;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;min-height:42px;display:flex;align-items:center;padding:0 16px;border:2px solid var(--charcoal);border-radius:10px;box-sizing:border-box}
+.menu summary::-webkit-details-marker{display:none}
+.menu ul{position:absolute;right:0;top:calc(100% + 8px);background:var(--cream);border:2px solid var(--charcoal);border-radius:10px;list-style:none;margin:0;padding:8px;min-width:230px;box-shadow:0 10px 24px rgba(44,43,40,.15)}
+.menu li a{display:block;padding:10px 12px;font-family:var(--display);font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:.05em;color:var(--charcoal);text-decoration:none;border-radius:6px}
+.menu li a:hover{background:var(--sand)}
+@media (max-width:1340px){nav.main{display:none}.menu{display:block}}
+@media (max-width:640px){
+  .logo img{height:54px} header.site.scrolled .logo img{height:44px}
+  .head-actions .btn{display:none}
+  header.site .wrap{gap:12px}
+  .head-phone{font-size:1.05rem}
 }
+@media (max-width:480px){.head-phone .num{display:none}.head-phone .short{display:inline}.logo img{height:48px}}
 
-.location-link:hover {
-    color: #5a1a19;
-    text-decoration: underline;
-}
+/* intro + announcement */
+.top{padding-block:44px 56px;background:linear-gradient(var(--cream),var(--sand))}
+.top .wrap{display:grid;grid-template-columns:1.25fr .85fr;gap:40px;align-items:stretch}
+.intro{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.intro .bird{width:190px}
+.lockup{display:inline-block;text-transform:uppercase;line-height:.92}
+.lockup span{display:block;width:max-content;white-space:nowrap}
+.lockup .l1{color:var(--brown);font-weight:700;font-size:1.6rem;letter-spacing:.2em;margin-bottom:6px}
+.lockup .l2,.lockup .l3{color:var(--burgundy);font-size:clamp(2.5rem,5vw,4rem)}
+.intro p.lede{margin-top:14px;color:var(--charcoal)}
+.paths{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:6px}
+.paths .btn{min-height:60px;font-size:1.15rem;padding:8px 12px}
+.announce{background:var(--white);border:3px solid var(--charcoal);border-radius:18px;overflow:hidden;box-shadow:8px 8px 0 var(--burgundy);display:flex;flex-direction:column;min-width:0}
+.announce .art{display:block;flex:1 1 auto;min-height:240px;padding:0;border:0;background:#2E4A3A;cursor:zoom-in;position:relative;overflow:hidden}
+.announce .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0%}
+.announce .art .hint{position:absolute;right:10px;bottom:10px;background:rgba(44,43,40,.78);color:var(--cream);font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:999px}
+.announce .price-line{font-weight:700;color:var(--charcoal)}
+.announce .body{padding:20px 24px 24px;display:grid;gap:8px}
+.announce .label{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;color:var(--burgundy)}
+.announce h2{font-size:2.4rem;color:var(--charcoal)}
+.announce p{color:var(--muted)}
+.announce .btns{margin-top:8px}
+@media (max-width:980px){.top .wrap{grid-template-columns:minmax(0,1fr)}.announce .art{min-height:0;aspect-ratio:4/3;flex:none}}
+@media (max-width:640px){.intro{grid-template-columns:1fr}.intro .bird{width:120px}.paths{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-.location-link svg {
-    flex-shrink: 0;
-}
+section.block{padding-block:76px}
+section.block.band{background:var(--sand)}
+.head{display:grid;gap:12px;margin-bottom:34px}
+.head-row{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:34px}
+.head-row .head{margin-bottom:0}
+@media (max-width:700px){.head-row{grid-template-columns:1fr}.head-row img{display:none}}
 
-.offerings-section {
-    max-width: 680px;
-    margin: 0 auto 34px;
-    padding: 28px 26px;
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(43, 43, 43, 0.12);
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    text-align: left;
-    backdrop-filter: blur(3px);
-}
+/* schedule tiles */
+.tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:22px;padding-right:12px;list-style:none;margin:0;padding-left:0}
+.tile{position:relative;aspect-ratio:3/4;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;padding:10px 6px;isolation:isolate}
+.tile::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:18px;background:var(--cream);border:3px solid var(--charcoal);
+  box-shadow:inset 0 -10px 16px -8px rgba(44,43,40,.16),inset 0 8px 10px -6px rgba(255,255,255,.95),inset 6px 0 10px -8px rgba(44,43,40,.12)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-2;border-radius:18px;transform:translateX(8px);background:var(--tile-edge);border:3px solid var(--burgundy);box-shadow:6px 0 0 0 var(--burgundy)}
+.tile .day{font-family:var(--display);font-weight:800;font-size:2.1rem;text-transform:uppercase;color:var(--burgundy);line-height:1}
+.tile .part{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bamboo);margin:6px 0 8px}
+.tile .time{font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .to{font-size:.85rem;color:var(--muted);line-height:1.2}
+.tile .flag{position:absolute;left:50%;top:-15px;transform:translateX(-50%);background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:999px;white-space:nowrap}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:30px}}
+@media (max-width:520px){.tiles{gap:22px 20px;padding-right:14px}.tile .day{font-size:1.7rem}.tile .time{font-size:1.05rem}.tile .part{font-size:.66rem;letter-spacing:.05em}}
 
-.offerings-intro {
-    font-size: 1.08rem;
-    line-height: 1.65;
-    color: #2B2B2B;
-    margin-bottom: 18px;
-}
+.club-photo{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:50% 60%;border-radius:18px;border:3px solid var(--charcoal);margin:0 0 40px}
+@media (max-width:640px){.club-photo{aspect-ratio:4/3}}
+.play-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:44px;align-items:start}
+.play-grid>*{min-width:0}
+@media (max-width:860px){.play-grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--white);border:2px solid var(--line);border-radius:14px;padding:28px}
+.panel h3{color:var(--charcoal)}
+.rates{list-style:none;margin:16px 0 0;padding:0;display:grid}
+.rates li{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rates li:last-child{border-bottom:0}
+.rates b{font-family:var(--display);font-weight:800;font-size:1.6rem;font-variant-numeric:tabular-nums;color:var(--burgundy)}
+.rates span small{display:block;color:var(--muted);font-size:.92rem}
+.rates small a{font-weight:600}
+.join{margin-top:18px;display:grid;gap:10px}
+.join p{color:var(--muted);font-size:.98rem}
 
-.offerings-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
+/* contest */
+.contest{display:grid;grid-template-columns:140px 1fr;gap:22px}
+.contest button.flyer-btn{padding:0;border:0;background:none;cursor:zoom-in;display:block}
+.contest button.flyer-btn img{border-radius:8px;border:2px solid var(--line);width:100%}
+.contest .hint{font-size:.8rem;color:var(--muted);margin-top:4px;text-align:center}
+.contest .eyebrow{color:var(--burgundy);font-size:1.15rem}
+.contest h3{font-size:2.3rem;margin-top:4px}
+.contest h3 .hl{color:var(--orange)}
+.contest p{color:var(--muted);margin-top:8px;font-size:1rem}
+.prize-key{margin-top:16px;font-size:1.15rem;background:var(--sand);border-radius:10px;padding:14px 18px;text-align:center}
+.prize-key b{display:block;font-family:var(--display);font-size:1.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--burgundy);margin-bottom:6px}
+.prize-key ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px}
+.prize-key li{white-space:nowrap;font-weight:600}
+.board{margin-top:16px;border-top:2px solid var(--charcoal)}
+.board table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.board td{padding:8px 4px;border-bottom:1px solid var(--line)}
+.board td.rank{width:2.2em;font-family:var(--display);font-weight:800;color:var(--brown);font-size:1.15rem}
+.board td.pts{text-align:right;font-weight:700}
+.board caption{caption-side:top;text-align:left;font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:1rem;padding:10px 0 4px}
+.contest-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.fine{font-size:.82rem;color:var(--muted);margin-top:10px}
+@media (max-width:520px){.contest{grid-template-columns:110px 1fr;gap:16px}.contest h3{font-size:2rem}}
+dialog.lightbox{border:0;padding:0;background:transparent;max-width:min(92vw,640px);max-height:94vh}
+dialog.lightbox::backdrop{background:rgba(44,43,40,.82)}
+dialog.lightbox img{max-height:84vh;width:auto;margin:0 auto;border-radius:8px}
+dialog.lightbox form{display:flex;justify-content:flex-end;margin-bottom:8px}
+dialog.lightbox .close{background:var(--cream);color:var(--charcoal);border:0;border-radius:999px;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;cursor:pointer}
 
-.offering-item {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #2B2B2B;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(43, 43, 43, 0.12);
-}
+/* private tables */
+.group{margin-top:28px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;background:var(--charcoal);color:var(--cream);border-radius:16px;padding:32px}
+.group h3{color:var(--cream);font-size:2.2rem}
+.group .eyebrow{color:var(--gold);font-size:1.15rem}
+.group p{color:#E7E2D4;margin-top:10px}
+.group p b{color:var(--gold-soft)}
+.group .btns{margin-top:18px}
+.group .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--charcoal)}
+.group .btn.primary:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.group .btn.ghost{color:var(--cream);border-color:var(--cream)}
+.group .btn.ghost:hover{background:var(--cream);color:var(--charcoal)}
+.video{position:relative;display:grid;place-items:center;aspect-ratio:16/10;max-width:100%;border-radius:12px;text-decoration:none;color:var(--cream);overflow:hidden;
+  background:linear-gradient(135deg,#3B3934,#23221F)}
+.video .play{width:76px;height:76px;border-radius:50%;background:var(--burgundy);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(248,247,241,.15)}
+.video .play::before{content:"";border-left:24px solid var(--cream);border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:6px}
+.video span.cap{position:absolute;left:16px;bottom:12px;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.video span.ph{position:absolute;top:12px;right:14px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#A9A493}
+.video:hover .play{background:var(--burgundy-dark)}
+.video img.thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.video .play,.video .cap{position:relative;z-index:1}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:860px){.group{grid-template-columns:minmax(0,1fr);padding:24px}}
 
-.offering-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
+/* reviews */
+.reviews{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+.review{margin:0;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+.review .stars{color:var(--gold);letter-spacing:.12em;font-size:1.1rem}
+.review blockquote{margin:0;font-size:1.06rem;line-height:1.5}
+.review figcaption{font-weight:700;font-size:.95rem;color:var(--muted)}
+.review figcaption i,.review figcaption svg{color:#C41200;margin:0 3px 0 2px}
+@media (max-width:760px){.reviews{grid-template-columns:minmax(0,1fr)}}
 
-.offering-item strong {
-    color: #7a2321;
-    font-weight: 700;
-}
+/* learn */
+.path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;counter-reset:step}
+.path li{counter-increment:step;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+.path li::before{content:counter(step);font-family:var(--display);font-weight:800;font-size:1.4rem;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--burgundy);color:var(--cream)}
+.path li:last-child::before{background:var(--bamboo)}
+.path h3{font-size:1.6rem;min-height:2.04em}
+.path .cost{font-family:var(--display);font-weight:800;font-size:2.2rem;color:var(--burgundy);line-height:1;min-height:1.1em}
+.path .cost small{font-size:1.05rem;color:var(--muted);font-weight:600;letter-spacing:.03em}
+.path .cost.free{font-size:1.2rem;letter-spacing:.05em;color:var(--bamboo);display:flex;align-items:center;min-height:2.2rem;text-transform:uppercase}
+.path p{color:var(--muted);font-size:1rem}
+.path .keep{color:var(--charcoal);font-weight:600}
+.path .btn{margin-top:auto;align-self:flex-start}
+@media (max-width:860px){.path{grid-template-columns:minmax(0,1fr)}.path h3{min-height:0}}
+.package{position:relative;overflow:hidden;margin-top:24px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--burgundy);color:var(--cream);border-radius:16px;padding:30px 34px}
+.package .big{font-family:var(--display);font-weight:800;font-size:3.6rem;line-height:.9;color:var(--gold);text-align:center}
+.package .big small{display:block;font-size:1.1rem;letter-spacing:.1em;color:var(--cream);text-transform:uppercase;margin-top:6px}
+.package h3{color:var(--cream);font-size:1.9rem}
+.package p{color:#F1DCD9;margin-top:6px;font-size:1.02rem}
+.package .btn{background:var(--cream);color:var(--burgundy);border-color:var(--cream)}
+.package .btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.sash{position:absolute;top:22px;right:-46px;transform:rotate(35deg);background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.12em;padding:5px 56px;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+@media (max-width:860px){.package{grid-template-columns:minmax(0,1fr);gap:14px;padding:30px 24px}.package .big{text-align:left}.sash{top:18px;right:-52px}}
+.gift-cta{display:grid;gap:6px;justify-items:center;text-align:center}
+.gift-cta span{font-size:.85rem;color:var(--muted)}
+.gift{margin-top:18px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;background:linear-gradient(120deg,var(--gold-soft),#FBF4E2);border:3px solid var(--gold);border-radius:16px;padding:18px 26px}
+.gift svg{width:84px;height:auto}
+.gift b{display:block;font-family:var(--display);font-weight:800;font-size:1.9rem;letter-spacing:.03em;text-transform:uppercase;color:var(--burgundy);line-height:1}
+.gift span{display:block;margin-top:4px;color:var(--charcoal)}
+@media (max-width:760px){.gift{grid-template-columns:auto 1fr}.gift-cta{grid-column:1/-1;justify-items:start;text-align:left}}
+@media (max-width:520px){.gift{grid-template-columns:64px 1fr;padding:16px}.gift svg{width:64px}.gift b{font-size:1.5rem}}
+.teacher{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:center;max-width:820px}
+.teacher img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--charcoal)}
+.teacher .eyebrow{font-size:1.1rem}
+.teacher h3{font-size:1.7rem;margin-top:2px}
+.teacher p{color:var(--muted);font-size:1rem;margin-top:6px}
+.learn-reviews{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px;align-items:stretch}
+.learn-reviews>.panel{grid-column:1/-1}
+.learn-reviews>*{min-width:0}
+.learn-reviews .panel{display:flex;align-items:center}
+.learn-reviews .reviews{display:contents}
+@media (max-width:760px){.learn-reviews{grid-template-columns:minmax(0,1fr)}.teacher{grid-template-columns:90px 1fr}.teacher img{width:90px;height:90px}}
+.learn-more{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.learn-more .panel p{color:var(--muted);margin:8px 0 14px;font-size:1rem}
+.group-class{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:start}
+.group-class svg{width:96px;height:auto}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px;padding:0;list-style:none}
+.tags li{background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.92rem;font-weight:600;color:var(--charcoal)}
+@media (max-width:520px){.group-class{grid-template-columns:1fr}.group-class svg{width:80px}}
+.soon{display:inline-block;background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:6px;margin-bottom:8px}
+@media (max-width:760px){.learn-more{grid-template-columns:minmax(0,1fr)}}
 
-@media (max-width: 768px) {
-    .offerings-section {
-        padding: 22px 18px;
-        margin: 0 auto 28px;
-    }
+/* shop */
+.shop{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
+.shop>*{min-width:0}
+.shop .placeholder{aspect-ratio:4/3}
+.shop h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+.shop-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
+.shop-head img{width:140px;transform:scaleX(-1)}
+@media (max-width:520px){.shop-head{grid-template-columns:1fr 90px}.shop-head img{width:90px}}
+.etsy .btn i,.etsy .btn svg{font-size:1.2em}
+.instore{margin-top:18px;background:var(--white);border-left:6px solid var(--burgundy);border-radius:10px;padding:16px 20px}
+.instore b{font-family:var(--display);font-size:1.35rem;letter-spacing:.05em;text-transform:uppercase;display:block}
+.instore p{color:var(--muted);margin-top:4px}
+.etsy{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.etsy .stars{color:var(--gold);font-weight:700}
+.also{margin-top:14px;color:var(--muted)}
+.also a{font-weight:600}
+@media (max-width:860px){.shop{grid-template-columns:minmax(0,1fr)}.shop .placeholder{order:2}}
 
-    .offerings-intro {
-        font-size: 1rem;
-    }
+/* membership band */
+.member{background:var(--brown);color:var(--cream)}
+.member .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px}
+.member h2{color:var(--cream)}
+.member .price{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5vw,3.4rem);color:var(--gold-soft);line-height:1;margin-top:6px}
+.member .tag{font-family:var(--display);font-weight:700;font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;margin-top:10px}
+.member .eyebrow{color:var(--gold-soft)}
+.member .lede{color:#F4E9DC;margin-top:12px}
+.member ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.member li{background:var(--cream);color:var(--charcoal);border-radius:12px;padding:16px 20px;font-weight:500;box-shadow:0 3px 0 rgba(44,43,40,.25)}
+.member li b{display:block;font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--burgundy)}
+.member .btns{margin-top:24px}
+.member .btn.primary{background:var(--cream);color:var(--burgundy);border-color:var(--cream)}
+.founding{display:inline-block;margin-top:16px;background:var(--gold);color:var(--charcoal);font-weight:700;padding:4px 12px;border-radius:999px;font-size:.95rem}
+@media (max-width:860px){.member .wrap{grid-template-columns:minmax(0,1fr)}}
 
-    .offering-item {
-        font-size: 0.97rem;
-        line-height: 1.55;
-    }
-}
+/* private events */
+.events{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.events>*{min-width:0}
+.rooms{display:grid;gap:14px}
+.room{background:var(--white);border:2px solid var(--line);border-radius:14px;padding:20px 22px}
+.room h3{font-size:1.5rem;color:var(--charcoal)}
+.room p{color:var(--muted);font-size:1rem;margin-top:4px}
+.room .amt{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--burgundy)}
+.instruction{display:inline-block;background:var(--bamboo);color:var(--cream);font-family:var(--display);font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:6px;font-size:1.05rem}
+.events .side{display:flex;flex-direction:column;gap:16px}
+.events .side .review{flex:1}
+@media (max-width:860px){.events{grid-template-columns:minmax(0,1fr)}}
 
-        .coming-soon {
-            font-size: 4rem;
-            color: #7a2321;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
+/* contact */
+.visit-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}
+.visit-grid h3{font-size:1.4rem;color:var(--brown);margin-bottom:6px}
+.stack{display:grid;gap:22px}
+.visit-grid>*,.stack>*{min-width:0}
+.addr{font-size:1.25rem;font-weight:600;font-style:normal;line-height:1.45}
+.sign-photo{border-radius:14px;border:2px solid var(--line);width:100%;aspect-ratio:4/3;object-fit:cover}
+@media (max-width:860px){.visit-grid{grid-template-columns:minmax(0,1fr)}}
+.signup label{display:block;font-weight:600;margin:12px 0 6px}
+.signup .row{display:flex;gap:10px;flex-wrap:wrap}
+.signup input{flex:1 1 200px;min-width:0;min-height:50px;border:2px solid var(--charcoal);border-radius:10px;padding:8px 14px;font:inherit;background:var(--white);color:var(--charcoal)}
+.signup .done{margin-top:10px;color:var(--bamboo);font-weight:600}
 
-        .email-signup {
-            max-width: 500px;
-            margin: 0 auto 50px;
-        }
-
-        .form-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        input[type="email"] {
-            flex: 1;
-            padding: 15px 20px;
-            font-size: .95rem;
-            font-weight: 600;
-            border: 2px solid #2B2B2B;
-            border-radius: 4px;
-            background-color: white;
-            color: #2B2B2B;
-            text-align: center;
-        }
-
-        input[type="email"]:focus {
-            outline: none;
-            border-color: #7a2321;
-        }
-
-        button[type="submit"] {
-            padding: 15px 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            background-color: #7a2321;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #5a1a19;
-        }
-
-        .submit-btn {
-            padding: 0;
-            background: none;
-            border: none;
-        }
-
-        .submit-img {
-            width: 50px;
-            height: auto;
-            cursor: pointer;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .social-icons a {
-            color: #2B2B2B;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: #7a2321;
-        }
-
-      @media (max-width: 768px) {
-    nav {
-        padding: 0.4rem 0.4rem;
-    }
-
-    nav ul {
-        display: flex;
-        justify-content: space-between;  /* spread items evenly */
-        align-items: center;
-        flex-wrap: nowrap;               /* single line */
-        gap: 0.2rem;
-        overflow: visible;               /* no scroll */
-    }
-
-    nav ul li {
-        flex: 1 1 auto;                  /* allow flexible widths */
-        text-align: center;
-    }
-
-    nav ul li a {
-        display: block;
-        font-size: 0.65rem;              /* small text to fit */
-        padding: 0.1rem 0.1rem;
-        white-space: nowrap;             /* no broken words */
-    }
-
-    .container {
-        max-width: 100%;
-        padding: 24px 16px;
-    }
-
-    .logo {
-        width: 100%;          /* override 150% only on mobile */
-        margin: -10px auto 8px;
-    }
-
-    .tagline {
-        font-size: clamp(0.9rem, 2.8vw, 1.05rem);
-        line-height: 1.3;
-        padding: 0 4px;
-    }
-
-    .coming-soon {
-        font-size: clamp(2.2rem, 8vw, 2.8rem);
-        letter-spacing: 1px;
-    }
-
-      .form-group {
-        flex-direction: row;
-        gap: 6px;
-    }
-  input[type="email"] {
-        font-size: 0.9rem;
-        padding: 10px 12px;
-    }
-
-    .submit-btn {
-        width: 100%;
-    }
-
-    .submit-img {
-        width: 40px;  /* smaller button */
-    }
-    button[type="submit"] {
-        width: 100%;
-    }
-
-    .social-icons {
-        gap: 20px;
-        margin-top: 32px;
-    }
-
-    .social-icons svg {
-        width: 32px;
-        height: 32px;
-    }
-}
-
-    </style>
+/* footer */
+footer.site{background:var(--charcoal);color:#D9D4C4;font-size:.98rem}
+footer.site .wrap.main-foot{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding-block:48px 36px}
+footer.site h4{font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+footer.site a{color:var(--cream)}
+footer.site ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer.site .brand img{width:76px;margin-bottom:12px}
+footer.site .brand p{font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:.04em;text-transform:uppercase;color:var(--cream);line-height:1.15}
+footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;font-size:.98rem;letter-spacing:0;text-transform:none;color:#D9D4C4;margin-top:6px}
+.social a{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.social a:hover span{text-decoration:underline}
+.social svg,.social i{width:20px;font-size:20px;color:var(--gold-soft)}
+.bottom-bar{background:#1F1E1C;color:#A9A493;font-size:.88rem}
+.bottom-bar .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;padding-block:14px}
+.bottom-bar a{color:#D9D4C4}
+@media (max-width:860px){footer.site .wrap.main-foot{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){footer.site .wrap.main-foot{grid-template-columns:minmax(0,1fr)}}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BVVCYT1LLT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BVVCYT1LLT');
+</script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="learn.html">Learn</a></li>
-            <li><a href="https://birdbammahjongclub.playbypoint.com/users/sign_up">Play</a></li>
-            <li>
-              <a href="https://birdbammahjongclub.etsy.com/"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Shop
-              </a>
-            </li>
-            <li><a href="index.html">Events</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+<header class="site" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="images/logo.svg" alt="Bird Bam Mahjong Club" width="195" height="78"></a>
+    <nav class="main" aria-label="Main">
+      <ul>
+        <li><a href="#play">Play</a></li>
+        <li><a href="#learn">Learn</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#private-events">Private Events</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
-
-    <div class="container">
-        <img src="logo.svg" alt="Bird Bam Mahjong Club" class="logo">
-        
-        <div class="tagline">
-            L.A.'S PREMIER MAHJONG DESTINATION<br>
-            LOCATED IN THE ENCINO TOWN CENTER
-        </div>
-
-<a href="https://maps.app.goo.gl/vJqeMvYfitUMzFzLA" class="location-link" target="_blank" rel="noopener noreferrer" aria-label="Open Bird Bam Mahjong Club location in Google Maps">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
-    </svg>
-    <span>View on Google Maps</span>
-</a>
-
-<section class="offerings-section" aria-labelledby="offerings-heading">
-    <p class="offerings-intro" id="offerings-heading">
-        <b>Bird Bam Mahjong Club</b> is a comfortable, inviting, dedicated mahjong space featuring 15 standard tables and 2 <a href="https://www.youtube.com/watch?v=TUKM4ANyvW0"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                automatic tables</a>.
-    </p>
-
-    <div class="offerings-list">
-        <p class="offering-item"><strong>Looking for a game?</strong><i> Join one of our Open Play sessions — come solo or bring a friend.</i></p>
-
-        <p class="offering-item"><strong>Already have a group?</strong><i> Book a private table that fits your schedule.</i></p>
-
-        <p class="offering-item"><strong>Want to learn?</strong><i> Sign up for our Introduction to American Mahjong class for beginners.</i></p>
-
-        <p class="offering-item"><strong>Feeling rusty?</strong><i> Take a Refresher Guided Play class.</i></p>
-
-        <p class="offering-item"><strong>Need mahjong gear?</strong><i> Shop in-person at our boutique or in our online shop.</i></p>
-
-        <p class="offering-item"><strong>Planning an event?</strong><i> Host your party or private event at Bird Bam.</i></p>
+    <div class="head-actions">
+      <a class="head-phone" href="tel:+18185647289"><span class="num">(818) 564-7289</span><span class="short">Call us</span></a>
+      <a class="btn primary small" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">Book a seat</a>
     </div>
-</section>
+    <details class="menu">
+      <summary>Menu</summary>
+      <ul>
+        <li><a href="#play">Play</a></li>
+        <li><a href="#learn">Learn</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#private-events">Private Events</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </details>
+  </div>
+</header>
 
-        <div class="email-signup">
-            <form id="waitlist-form">
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Enter email address for updates" required>
-                    <button type="submit" class="submit-btn">
-    Submit
-</button>
-                </div>
-            </form>
-            <p id="waitlist-message" style="margin-top: 8px; font-size: 0.9rem;"></p>
+<main>
+  <!-- Intro + one announcement -->
+  <section class="top">
+    <div class="wrap">
+      <div class="intro">
+        <img class="bird" src="images/bird-tile.png" alt="" width="400" height="515">
+        <div>
+          <h1 class="lockup" id="lockup"><span class="l1">L.A.'s Premier</span><span class="l2">Mahjong</span><span class="l3">Destination</span></h1>
+          <p class="lede">Bird Bam is a mahjong club and shop in the Encino Town Center, with 16 standard tables and 2 automatic tables. Join a game at open play, learn in a beginner class, book a private table or party, and shop for mahjong gear, all in one place.</p>
         </div>
+        <div class="paths">
+          <a class="btn primary" href="#play">Join a game</a>
+          <a class="btn primary" href="#learn">Learn to play</a>
+          <a class="btn primary" href="#tables">Book a private table</a>
+          <a class="btn primary" href="#shop">Shop</a>
+        </div>
+      </div>
 
-        <div class="social-icons">
-            <a href="https://www.instagram.com/bbmahjclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-                </svg>
-            </a>
-            <a href="https://www.facebook.com/bbmahjclub" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-            </a>
-            <a href="https://www.tiktok.com/@bbmahjclub" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
-                </svg>
-            </a>
-            <a href="https://x.com/bbmahjclub" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-            </a>
-            <a href="mailto:info@birdbamclub.com" aria-label="Email Bird Bam Mahjong Club">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
-                    <rect x="1.5" y="3" width="21" height="18" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="2.4"/>
-                    <path d="M3 6.5 L12 13 L21 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
+      <!-- Announcement: shown until data-until; then the fallback replaces it. On the live site this comes from the Google Sheet. -->
+      <article class="announce" id="announce" data-until="2026-10-26">
+        <button class="art" type="button" data-full="images/monster-mahj.jpg" data-alt="Bird Bam's Monster Mahj flyer, full size" aria-label="View the full Monster Mahj flyer"><img src="images/monster-mahj.jpg" alt="Bird Bam's Monster Mahj flyer: Monday, October 26, 6 PM to midnight" width="800" height="1025"><span class="hint">Tap to enlarge</span></button>
+        <div class="body">
+          <p class="label">Special event · <span style="white-space:nowrap">Mon, Oct 26</span> · <span style="white-space:nowrap">6 PM–Midnight</span></p>
+          <h2>Monster Mahj</h2>
+          <p>Celebrate Halloween with tricks (bonus Halloween hands), treats (spooky snacks), costumes, and up to 6 hours of mahjong madness!</p>
+          <p class="price-line">Members free, non-members $35</p>
+          <div class="btns"><a class="btn primary" href="https://birdbammahjongclub.playbypoint.com/programs/monster-mahj" target="_blank" rel="noopener">Get tickets</a></div>
         </div>
+      </article>
+      <template id="announce-fallback">
+        <div class="body">
+          <p class="label">Best value for beginners</p>
+          <h2>Learn to Play Package</h2>
+          <p>Both beginner classes plus a free Open Play session: 9 hours of mahjong for $140.</p>
+          <div class="btns"><a class="btn primary" href="#learn">See the package</a></div>
+        </div>
+      </template>
     </div>
+  </section>
 
-        <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwoECO9nOgLN2JzrsdI3TKDGDx4lclX2LyOQOZ2PHJdNmlt8i4xkCi1pDFAgbtqnFJE/exec';
-        
-        const form = document.getElementById('waitlist-form');
-        const message = document.getElementById('waitlist-message');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            message.textContent = 'Submitting...';
-            
-            try {
-                const formData = new FormData(form);
-                formData.append('source', 'landing-page');
-                
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    message.textContent = 'Thank you! You are on the list.';
-                    form.reset();
-                } else {
-                    message.textContent = 'There was an issue. Please try again.';
-                }
-            } catch (err) {
-                message.textContent = 'Network error. Please try again.';
-            }
-        });
-    </script>
+  <!-- JOIN A GAME -->
+  <section class="block" id="play">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Open play · American Mahjong</p>
+        <h2>Join a game</h2>
+        <p class="lede">Know how to play mahjong? We've got a table for you. Come solo or bring friends, and we'll seat you with players at a similar level whenever we can. Everything provided, just bring your NMJL card.</p>
+      </div>
+
+      <img class="club-photo" src="images/open-play.jpg" alt="A full room of players at open play at Bird Bam Mahjong Club" width="1600" height="900" loading="lazy">
+      <ol class="tiles" id="tiles" aria-label="Weekly open play schedule">
+        <li class="tile" data-day="0" data-start="13" data-end="16"><span class="day">Sun</span><span class="part">Afternoon</span><span class="time">1:00 PM</span><span class="to">to</span><span class="time">4:00 PM</span></li>
+        <li class="tile" data-day="1" data-start="10" data-end="13"><span class="day">Mon</span><span class="part">Morning</span><span class="time">10:00 AM</span><span class="to">to</span><span class="time">1:00 PM</span></li>
+        <li class="tile" data-day="2" data-start="18.5" data-end="21.5"><span class="day">Tue</span><span class="part">Evening</span><span class="time">6:30 PM</span><span class="to">to</span><span class="time">9:30 PM</span></li>
+        <li class="tile" data-day="3" data-start="10" data-end="13"><span class="day">Wed</span><span class="part">Morning</span><span class="time">10:00 AM</span><span class="to">to</span><span class="time">1:00 PM</span></li>
+        <li class="tile" data-day="4" data-start="13" data-end="16"><span class="day">Thu</span><span class="part">Afternoon</span><span class="time">1:00 PM</span><span class="to">to</span><span class="time">4:00 PM</span></li>
+        <li class="tile" data-day="4" data-start="18.5" data-end="21.5"><span class="day">Thu</span><span class="part">Evening</span><span class="time">6:30 PM</span><span class="to">to</span><span class="time">9:30 PM</span></li>
+      </ol>
+      <p class="note" style="margin-top:22px">Holiday closures are shown in the <a href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">live schedule</a>.</p>
+
+      <div class="play-grid">
+        <div class="panel">
+          <h3>What it costs</h3>
+          <ul class="rates">
+            <li><span>One session (3 hours)<small>Tables, tiles, racks, mats, and other players provided</small></span><b>$20</b></li>
+            <li><span>6-session discount pack<small>6 for the price of 5, passes never expire</small></span><b>$100</b></li>
+            <li><span>Members<small>Unlimited open play is one of many member perks.<br><a href="#membership">Learn more</a></small></span><b>Free</b></li>
+          </ul>
+          <p class="note" style="margin-top:12px">NMJL cards available to purchase or rent at the front desk.</p>
+          <div class="join">
+            <div class="btns"><a class="btn primary" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">See dates &amp; book</a></div>
+            <p>Or call or text <a class="phone" href="tel:+18185647289">(818) 564-7289</a>.<br>Walk-ins welcome when there's room.</p>
+          </div>
+        </div>
+
+        <!-- Contest: shown during its month; otherwise the fallback. On the live site this comes from the Google Sheet. -->
+        <div class="panel" id="contest" data-month="2026-10">
+          <div class="contest">
+            <div>
+              <button class="flyer-btn" type="button" data-full="images/hallowin.jpg" data-alt="HalloWIN contest flyer, full size" aria-label="View the full HalloWIN flyer"><img src="images/hallowin.jpg" alt="HalloWIN contest flyer" width="700" height="990"></button>
+              <p class="hint">Tap to enlarge</p>
+            </div>
+            <div>
+              <p class="eyebrow" id="contest-label">October's open play contest</p>
+              <h3>Hallo<span class="hl">win</span></h3>
+              <p>All month, draw haunted tiles to collect points and win. One draw for each open play you attend, plus a bonus draw every time you make mahjong!</p>
+              <p>Prizes include a free unlimited monthly membership, open play passes, and shop gift certificates!</p>
+            </div>
+          </div>
+          <div class="prize-key"><b>Instant win prizes</b><ul><li>👻 Free open play pass</li><li>🎃 $10 gift certificate</li><li>🦇 Snack bag</li></ul></div>
+          <div class="board">
+            <table>
+              <caption>Leaderboard: top 5</caption>
+              <tbody>
+                <tr><td class="rank">1</td><td>Sarah Z. 🦇🦇👻🦇</td><td class="pts">197</td></tr>
+                <tr><td class="rank">2</td><td>Sanam A. 🦇🦇</td><td class="pts">136</td></tr>
+                <tr><td class="rank">3</td><td>Bing W.</td><td class="pts">113</td></tr>
+                <tr><td class="rank">4</td><td>Patty P. 🦇🎃🎃🦇</td><td class="pts">109</td></tr>
+                <tr><td class="rank">5</td><td>Kabrel G.</td><td class="pts">88</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="contest-links"><a class="btn ghost small" href="leaderboard.html">Full leaderboard</a><a class="btn ghost small" href="hallowin.html">Rules &amp; full prize list</a></div>
+          <p class="fine">No purchase necessary. 18+. See official rules.</p>
+        </div>
+        <template id="contest-fallback">
+          <h3>Open play contests</h3>
+          <p class="note" style="margin-top:8px">Every month brings a new contest with prizes for open play regulars. The next one is announced on Instagram and our mailing list.</p>
+        </template>
+      </div>
+
+      <div class="group" id="tables">
+        <div>
+          <p class="eyebrow">Bring your group</p>
+          <h3>Book a private table</h3>
+          <p>Have a regular game? Bring your group to Open Play, or reserve your own table to fit your schedule. <b>$20 per person for 3 hours</b> (4-person minimum).</p>
+          <p>Choose a standard table or one of our <b>2 automatic tables</b>, which shuffle and build the walls for you to maximize your mahj time! Members get one free private table rental a month.</p>
+          <div class="btns">
+            <a class="btn primary" href="tel:+18185647289">Call or text to book</a>
+          </div>
+          <p class="note" style="color:#C9C3B2;margin-top:10px">(818) 564-7289 · Subject to availability</p>
+        </div>
+        <a class="video" id="video" data-yt="TUKM4ANyvW0" href="https://www.youtube.com/watch?v=TUKM4ANyvW0" target="_blank" rel="noopener" aria-label="Watch an automatic mahjong table in action">
+          <span class="ph">Automatic table photo coming</span>
+          <span class="play" aria-hidden="true"></span>
+          <span class="cap">Watch an automatic table</span>
+        </a>
+      </div>
+
+      <div class="reviews">
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"We registered for their open play and we played 3 hours! Met two nice ladies and had the best time! … We even had an opportunity to play on one of their automated tables in a private room! Very cool!"</blockquote>
+          <figcaption>Donna N. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"This is a great space. I dropped in for open play and met some friendly ladies. I will be back for sure"</blockquote>
+          <figcaption>Stephanie S. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="block band" id="learn">
+    <div class="wrap">
+      <div class="head-row">
+        <div class="head">
+          <p class="eyebrow">Learn American Mahjong</p>
+          <h2>Never played? Start here</h2>
+          <p class="lede">Small classes, patient teaching, and everything provided. Two classes take you from your first tile to a seat at open play.</p>
+        </div>
+        <img src="images/bird-professor.png" alt="" width="170" height="196" style="width:170px">
+      </div>
+      <ol class="path">
+        <li>
+          <h3>Learn Mahjong 1:<br>Introductory Class</h3>
+          <p class="cost">$75 <small>· 3 hours</small></p>
+          <p>Learn the game from scratch: the tiles, the card, and how to build a hand. No experience or equipment needed.</p>
+          <p class="keep">Bird Bam's Quick Guide &amp; Mahjong Glossary are yours to keep!</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/intro-to-american-mahjong" target="_blank" rel="noopener">See dates</a>
+        </li>
+        <li>
+          <h3>Learn Mahjong 2:<br>Guided Play Session</h3>
+          <p class="cost">$75 <small>· 3 hours</small></p>
+          <p>A 30-minute refresher, followed by multiple real games with our instructor helping you choose hands, strategize, and improve your game.</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/guided_play" target="_blank" rel="noopener">See dates</a>
+        </li>
+        <li>
+          <h3>You're ready:<br>Join open play</h3>
+          <p class="cost free">Free with Learn to Play Package (see below)</p>
+          <p>Sit down at a regular game with players at your level. Six sessions a week to choose from.</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">See dates</a>
+        </li>
+      </ol>
+
+      <div class="package">
+        <span class="sash" aria-hidden="true">BEST VALUE</span>
+        <p class="big">$140<small>Save $30</small></p>
+        <div>
+          <h3>Learn to Play Package: 9 hours of mahjong</h3>
+          <p>Book both classes and save! Plus come back for a free Open Play session.</p>
+        </div>
+        <a class="btn" href="https://app.playbypoint.com/play#/packages/565" target="_blank" rel="noopener">Book the package</a>
+      </div>
+
+      <div class="gift"><svg viewBox="0 0 100 120" aria-hidden="true"><rect x="14" y="30" width="72" height="86" rx="12" fill="#7A2423"/><rect x="8" y="30" width="72" height="86" rx="12" fill="#E7E2D4" stroke="#7A2423" stroke-width="3"/><rect x="4" y="30" width="72" height="86" rx="12" fill="#F8F7F1" stroke="#2C2B28" stroke-width="4"/><rect x="34" y="31" width="12" height="83" fill="#7A2423"/><rect x="6" y="64" width="68" height="12" fill="#7A2423"/><path d="M40 30 C26 6 6 14 18 28 C24 34 34 32 40 30 Z" fill="#9B3230" stroke="#2C2B28" stroke-width="3" stroke-linejoin="round"/><path d="M40 30 C54 6 74 14 62 28 C56 34 46 32 40 30 Z" fill="#9B3230" stroke="#2C2B28" stroke-width="3" stroke-linejoin="round"/><circle cx="40" cy="30" r="6" fill="#7A2423" stroke="#2C2B28" stroke-width="3"/></svg><p><b>Give the gift of mahjong</b><span>Lesson gift certificates available, delivered instantly by email.</span></p><div class="gift-cta"><a class="btn primary" href="https://checkout.yourgift.cards/29982598-332b-41a9-a807-b48d6b77d2b9" target="_blank" rel="noopener">Buy a gift certificate</a><span>Or call, text, or ask at the front desk</span></div></div>
+
+      <div class="learn-reviews">
+        <div class="panel">
+          <div class="teacher">
+            <img src="images/jordana.jpg" alt="Jordana Signer" width="192" height="193">
+            <div>
+              <p class="eyebrow">Meet your teacher</p>
+              <h3>Jordana Signer</h3>
+              <p>Co-founder and lead instructor. A seasoned player who has introduced "mahj" to hundreds of students from 8 to 80, with a clear, patient, and fun teaching style.</p>
+            </div>
+          </div>
+        </div>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Having zero experience in mahjong I was intimidated but Jordana provided interesting historical and cultural insights while breaking down the game and rules in an approachable way."</blockquote>
+          <figcaption>Elana S. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"I came to her after a cursory intro lesson of mahjong elsewhere and was very ready to throw the towel in… I'm so grateful I found Jordana."</blockquote>
+          <figcaption>Robin O. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+      </div>
+
+      <div class="learn-more">
+        <div class="panel">
+          <span class="soon">Coming soon</span>
+          <h3>Pivoting Clinic</h3>
+          <p>Improve your game and mahj more often! Learn when to stay the course and when to switch to a new hand. Join the list and we'll tell you first when dates open.</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/pivoting-clinic-interest" target="_blank" rel="noopener">Notify me</a>
+        </div>
+        <div class="panel group-class">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="10" y="10" width="80" height="80" rx="10" fill="#5E6E2C" stroke="#2C2B28" stroke-width="3"/><rect x="28" y="14" width="44" height="9" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><rect x="28" y="77" width="44" height="9" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><rect x="14" y="28" width="9" height="44" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><rect x="77" y="28" width="9" height="44" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><g fill="#F8F7F1" stroke="#2C2B28" stroke-width="1.5"><rect x="36" y="38" width="8" height="11" rx="1.5"/><rect x="46" y="38" width="8" height="11" rx="1.5"/><rect x="56" y="38" width="8" height="11" rx="1.5" transform="rotate(12 60 43)"/><rect x="40" y="52" width="8" height="11" rx="1.5" transform="rotate(-8 44 57)"/><rect x="51" y="52" width="8" height="11" rx="1.5"/></g></svg>
+          <div>
+            <h3>A class for your group</h3>
+            <p>Learn together! Book a private class for your friends, family, coworkers, or club, at a time that works for you.</p>
+            <ul class="tags"><li>Friends</li><li>Families</li><li>Coworkers</li><li>Birthdays</li><li>Bridal Showers</li></ul>
+            <p>Can't find a class time that works? We're adding sessions all the time.</p>
+            <a class="btn ghost small" href="tel:+18185647289">Call or text to schedule</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="block" id="shop">
+    <div class="wrap shop">
+      <div class="placeholder" role="img" aria-label="Boutique photo coming soon">Boutique photo<br>coming soon</div>
+      <div>
+        <div class="shop-head">
+          <div>
+            <p class="eyebrow">The Bird Bam boutique</p>
+            <h2>All your mahjong needs: Tiles, racks, mats, bags, gifts, and more!</h2>
+          </div>
+          <img src="images/bird-shopping.png" alt="" width="420" height="540">
+        </div>
+        <div class="instore">
+          <b>Shop in person</b>
+          <p>During any open play or class. Tile sets, dice, and NMJL cards are in store only.</p>
+        </div>
+        <div class="etsy">
+          <a class="btn primary" href="https://birdbammahjongclub.etsy.com/" target="_blank" rel="noopener"><i class="fa-brands fa-etsy" aria-hidden="true"></i>Shop on Etsy</a>
+          <span class="stars">★★★★★ 300+ five-star reviews</span>
+        </div>
+        <p class="also">Also: <a href="https://shop.birdbamclub.com" target="_blank" rel="noopener">Bird Bam Shop</a> · <a href="https://mahjong-mats.com" target="_blank" rel="noopener">Custom Mahjong Mats</a> · <a href="https://checkout.yourgift.cards/29982598-332b-41a9-a807-b48d6b77d2b9" target="_blank" rel="noopener">Gift Certificates</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="member" id="membership" aria-labelledby="member-h">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Membership</p>
+        <h2 id="member-h">Unlimited Monthly Membership</h2>
+        <p class="price">$135/month</p>
+        <p class="tag">Play more, pay less</p>
+        <p class="lede">Come twice a week and it more than pays for itself. Plus get a free monthly table rental, free guest passes, shop discounts, and more!</p>
+        <div class="btns"><a class="btn primary" href="https://birdbammahjongclub.playbypoint.com/memberships/13316" target="_blank" rel="noopener">Membership details</a></div>
+      </div>
+      <ul>
+        <li><b>Play more!</b>Unlimited open play, 2 guest passes, and 1 free private table each month</li>
+        <li><b>Save more!</b>10% off in the shop plus discounted snacks &amp; drinks</li>
+        <li><b>Get more!</b>Priority registration for special events, class and clinic discounts, and member gifts</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRIVATE EVENTS -->
+  <section class="block band" id="private-events">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Private events</p>
+        <h2>Host your event at Bird Bam</h2>
+        <p class="lede">Birthday parties, bridal showers, corporate events, professional groups, and school and nonprofit fundraisers. Perfect for players or beginners.</p>
+      </div>
+      <img class="club-photo" src="images/private-event.jpg" alt="A large group playing mahjong at a private event at Bird Bam, with the Charleston Room in the background" width="1600" height="900" loading="lazy" style="object-position:50% 45%;margin-bottom:28px">
+      <div class="events">
+        <div class="rooms">
+          <div class="room">
+            <h3>The Charleston Room</h3>
+            <p>Our private back room for up to 12 players, including 2 automatic tables. <span class="amt">$240</span> for 3 hours.</p>
+          </div>
+          <div class="room">
+            <h3>The whole club</h3>
+            <p>Up to 72 players across both rooms, plus our lounge. Custom quote.</p>
+          </div>
+          <div><span class="instruction">Instruction available</span></div>
+        </div>
+        <div class="side">
+          <figure class="review">
+            <span class="stars" aria-label="5 stars">★★★★★</span>
+            <blockquote>"We held a large office gathering here, which included a mahjong lesson. It was such a fun event. … Parking was easy; great space; and a fun game. Everyone had a great time."</blockquote>
+            <figcaption>Jenny J. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+          </figure>
+          <div class="btns"><a class="btn primary" href="tel:+18185647289">Call or text to plan your event</a></div>
+          <p class="note">Call or text <a class="phone" href="tel:+18185647289">(818) 564-7289</a> or email <a class="mail" href="mailto:info@birdbamclub.com">info@birdbamclub.com</a>. Tell us your date, group size, type of event, and whether anyone needs a lesson.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact">
+    <div class="wrap visit-grid">
+      <div class="stack">
+        <div class="head" style="margin-bottom:0">
+          <p class="eyebrow">Contact</p>
+          <h2>Located in the Encino Town Center</h2>
+        </div>
+        <address class="addr">17200 Ventura Blvd<br>Suite 115 (lower level)<br>Encino, CA 91316</address>
+        <div>
+          <h3>Getting here</h3>
+          <p>Take the stairs or elevator to the lower level. When facing the movie theater, turn right and head down the passageway. Or just follow the signs!</p>
+        </div>
+        <div>
+          <h3>Parking</h3>
+          <p>Free parking on all sides of the center, plus underground parking on the lower level (enter on the west side).</p>
+        </div>
+        <div class="btns"><a class="btn primary" href="https://maps.app.goo.gl/vJqeMvYfitUMzFzLA" target="_blank" rel="noopener"><svg width="18" height="22" viewBox="0 0 18 22" aria-hidden="true"><path d="M9 1C4.6 1 1 4.5 1 8.9 1 14.6 9 21 9 21s8-6.4 8-12.1C17 4.5 13.4 1 9 1z" fill="currentColor"/><circle cx="9" cy="8.8" r="3" fill="#7A2423"/></svg>Get directions</a></div>
+      </div>
+      <div class="stack">
+        <img class="sign-photo" src="images/encino-town-center-sign.jpg" alt="Encino Town Center sign on Ventura Blvd showing Bird Bam Mahjong Club" width="680" height="510">
+        <div class="panel">
+          <h3>Hours</h3>
+          <p>We're open during open play, classes, and events. Or by appointment. See the <a href="#play">schedule</a> above.</p>
+          <p style="margin-top:12px">Call or text <a class="phone" href="tel:+18185647289">(818) 564-7289</a><br>Email <a class="mail" href="mailto:info@birdbamclub.com">info@birdbamclub.com</a></p>
+        </div>
+        <form class="panel signup" id="signup">
+          <h3>Get updates</h3>
+          <label for="email">Your email</label>
+          <div class="row">
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+            <button class="btn primary" type="submit">Submit</button>
+          </div>
+          <p class="done" id="signup-done" hidden>Thanks! You're on the list.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap main-foot">
+    <div class="brand">
+      <img src="images/bird-tile.png" alt="" width="76" height="98">
+      <p>L.A.'s Premier<br>Mahjong Destination<span>Located in the Encino Town Center</span></p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+18185647289">(818) 564-7289</a></li>
+        <li><a href="mailto:info@birdbamclub.com">info@birdbamclub.com</a></li>
+        <li>17200 Ventura Blvd<br>Suite 115<br>Encino, CA 91316</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#play">Play</a></li>
+        <li><a href="#learn">Learn</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#private-events">Private Events</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <ul class="social">
+        <li><a href="https://www.instagram.com/bbmahjclub/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram" aria-hidden="true"></i><span>Instagram</span></a></li>
+        <li><a href="https://www.facebook.com/bbmahjclub" target="_blank" rel="noopener"><i class="fa-brands fa-facebook" aria-hidden="true"></i><span>Facebook</span></a></li>
+        <li><a href="https://www.tiktok.com/@bbmahjclub" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok" aria-hidden="true"></i><span>TikTok</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Bird Bam Mahjong Club LLC</span>
+      <a href="privacy.html">Privacy policy</a>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="flyer-box" aria-label="Flyer">
+  <form method="dialog"><button class="close" type="submit">Close ✕</button></form>
+  <img id="flyer-img" alt="">
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/brands.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/fontawesome.min.js"></script>
+<script>
+/* Club time (Los Angeles) */
+function laNow(){
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:"America/Los_Angeles",year:"numeric",month:"2-digit",day:"2-digit",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  const days = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  return {date:`${p.year}-${p.month}-${p.day}`, month:`${p.year}-${p.month}`, day:days[p.weekday], hour:(+p.hour%24)+(+p.minute)/60};
+}
+const now = laNow();
+document.getElementById("year").textContent = now.date.slice(0,4);
+
+/* Header shrinks on scroll */
+const header = document.querySelector("header.site");
+const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 40);
+window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+document.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", () => a.closest("details").open = false));
+
+/* Announcement: after its date, swap in the fallback */
+(function(){
+  const card = document.getElementById("announce");
+  if(card.dataset.until && now.date > card.dataset.until){
+    card.innerHTML = document.getElementById("announce-fallback").innerHTML;
+  }
+})();
+
+/* Schedule: flag the next session (or the one playing now); re-checks every minute */
+function flagSessions(){
+  const now = laNow();
+  const tiles = [...document.querySelectorAll("#tiles .tile")];
+  tiles.forEach(el => el.querySelector(".flag")?.remove());
+  const t = now.day*24 + now.hour, week = 7*24;
+  let live = null, next = null, best = Infinity;
+  tiles.forEach(el => {
+    const d = +el.dataset.day, st = d*24 + +el.dataset.start, en = d*24 + +el.dataset.end;
+    if(t >= st && t < en) live = el;
+    const wait = (st - t + week) % week;
+    if(wait > 0 && wait < best){best = wait; next = el;}
+  });
+  const target = live || next, label = live ? "Playing now" : "Next up";
+  if(target){const f = document.createElement("span"); f.className = "flag"; f.textContent = label; target.prepend(f);}
+}
+flagSessions(); setInterval(flagSessions, 60000);
+
+/* Contest: only during its month */
+(function(){
+  const box = document.getElementById("contest");
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  if(box.dataset.month !== now.month){
+    box.innerHTML = document.getElementById("contest-fallback").innerHTML;
+  } else {
+    document.getElementById("contest-label").textContent = `${months[+now.month.slice(5)-1]}'s open play contest`;
+  }
+})();
+
+/* Flyers open full size */
+(function(){
+  const dlg = document.getElementById("flyer-box"), img = document.getElementById("flyer-img");
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-full]");
+    if(!b) return;
+    img.src = b.dataset.full; img.alt = b.dataset.alt || "";
+    dlg.showModal();
+  });
+  dlg.addEventListener("click", e => { if(e.target === dlg) dlg.close(); });
+})();
+
+/* Headline lockup: size each line to the same width */
+function fitLockup(){
+  const h = document.getElementById("lockup"); if(!h) return;
+  const [l1,l2,l3] = h.querySelectorAll("span");
+  [l1,l2].forEach(el => {el.style.fontSize = ""; el.style.letterSpacing = ""; el.style.marginRight = "";});
+  const W = l3.getBoundingClientRect().width;
+  const f2 = parseFloat(getComputedStyle(l2).fontSize);
+  l2.style.fontSize = (f2 * W / l2.getBoundingClientRect().width) + "px";
+  const f3 = parseFloat(getComputedStyle(l3).fontSize);
+  l1.style.fontSize = (f3 * 0.42) + "px"; l1.style.letterSpacing = "0px";
+  const w1 = l1.getBoundingClientRect().width, n = l1.textContent.length - 1;
+  if(W > w1){ const ls = (W - w1) / n; l1.style.letterSpacing = ls + "px"; l1.style.marginRight = (-ls) + "px"; }
+}
+fitLockup();
+document.fonts && document.fonts.ready.then(fitLockup);
+window.addEventListener("resize", fitLockup);
+
+/* Automatic table video: plays in place on the live site (privacy-enhanced); links to YouTube elsewhere */
+(function(){
+  const v = document.getElementById("video");
+  if(!/birdbamclub\.com$/.test(location.hostname)) return;
+  const id = v.dataset.yt;
+  const th = document.createElement("img"); th.className = "thumb"; th.alt = ""; th.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  v.prepend(th); v.querySelector(".ph")?.remove();
+  v.addEventListener("click", e => {
+    e.preventDefault();
+    v.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Automatic mahjong table" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  }, {once:true});
+})();
+
+/* Mailing list (live site posts to the existing Google Sheet) */
+const SIGNUP_URL = "https://script.google.com/macros/s/AKfycbwoECO9nOgLN2JzrsdI3TKDGDx4lclX2LyOQOZ2PHJdNmlt8i4xkCi1pDFAgbtqnFJE/exec";
+document.getElementById("signup").addEventListener("submit", async e => {
+  e.preventDefault();
+  const form = e.target, msg = document.getElementById("signup-done"), btn = form.querySelector("button");
+  btn.disabled = true; msg.hidden = false; msg.textContent = "Submitting…";
+  try {
+    const data = new FormData(form);
+    data.append("source", "landing-page");
+    const res = await fetch(SIGNUP_URL, {method: "POST", body: data});
+    if(res.ok){
+      msg.textContent = "Thanks! You're on the list.";
+      form.reset();
+      if(window.gtag) gtag("event", "sign_up", {method: "website_form"});
+    } else { msg.textContent = "Something went wrong. Please try again, or email info@birdbamclub.com."; }
+  } catch(err){ msg.textContent = "Couldn't connect. Please try again, or email info@birdbamclub.com."; }
+  btn.disabled = false;
+});
+
+/* Analytics: count the clicks that matter (bookings, calls, emails, shops, gift certificates) */
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[href]"); if(!a || !window.gtag) return;
+  const h = a.getAttribute("href"), label = a.textContent.trim().slice(0,60);
+  let ev = null;
+  if(h.startsWith("tel:")) ev = "phone_tap";
+  else if(h.startsWith("mailto:")) ev = "email_tap";
+  else if(h.includes("checkout.yourgift.cards")) ev = "gift_certificate_click";
+  else if(h.includes("packages/565")) ev = "package_click";
+  else if(h.includes("memberships/")) ev = "membership_click";
+  else if(h.includes("playbypoint.com")) ev = "booking_click";
+  else if(h.includes("etsy.com") || h.includes("shop.birdbamclub.com") || h.includes("mahjong-mats.com")) ev = "shop_click";
+  else if(h.includes("maps.app.goo.gl")) ev = "directions_click";
+  if(ev) gtag("event", ev, {link_url: h, link_text: label});
+});
+</script>
 </body>
 </html>
-
