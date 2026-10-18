@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contest Leaderboard | Bird Bam Mahjong Club</title>
+<meta name="description" content="See where you stand in this month's Bird Bam Mahjong Club open play contest.">
+<link rel="canonical" href="https://birdbamclub.com/leaderboard.html">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;600;700&display=swap">
+<style>
+:root{--cream:#F8F7F1;--sand:#EFEADB;--line:#DDD5BF;--charcoal:#2C2B28;--muted:#5F5B4E;--brown:#A77347;--burgundy:#7A2423;--gold:#C8963A;--gold-soft:#F3E6C4;--orange:#E0611C;--white:#fff;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--body:"Barlow","Segoe UI",system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--body);font-size:18px;line-height:1.5}
+a{color:var(--burgundy)}
+a:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+header{border-bottom:2px solid var(--line);background:var(--cream)}
+header .wrap{max-width:1160px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+header img{height:56px;width:auto;display:block}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:6px 18px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);white-space:nowrap}
+.btn.primary{background:var(--burgundy);color:var(--cream)}
+.btn.ghost{color:var(--burgundy)}
+.head-links{display:flex;gap:10px;align-items:center}
+.head-links a.home{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--charcoal)}
+main{padding-block:44px 64px}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin:0}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(3rem,9vw,4.6rem);text-transform:uppercase;line-height:1;margin:6px 0 0;color:var(--charcoal)}
+h1 .hl{color:var(--orange)}
+.intro{color:var(--muted);margin:10px 0 0;max-width:60ch}
+.key{margin-top:22px;background:var(--sand);border-radius:12px;padding:14px 18px;text-align:center}
+.key b{display:block;font-family:var(--display);font-size:1.4rem;letter-spacing:.08em;text-transform:uppercase;color:var(--burgundy)}
+.key ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px;font-weight:600}
+.key li{white-space:nowrap}
+.find{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.find label{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:.06em;text-transform:uppercase}
+.find input{flex:1 1 220px;min-width:0;min-height:48px;border:2px solid var(--charcoal);border-radius:10px;padding:8px 14px;font:inherit;background:var(--white);color:var(--charcoal)}
+.status{font-size:.9rem;color:var(--muted);margin-top:8px;min-height:1.4em}
+.board{margin-top:14px;background:var(--white);border:2px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:1rem;text-align:left;padding:12px 16px;background:var(--charcoal);color:var(--cream)}
+th.pts,td.pts{text-align:right}
+td{padding:10px 16px;border-top:1px solid var(--line)}
+td.rank{width:3.2em;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--brown)}
+td.pts{font-weight:700}
+td .prizes{margin-left:6px;white-space:nowrap}
+tr.top td{background:#FBF4E2}
+tr.top td.rank{color:var(--burgundy)}
+tr.match td{background:var(--gold-soft)}
+tr[hidden]{display:none}
+.after{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.fine{font-size:.85rem;color:var(--muted);margin-top:12px}
+footer{background:#1F1E1C;color:#A9A493;font-size:.88rem}
+footer .wrap{max-width:1160px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;padding-block:16px}
+footer a{color:#D9D4C4}
+@media (max-width:520px){header img{height:44px}.head-links a.home{display:none}td,th{padding:9px 10px}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BVVCYT1LLT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BVVCYT1LLT');</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="index.html"><img src="images/logo.svg" alt="Bird Bam Mahjong Club" width="140" height="56"></a>
+    <div class="head-links">
+      <a class="home" href="index.html">Home</a>
+      <a class="btn primary" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">Book a seat</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="eyebrow" id="label">Open play contest leaderboard</p>
+  <h1 id="title">Hallo<span class="hl">win</span></h1>
+  <p class="intro">Points update as we record them at the club. Every open play you attend earns another draw, so there's still time to climb!</p>
+
+  <div class="key" id="key"><b>Instant win prizes</b><ul></ul></div>
+
+  <div class="find">
+    <label for="search">Find your name</label>
+    <input id="search" type="search" placeholder="Start typing your name" autocomplete="off">
+  </div>
+  <p class="status" id="status" aria-live="polite"></p>
+
+  <div class="board">
+    <table>
+      <thead><tr><th>Rank</th><th>Player</th><th class="pts">Points</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="3">Loading the leaderboard…</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="after">
+    <a class="btn ghost" id="rules" href="hallowin.html">Rules &amp; full prize list</a>
+    <a class="btn primary" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">Book open play</a>
+  </div>
+  <p class="fine">No purchase necessary. 18+. See official rules.</p>
+</main>
+
+<footer>
+  <div class="wrap"><span>© <span id="year">2026</span> Bird Bam Mahjong Club LLC</span><span><a href="index.html">Home</a> · <a href="privacy.html">Privacy policy</a></span></div>
+</footer>
+
+<script src="js/contest.js"></script>
+<script>
+(async function(){
+  const c = window.CONTEST, esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("label").textContent = `${months[+c.month.slice(5)-1]}'s open play contest leaderboard`;
+  document.getElementById("rules").href = c.rules;
+  document.querySelector("#key ul").innerHTML = c.key.map(k => `<li>${k[0]} ${esc(k[1])}</li>`).join("");
+
+  const {list} = await window.loadLeaderboard();
+  const body = document.getElementById("rows");
+  body.innerHTML = list.map(p => `<tr class="${p.rank <= 3 ? "top" : ""}" data-name="${esc(p.name.toLowerCase())}"><td class="rank">${p.rank}</td><td>${esc(p.name)}${p.prizes ? `<span class="prizes">${esc(p.prizes)}</span>` : ""}</td><td class="pts">${p.pts}</td></tr>`).join("");
+
+  const input = document.getElementById("search"), status = document.getElementById("status");
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0, first = null;
+    body.querySelectorAll("tr").forEach(tr => {
+      const hit = !q || tr.dataset.name.includes(q);
+      tr.hidden = !hit; tr.classList.toggle("match", !!q && hit);
+      if(hit){ shown++; if(!first) first = tr; }
+    });
+    status.textContent = !q ? "" : shown ? `${shown} ${shown === 1 ? "player" : "players"} found` : "No one by that name yet. Check the spelling, or come play this week!";
+  });
+})();
+</script>
+</body>
+</html>

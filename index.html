@@ -525,11 +525,11 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
             <table>
               <caption>Leaderboard: top 5</caption>
               <tbody>
-                <tr><td class="rank">1</td><td>Sarah Z. 🦇🦇👻🦇</td><td class="pts">197</td></tr>
-                <tr><td class="rank">2</td><td>Sanam A. 🦇🦇</td><td class="pts">136</td></tr>
-                <tr><td class="rank">3</td><td>Bing W.</td><td class="pts">113</td></tr>
-                <tr><td class="rank">4</td><td>Patty P. 🦇🎃🎃🦇</td><td class="pts">109</td></tr>
-                <tr><td class="rank">5</td><td>Kabrel G.</td><td class="pts">88</td></tr>
+                <tr><td class="rank">1</td><td>Sarah Z. 🦇🦇👻🦇</td><td class="pts">202</td></tr>
+                <tr><td class="rank">2</td><td>Bing W. 🦇</td><td class="pts">164</td></tr>
+                <tr><td class="rank">3</td><td>Sanam A. 🦇🦇👻</td><td class="pts">161</td></tr>
+                <tr><td class="rank">4</td><td>Patty P. 🦇🎃🎃🦇</td><td class="pts">134</td></tr>
+                <tr><td class="rank">5</td><td>Jane G. 🎃🎃</td><td class="pts">95</td></tr>
               </tbody>
             </table>
           </div>
@@ -829,6 +829,7 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
   <img id="flyer-img" alt="">
 </dialog>
 
+<script src="js/contest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/brands.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/fontawesome.min.js"></script>
 <script>
@@ -924,6 +925,15 @@ window.addEventListener("resize", fitLockup);
     e.preventDefault();
     v.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Automatic mahjong table" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
   }, {once:true});
+})();
+
+/* Live top 5 from the leaderboard sheet (falls back to the copy above) */
+(async function(){
+  const tb = document.querySelector("#contest .board tbody");
+  if(!tb || !window.loadLeaderboard) return;
+  const {list} = await window.loadLeaderboard();
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+  tb.innerHTML = list.slice(0,5).map(p => `<tr><td class="rank">${p.rank}</td><td>${esc(p.name)} ${esc(p.prizes)}</td><td class="pts">${p.pts}</td></tr>`).join("");
 })();
 
 /* Mailing list (live site posts to the existing Google Sheet) */
