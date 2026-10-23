@@ -290,6 +290,11 @@ dialog.lightbox .close{background:var(--cream);color:var(--charcoal);border:0;bo
 .package{position:relative;overflow:hidden;margin-top:24px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--burgundy);color:var(--cream);border-radius:16px;padding:30px 34px}
 .package .big{font-family:var(--display);font-weight:800;font-size:3.6rem;line-height:.9;color:var(--gold);text-align:center}
 .package .big small{display:block;font-size:1.1rem;letter-spacing:.1em;color:var(--cream);text-transform:uppercase;margin-top:6px}
+.pricebox{text-align:center;font-family:var(--display);font-weight:800;line-height:.9}
+.pricebox s{display:block;font-size:1.6rem;color:#E9C9C6;text-decoration-thickness:3px}
+.pricebox b{display:block;font-size:4.2rem;color:var(--gold)}
+.pricebox .pill{display:inline-block;margin-top:8px;background:var(--gold);color:var(--charcoal);font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
+@media (max-width:860px){.pricebox{text-align:left}}
 .package h3{color:var(--cream);font-size:1.9rem}
 .package p{color:#F1DCD9;margin-top:6px;font-size:1.02rem}
 .package .btn{background:var(--cream);color:var(--burgundy);border-color:var(--cream)}
@@ -624,7 +629,7 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
 
       <div class="package">
         <span class="sash" aria-hidden="true">BEST VALUE</span>
-        <p class="big">$140<small>Save $30</small></p>
+        <p class="pricebox"><s aria-label="Regular price $170">$170</s><b>$140</b><span class="pill">Save $30</span></p>
         <div>
           <h3>Learn to Play Package: 9 hours of mahjong</h3>
           <p>Book both classes and save! Plus come back for a free Open Play session.</p>
