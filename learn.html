@@ -2,13 +2,814 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Bird Bam Mahjong Club</title>
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://birdbamclub.com/">
-<meta http-equiv="refresh" content="0; url=/#learn">
-<script>location.replace("/#learn");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mahjong Lessons in Los Angeles | Learn American Mahjong at Bird Bam</title>
+<meta name="description" content="Learn American Mahjong in small, beginner-friendly classes at Bird Bam Mahjong Club in the Encino Town Center. Two 3-hour classes, everything provided. Book a class or the Learn to Play Package.">
+<link rel="canonical" href="https://birdbamclub.com/learn.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bird Bam Mahjong Club">
+<meta property="og:title" content="Learn American Mahjong | Bird Bam Mahjong Club">
+<meta property="og:description" content="Small, beginner-friendly mahjong classes in the Encino Town Center. Everything provided.">
+<meta property="og:url" content="https://birdbamclub.com/learn.html">
+<meta property="og:image" content="https://birdbamclub.com/images/class.jpg">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "Store"],
+      "@id": "https://birdbamclub.com/#club",
+      "name": "Bird Bam Mahjong Club",
+      "url": "https://birdbamclub.com/",
+      "telephone": "+1-818-564-7289",
+      "address": {"@type": "PostalAddress", "streetAddress": "17200 Ventura Blvd, Suite 115", "addressLocality": "Encino", "addressRegion": "CA", "postalCode": "91316", "addressCountry": "US"}
+    },
+    {
+      "@type": "Course",
+      "name": "Learn Mahjong 1: Introductory Class",
+      "description": "Learn American Mahjong from scratch in a small 3-hour class: the tiles, the card, and how to build a hand. No experience needed, and all equipment is provided.",
+      "provider": {"@id": "https://birdbamclub.com/#club"},
+      "offers": {"@type": "Offer", "price": "75", "priceCurrency": "USD", "category": "Paid", "url": "https://birdbammahjongclub.playbypoint.com/programs/intro-to-american-mahjong"}
+    },
+    {
+      "@type": "Course",
+      "name": "Learn Mahjong 2: Guided Play Session",
+      "description": "A 30-minute refresher followed by real American Mahjong games with an instructor helping you choose hands, strategize, and improve your game.",
+      "provider": {"@id": "https://birdbamclub.com/#club"},
+      "offers": {"@type": "Offer", "price": "75", "priceCurrency": "USD", "category": "Paid", "url": "https://birdbammahjongclub.playbypoint.com/programs/guided_play"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [{"@type": "Question", "name": "Do I need any experience?", "acceptedAnswer": {"@type": "Answer", "text": "No. Learn Mahjong 1 starts from scratch: the tiles, the card, and how to build a hand. Most of our students have never played before."}}, {"@type": "Question", "name": "What should I bring?", "acceptedAnswer": {"@type": "Answer", "text": "Just yourself. All equipment is provided, including tiles, racks, mats, and cards."}}, {"@type": "Question", "name": "Can I come by myself?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Book solo, with a friend, or as a group. We'll group you with other students when needed."}}, {"@type": "Question", "name": "I've played before. Where should I start?", "acceptedAnswer": {"@type": "Answer", "text": "If you already know the basics, you can start with Learn Mahjong 2: Guided Play Session. Most people start with Learn Mahjong 1."}}, {"@type": "Question", "name": "How long are the classes?", "acceptedAnswer": {"@type": "Answer", "text": "Each class is 3 hours. The Learn to Play Package includes both classes plus a free 3-hour open play session, for 9 hours of mahjong."}}, {"@type": "Question", "name": "What is American Mahjong?", "acceptedAnswer": {"@type": "Answer", "text": "American Mahjong is the most popular style of mahjong in the U.S. It's played with 152 tiles, including jokers and flowers, and a card of winning hands that the National Mah Jongg League publishes each year."}}, {"@type": "Question", "name": "Do you teach other styles?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet, but they're coming. Join the interest list for Chinese / Hong Kong, Riichi (Japanese), or Filipino mahjong, and we'll let you know when dates open."}}, {"@type": "Question", "name": "Can I book a private class for my group?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Private and group classes are $75 per person, the same as our regular classes. Call or text (818) 564-7289 to schedule."}}, {"@type": "Question", "name": "Can I give a class as a gift?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Lesson gift certificates are available online and delivered instantly by email. You can also call, text, or ask at the front desk."}}, {"@type": "Question", "name": "Can I bring food or drinks?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You're welcome to bring your own, and drinks and packaged snacks are also available for purchase."}}, {"@type": "Question", "name": "Where are you located?", "acceptedAnswer": {"@type": "Answer", "text": "Bird Bam Mahjong Club is at 17200 Ventura Blvd, Suite 115, on the lower level of the Encino Town Center. Free parking is available on all sides of the center, plus underground parking."}}]
+    }
+  ]
+}
+</script>
+<style>
+/* Layout: a cream club room. Burgundy carries action, brown carries the name, gold marks deals; the schedule is a rack of upright mahjong tiles. */
+:root{
+  --cream:#F8F7F1;      /* tile face, page */
+  --sand:#EFEADB;       /* bands */
+  --tile-edge:#E7E2D4;  /* tile side, from logo */
+  --line:#DDD5BF;
+  --charcoal:#2C2B28;   /* outlines, text */
+  --muted:#5F5B4E;      /* olive-gray secondary text */
+  --brown:#A77347;      /* BIRD BAM */
+  --burgundy:#7A2423;   /* MAHJONG CLUB, actions */
+  --burgundy-dark:#5E1A19;
+  --gold:#C8963A;       /* flyer mustard */
+  --gold-soft:#F3E6C4;
+  --bamboo:#5E6E2C;
+  --orange:#E0611C;     /* HalloWIN */
+  --white:#FFFFFF;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--cream);color:var(--charcoal);font-family:var(--body);font-size:18px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--burgundy)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:.005em}
+h2{font-size:clamp(2.4rem,5.5vw,3.6rem);text-transform:uppercase;color:var(--burgundy)}
+h3{font-size:1.7rem;text-transform:uppercase}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);line-height:1.1}
+.lede{font-size:1.15rem;color:var(--muted);max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 24px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);transition:background .15s,color .15s;cursor:pointer;text-align:center}
+.btn.primary{background:var(--burgundy);color:var(--cream)}
+.btn.primary:hover{background:var(--burgundy-dark);border-color:var(--burgundy-dark)}
+.btn.ghost{color:var(--burgundy);background:transparent}
+.btn.ghost:hover{background:var(--burgundy);color:var(--cream)}
+.btn.small{min-height:42px;font-size:1.05rem;padding:6px 18px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.note{font-size:.95rem;color:var(--muted)}
+.phone,.mail{font-weight:700;color:var(--charcoal);text-decoration:none;overflow-wrap:anywhere;white-space:nowrap}
+.phone:hover,.mail:hover{color:var(--burgundy);text-decoration:underline}
+.placeholder{display:grid;place-items:center;text-align:center;background:repeating-linear-gradient(45deg,var(--sand),var(--sand) 12px,var(--cream) 12px,var(--cream) 24px);border:2px dashed var(--line);border-radius:14px;color:var(--muted);font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:20px;max-width:100%}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--cream)}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--cream);border-bottom:2px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:22px;padding-block:12px;transition:padding .2s}
+.logo{display:block;margin-right:auto;flex-shrink:0}
+.logo img{height:78px;width:auto;transition:height .2s}
+header.site.scrolled .wrap{padding-block:6px}
+header.site.scrolled .logo img{height:52px}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:16px}
+nav.main a{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:.05em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;white-space:nowrap}
+nav.main a:hover{color:var(--burgundy)}
+.head-actions{display:flex;align-items:center;gap:14px}
+.head-actions .btn{white-space:nowrap}
+.head-phone{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:.03em;color:var(--charcoal);text-decoration:none;white-space:nowrap}
+.head-phone:hover{color:var(--burgundy)}
+.head-phone .short{display:none}
+.menu{display:none;position:relative}
+.menu summary{list-style:none;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;min-height:42px;display:flex;align-items:center;padding:0 16px;border:2px solid var(--charcoal);border-radius:10px;box-sizing:border-box}
+.menu summary::-webkit-details-marker{display:none}
+.menu ul{position:absolute;right:0;top:calc(100% + 8px);background:var(--cream);border:2px solid var(--charcoal);border-radius:10px;list-style:none;margin:0;padding:8px;min-width:230px;box-shadow:0 10px 24px rgba(44,43,40,.15)}
+.menu li a{display:block;padding:10px 12px;font-family:var(--display);font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:.05em;color:var(--charcoal);text-decoration:none;border-radius:6px}
+.menu li a:hover{background:var(--sand)}
+@media (max-width:1340px){nav.main{display:none}.menu{display:block}}
+@media (max-width:640px){
+  .logo img{height:54px} header.site.scrolled .logo img{height:44px}
+  .head-actions .btn{display:none}
+  header.site .wrap{gap:12px}
+  .head-phone{font-size:1.05rem}
+}
+@media (max-width:480px){.head-phone .num{display:none}.head-phone .short{display:inline}.logo img{height:48px}}
+
+/* intro + announcement */
+.top{padding-block:44px 56px;background:linear-gradient(var(--cream),var(--sand))}
+.top .wrap{display:grid;grid-template-columns:1.25fr .85fr;gap:40px;align-items:stretch}
+.intro{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.intro .bird{width:190px}
+.lockup{display:inline-block;text-transform:uppercase;line-height:.92}
+.lockup span{display:block;width:max-content;white-space:nowrap}
+.lockup .l1{color:var(--brown);font-weight:700;font-size:1.6rem;letter-spacing:.2em;margin-bottom:6px}
+.lockup .l2,.lockup .l3{color:var(--burgundy);font-size:clamp(2.5rem,5vw,4rem)}
+.intro p.lede{margin-top:14px;color:var(--charcoal)}
+.paths{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:6px}
+.paths .btn{min-height:60px;font-size:1.15rem;padding:8px 12px}
+.announce{background:var(--white);border:3px solid var(--charcoal);border-radius:18px;overflow:hidden;box-shadow:8px 8px 0 var(--burgundy);display:flex;flex-direction:column;min-width:0}
+.announce .art{display:block;flex:1 1 auto;min-height:240px;padding:0;border:0;background:#2E4A3A;cursor:zoom-in;position:relative;overflow:hidden}
+.announce .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0%}
+.announce .art .hint{position:absolute;right:10px;bottom:10px;background:rgba(44,43,40,.78);color:var(--cream);font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:999px}
+.announce .price-line{font-weight:700;color:var(--charcoal)}
+.announce .body{padding:20px 24px 24px;display:grid;gap:8px}
+.announce .label{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;color:var(--burgundy)}
+.announce h2{font-size:2.4rem;color:var(--charcoal)}
+.announce p{color:var(--muted)}
+.announce .btns{margin-top:8px}
+@media (max-width:980px){.top .wrap{grid-template-columns:minmax(0,1fr)}.announce .art{min-height:0;aspect-ratio:4/3;flex:none}}
+@media (max-width:640px){.intro{grid-template-columns:1fr}.intro .bird{width:120px}.paths{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+section.block{padding-block:76px}
+section.block.band{background:var(--sand)}
+.head{display:grid;gap:12px;margin-bottom:34px}
+.head-row{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:34px}
+.head-row .head{margin-bottom:0}
+@media (max-width:700px){.head-row{grid-template-columns:1fr}.head-row img{display:none}}
+
+/* schedule tiles */
+.tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:22px;padding-right:12px;list-style:none;margin:0;padding-left:0}
+.tile{position:relative;aspect-ratio:3/4;max-width:100%;isolation:isolate;transition:transform .15s ease}
+.tile>a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;text-align:center;padding:10px 6px;color:inherit;text-decoration:none;border-radius:18px}
+.tile:hover,.tile:focus-within{transform:translateY(-5px)}
+.tile:hover::before,.tile:focus-within::before{background:#fff}
+.tile .book{margin-top:8px;font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--burgundy);border-bottom:2px solid var(--burgundy);line-height:1.2}
+.tile:hover .book{color:var(--orange);border-color:var(--orange)}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover,.tile:focus-within{transform:none}}
+.tile::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:18px;background:var(--cream);border:3px solid var(--charcoal);
+  box-shadow:inset 0 -10px 16px -8px rgba(44,43,40,.16),inset 0 8px 10px -6px rgba(255,255,255,.95),inset 6px 0 10px -8px rgba(44,43,40,.12)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-2;border-radius:18px;transform:translateX(8px);background:var(--tile-edge);border:3px solid var(--burgundy);box-shadow:6px 0 0 0 var(--burgundy)}
+.tile .day{font-family:var(--display);font-weight:800;font-size:2.1rem;text-transform:uppercase;color:var(--burgundy);line-height:1}
+.tile .part{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bamboo);margin:6px 0 8px}
+.tile .time{font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .to{font-size:.85rem;color:var(--muted);line-height:1.2}
+.tile .flag{position:absolute;left:50%;top:-15px;transform:translateX(-50%);background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:999px;white-space:nowrap}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:30px}}
+@media (max-width:520px){.tiles{gap:22px 20px;padding-right:14px}.tile .day{font-size:1.7rem}.tile .time{font-size:1.05rem}.tile .part{font-size:.66rem;letter-spacing:.05em;margin:4px 0 6px}.tile{aspect-ratio:auto}.tile>a{padding:16px 4px 14px}.tile .book{margin-top:6px;font-size:.75rem}}
+
+.club-photo{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:50% 60%;border-radius:18px;border:3px solid var(--charcoal);margin:0 0 40px}
+@media (max-width:640px){.club-photo{aspect-ratio:4/3}}
+.play-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:44px;align-items:start}
+.play-grid>*{min-width:0}
+@media (max-width:860px){.play-grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--white);border:2px solid var(--line);border-radius:14px;padding:28px}
+.panel h3{color:var(--charcoal)}
+.rates{list-style:none;margin:16px 0 0;padding:0;display:grid}
+.rates li{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rates li:last-child{border-bottom:0}
+.rates b{font-family:var(--display);font-weight:800;font-size:1.6rem;font-variant-numeric:tabular-nums;color:var(--burgundy)}
+.rates span small{display:block;color:var(--muted);font-size:.92rem}
+.rates small a{font-weight:600}
+.join{margin-top:18px;display:grid;gap:10px}
+.join p{color:var(--muted);font-size:.98rem}
+
+/* contest */
+.contest{display:grid;grid-template-columns:140px 1fr;gap:22px}
+.contest button.flyer-btn{padding:0;border:0;background:none;cursor:zoom-in;display:block}
+.contest button.flyer-btn img{border-radius:8px;border:2px solid var(--line);width:100%}
+.contest .hint{font-size:.8rem;color:var(--muted);margin-top:4px;text-align:center}
+.contest .eyebrow{color:var(--burgundy);font-size:1.15rem}
+.contest h3{font-size:2.3rem;margin-top:4px}
+.contest h3 .hl{color:var(--orange)}
+.contest p{color:var(--muted);margin-top:8px;font-size:1rem}
+.prize-key{margin-top:16px;font-size:1.15rem;background:var(--sand);border-radius:10px;padding:14px 18px;text-align:center}
+.prize-key b{display:block;font-family:var(--display);font-size:1.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--burgundy);margin-bottom:6px}
+.prize-key ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px}
+.prize-key li{white-space:nowrap;font-weight:600}
+.board{margin-top:16px;border-top:2px solid var(--charcoal)}
+.board table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.board td{padding:8px 4px;border-bottom:1px solid var(--line)}
+.board td.rank{width:2.2em;font-family:var(--display);font-weight:800;color:var(--brown);font-size:1.15rem}
+.board td.pts{text-align:right;font-weight:700}
+.board caption{caption-side:top;text-align:left;font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:1rem;padding:10px 0 4px}
+.contest-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.fine{font-size:.82rem;color:var(--muted);margin-top:10px}
+@media (max-width:520px){.contest{grid-template-columns:110px 1fr;gap:16px}.contest h3{font-size:2rem}}
+dialog.lightbox{border:0;padding:0;background:transparent;max-width:min(92vw,640px);max-height:94vh}
+dialog.lightbox::backdrop{background:rgba(44,43,40,.82)}
+dialog.lightbox img{max-height:84vh;width:auto;margin:0 auto;border-radius:8px}
+dialog.lightbox form{display:flex;justify-content:flex-end;margin-bottom:8px}
+dialog.lightbox .close{background:var(--cream);color:var(--charcoal);border:0;border-radius:999px;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;cursor:pointer}
+
+/* private tables */
+.group{margin-top:28px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;background:var(--charcoal);color:var(--cream);border-radius:16px;padding:32px}
+.group h3{color:var(--cream);font-size:2.2rem}
+.group .eyebrow{color:var(--gold);font-size:1.15rem}
+.group p{color:#E7E2D4;margin-top:10px}
+.group p b{color:var(--gold-soft)}
+.group .btns{margin-top:18px}
+.group .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--charcoal)}
+.group .btn.primary:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.group .btn.ghost{color:var(--cream);border-color:var(--cream)}
+.group .btn.ghost:hover{background:var(--cream);color:var(--charcoal)}
+.video{position:relative;display:grid;place-items:center;aspect-ratio:16/10;max-width:100%;border-radius:12px;text-decoration:none;color:var(--cream);overflow:hidden;
+  background:linear-gradient(135deg,#3B3934,#23221F)}
+.video .play{width:76px;height:76px;border-radius:50%;background:var(--burgundy);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(248,247,241,.15)}
+.video .play::before{content:"";border-left:24px solid var(--cream);border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:6px}
+.video span.cap{position:absolute;left:16px;bottom:12px;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.video span.ph{position:absolute;top:12px;right:14px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#A9A493}
+.video:hover .play{background:var(--burgundy-dark)}
+.video img.thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.video .play,.video .cap{position:relative;z-index:1}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:860px){.group{grid-template-columns:minmax(0,1fr);padding:24px}}
+
+/* reviews */
+.reviews{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+.review{margin:0;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+.review .stars{color:var(--gold);letter-spacing:.12em;font-size:1.1rem}
+.review blockquote{margin:0;font-size:1.06rem;line-height:1.5}
+.review figcaption{font-weight:700;font-size:.95rem;color:var(--muted)}
+.review figcaption i,.review figcaption svg{color:#C41200;margin:0 3px 0 2px}
+@media (max-width:760px){.reviews{grid-template-columns:minmax(0,1fr)}}
+
+/* learn */
+.path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;counter-reset:step}
+.path li{counter-increment:step;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+.path li::before{content:counter(step);font-family:var(--display);font-weight:800;font-size:1.4rem;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--burgundy);color:var(--cream)}
+.path li:last-child::before{background:var(--bamboo)}
+.path h3{font-size:1.6rem;min-height:2.04em}
+.path .cost{font-family:var(--display);font-weight:800;font-size:2.2rem;color:var(--burgundy);line-height:1;min-height:1.1em}
+.path .cost small{font-size:1.05rem;color:var(--muted);font-weight:600;letter-spacing:.03em}
+.path .cost.free{font-size:1.2rem;letter-spacing:.05em;color:var(--bamboo);display:flex;align-items:center;min-height:2.2rem;text-transform:uppercase}
+.path p{color:var(--muted);font-size:1rem}
+.path .keep{color:var(--charcoal);font-weight:600}
+.path .btn{margin-top:auto;align-self:flex-start}
+@media (max-width:860px){.path{grid-template-columns:minmax(0,1fr)}.path h3{min-height:0}}
+.package{position:relative;overflow:hidden;margin-top:24px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--burgundy);color:var(--cream);border-radius:16px;padding:30px 34px}
+.package .big{font-family:var(--display);font-weight:800;font-size:3.6rem;line-height:.9;color:var(--gold);text-align:center}
+.package .big small{display:block;font-size:1.1rem;letter-spacing:.1em;color:var(--cream);text-transform:uppercase;margin-top:6px}
+.pricebox{text-align:center;font-family:var(--display);font-weight:800;line-height:.9}
+.pricebox s{display:block;font-size:1.6rem;color:#E9C9C6;text-decoration-thickness:3px}
+.pricebox b{display:block;font-size:4.2rem;color:var(--gold)}
+.pricebox .pill{display:inline-block;margin-top:8px;background:var(--gold);color:var(--charcoal);font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
+@media (max-width:860px){.pricebox{text-align:left}}
+.package h3{color:var(--cream);font-size:1.9rem}
+.package p{color:#F1DCD9;margin-top:6px;font-size:1.02rem}
+.package .btn{background:var(--cream);color:var(--burgundy);border-color:var(--cream)}
+.package .btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.sash{position:absolute;top:22px;right:-46px;transform:rotate(35deg);background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.12em;padding:5px 56px;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+@media (max-width:860px){.package{grid-template-columns:minmax(0,1fr);gap:14px;padding:30px 24px}.package .big{text-align:left}.sash{top:18px;right:-52px}}
+.gift-cta{display:grid;gap:6px;justify-items:center;text-align:center}
+.gift-cta span{font-size:.85rem;color:var(--muted)}
+.gift{margin-top:18px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;background:linear-gradient(120deg,var(--gold-soft),#FBF4E2);border:3px solid var(--gold);border-radius:16px;padding:18px 26px}
+.gift svg{width:84px;height:auto}
+.gift b{display:block;font-family:var(--display);font-weight:800;font-size:1.9rem;letter-spacing:.03em;text-transform:uppercase;color:var(--burgundy);line-height:1}
+.gift span{display:block;margin-top:4px;color:var(--charcoal)}
+@media (max-width:760px){.gift{grid-template-columns:auto 1fr}.gift-cta{grid-column:1/-1;justify-items:start;text-align:left}}
+@media (max-width:520px){.gift{grid-template-columns:64px 1fr;padding:16px}.gift svg{width:64px}.gift b{font-size:1.5rem}}
+.teacher{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:center;max-width:820px}
+.teacher img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--charcoal)}
+.teacher .eyebrow{font-size:1.1rem}
+.teacher h3{font-size:1.7rem;margin-top:2px}
+.teacher p{color:var(--muted);font-size:1rem;margin-top:6px}
+.learn-reviews{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px;align-items:stretch}
+.learn-reviews>.panel{grid-column:1/-1}
+.learn-reviews>*{min-width:0}
+.learn-reviews .panel{display:flex;align-items:center}
+.learn-reviews .reviews{display:contents}
+@media (max-width:760px){.learn-reviews{grid-template-columns:minmax(0,1fr)}.teacher{grid-template-columns:90px 1fr}.teacher img{width:90px;height:90px}}
+.learn-more{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.learn-more .panel p{color:var(--muted);margin:8px 0 14px;font-size:1rem}
+.group-class{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:start}
+.group-class svg{width:96px;height:auto}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px;padding:0;list-style:none}
+.tags li{background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.92rem;font-weight:600;color:var(--charcoal)}
+@media (max-width:520px){.group-class{grid-template-columns:1fr}.group-class svg{width:80px}}
+.soon{display:inline-block;background:var(--gold);color:var(--charcoal);font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:6px;margin-bottom:8px}
+@media (max-width:760px){.learn-more{grid-template-columns:minmax(0,1fr)}}
+
+/* shop */
+.shop{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.shop-photo{width:100%;height:auto;border-radius:18px;border:3px solid var(--charcoal);display:block}
+.shop>*{min-width:0}
+.shop.solo{grid-template-columns:minmax(0,1fr);max-width:960px}
+.shop h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+.shop-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
+.shop-head img{width:140px;transform:scaleX(-1)}
+@media (max-width:520px){.shop-head{grid-template-columns:1fr 90px}.shop-head img{width:90px}}
+.etsy .btn i,.etsy .btn svg{font-size:1.2em}
+.instore{margin-top:18px;background:var(--white);border-left:6px solid var(--burgundy);border-radius:10px;padding:16px 20px}
+.instore b{font-family:var(--display);font-size:1.35rem;letter-spacing:.05em;text-transform:uppercase;display:block}
+.instore p{color:var(--muted);margin-top:4px}
+.etsy{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.etsy .stars{color:var(--gold);font-weight:700}
+.also{margin-top:14px;color:var(--muted)}
+.also a{font-weight:600}
+@media (max-width:860px){.shop{grid-template-columns:minmax(0,1fr)}}
+
+/* membership band */
+.member{background:var(--brown);color:var(--cream)}
+.member .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px}
+.member h2{color:var(--cream)}
+.member .price{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5vw,3.4rem);color:var(--gold-soft);line-height:1;margin-top:6px}
+.member .tag{font-family:var(--display);font-weight:700;font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;margin-top:10px}
+.member .eyebrow{color:var(--gold-soft)}
+.member .lede{color:#F4E9DC;margin-top:12px}
+.member ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.member li{background:var(--cream);color:var(--charcoal);border-radius:12px;padding:16px 20px;font-weight:500;box-shadow:0 3px 0 rgba(44,43,40,.25)}
+.member li b{display:block;font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--burgundy)}
+.member .btns{margin-top:24px}
+.member .btn.primary{background:var(--cream);color:var(--burgundy);border-color:var(--cream)}
+.founding{display:inline-block;margin-top:16px;background:var(--gold);color:var(--charcoal);font-weight:700;padding:4px 12px;border-radius:999px;font-size:.95rem}
+@media (max-width:860px){.member .wrap{grid-template-columns:minmax(0,1fr)}}
+
+/* private events */
+.events{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.events>*{min-width:0}
+.rooms{display:grid;gap:14px}
+.room{background:var(--white);border:2px solid var(--line);border-radius:14px;padding:20px 22px}
+.room h3{font-size:1.5rem;color:var(--charcoal)}
+.room p{color:var(--muted);font-size:1rem;margin-top:4px}
+.room .amt{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--burgundy)}
+.instruction{display:inline-block;background:var(--bamboo);color:var(--cream);font-family:var(--display);font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:6px;font-size:1.05rem}
+.events .side{display:flex;flex-direction:column;gap:16px}
+.events .side .review{flex:1}
+@media (max-width:860px){.events{grid-template-columns:minmax(0,1fr)}}
+
+/* contact */
+.visit-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}
+.visit-grid h3{font-size:1.4rem;color:var(--brown);margin-bottom:6px}
+.stack{display:grid;gap:22px}
+.visit-grid>*,.stack>*{min-width:0}
+.addr{font-size:1.25rem;font-weight:600;font-style:normal;line-height:1.45}
+.sign-photo{border-radius:14px;border:2px solid var(--line);width:100%;aspect-ratio:4/3;object-fit:cover}
+@media (max-width:860px){.visit-grid{grid-template-columns:minmax(0,1fr)}}
+.signup label{display:block;font-weight:600;margin:12px 0 6px}
+.signup .row{display:flex;gap:10px;flex-wrap:wrap}
+.signup input{flex:1 1 200px;min-width:0;min-height:50px;border:2px solid var(--charcoal);border-radius:10px;padding:8px 14px;font:inherit;background:var(--white);color:var(--charcoal)}
+.signup .done{margin-top:10px;color:var(--bamboo);font-weight:600}
+
+/* footer */
+footer.site{background:var(--charcoal);color:#D9D4C4;font-size:.98rem}
+footer.site .wrap.main-foot{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding-block:48px 36px}
+footer.site h4{font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+footer.site a{color:var(--cream)}
+footer.site ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer.site .brand img{width:76px;margin-bottom:12px}
+footer.site .brand p{font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:.04em;text-transform:uppercase;color:var(--cream);line-height:1.15}
+footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;font-size:.98rem;letter-spacing:0;text-transform:none;color:#D9D4C4;margin-top:6px}
+.social a{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.social a:hover span{text-decoration:underline}
+.social svg,.social i{width:20px;font-size:20px;color:var(--gold-soft)}
+.bottom-bar{background:#1F1E1C;color:#A9A493;font-size:.88rem}
+.bottom-bar .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;padding-block:14px}
+.bottom-bar a{color:#D9D4C4}
+@media (max-width:860px){footer.site .wrap.main-foot{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){footer.site .wrap.main-foot{grid-template-columns:minmax(0,1fr)}}
+
+/* ---- Learn page ---- */
+nav.main a[aria-current="page"],.menu a[aria-current="page"]{color:var(--burgundy)}
+.hero{padding-block:44px 40px;background:linear-gradient(var(--cream),var(--sand))}
+.hero .wrap{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.hero h1{font-size:clamp(3rem,7.5vw,5.4rem);text-transform:uppercase;color:var(--burgundy);margin-top:8px;line-height:.95}
+.hero .lede{margin-top:16px;color:var(--charcoal);font-size:1.2rem}
+.hero .btns{margin-top:24px}
+.hero .wrap{grid-template-columns:1.05fr .95fr}
+.hero-photo{position:relative;margin:0;padding:34px 10px 0 0}
+.hero-photo .photo{width:100%;border-radius:18px;border:3px solid var(--charcoal);box-shadow:8px 8px 0 var(--burgundy);aspect-ratio:16/10;object-fit:cover}
+.hero-photo .bird{position:absolute;width:160px;right:24px;top:-56px;z-index:1;filter:drop-shadow(0 3px 4px rgba(44,43,40,.2))}
+.hero-review{margin:18px 0 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.hero-review .stars{color:var(--gold);letter-spacing:.12em;font-size:1.15rem}
+.hero-review blockquote{margin:0;font-size:1.2rem;font-weight:600;font-style:italic}
+.hero-review figcaption{font-weight:700;font-size:.95rem;color:var(--muted)}
+.hero-review i,.hero-review svg{margin:0 3px 0 2px}
+.hero-review .g{color:#4285F4}
+.teacher-panel{display:grid!important;grid-template-columns:1fr minmax(0,380px);gap:28px;align-items:center}
+.teacher-photo{width:100%;border-radius:12px;border:2px solid var(--line)}
+@media (max-width:860px){.teacher-panel{grid-template-columns:minmax(0,1fr)}}
+.where-actions{display:grid;gap:10px;justify-items:start}
+.where-actions p{margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:8px 10px;margin:20px 0 0;padding:0;list-style:none}
+.facts li{background:var(--white);border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:600;font-size:.98rem}
+@media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero-photo{max-width:620px;order:-1;padding-top:34px}.hero-photo .bird{width:116px;right:18px;top:-32px}}
+.start-note{margin-top:18px;font-size:1.02rem;color:var(--charcoal);background:var(--white);border-left:6px solid var(--bamboo);border-radius:10px;padding:14px 18px}
+.expect{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;list-style:none;margin:0;padding:0}
+.expect li{background:var(--white);border:2px solid var(--line);border-top:6px solid var(--gold);border-radius:14px;padding:20px 22px}
+.expect h3{font-size:1.45rem;color:var(--charcoal)}
+.expect p{color:var(--muted);font-size:1rem;margin-top:6px}
+@media (max-width:860px){.expect{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.expect{grid-template-columns:minmax(0,1fr)}}
+.learn-more .panel p.price-chip{display:inline-block;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--burgundy);margin:2px 0 8px}
+.styles{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.styles>*{min-width:0}
+.styles .lede{margin-top:10px}
+.interest fieldset{border:0;margin:0;padding:0}
+.interest legend{font-weight:600;margin-bottom:8px}
+.choices{display:flex;flex-wrap:wrap;gap:10px}
+.interest .choices label{margin:0;display:inline-flex;align-items:center;gap:8px;background:var(--sand);border:2px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer}
+.interest .choices input{flex:none;width:18px;height:18px;min-height:0;padding:0;margin:0;border:0;accent-color:var(--burgundy)}
+.choices label:has(input:checked){background:var(--gold-soft);border-color:var(--gold)}
+@media (max-width:860px){.styles{grid-template-columns:minmax(0,1fr)}}
+.faq{display:grid;gap:12px;max-width:880px}
+.faq details{background:var(--white);border:2px solid var(--line);border-radius:12px;padding:0 20px}
+.faq summary{cursor:pointer;list-style:none;padding:16px 32px 16px 0;position:relative;font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:.02em;color:var(--charcoal)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1.8rem;color:var(--burgundy);line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--muted);padding:0 0 18px;font-size:1.02rem}
+.learn-reviews.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:980px){.learn-reviews.six{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.learn-reviews.six{grid-template-columns:minmax(0,1fr)}}
+.review figcaption .g,.mini-review .g{color:#4285F4}
+svg.gicon{width:1em;height:1em;vertical-align:-.14em;margin:0 4px 0 2px}
+.mini-review i,.group-class .mini-review svg{width:1em;height:1em;margin:0 3px 0 2px}
+.mini-review{margin:6px 0 14px;border-left:4px solid var(--gold);padding:4px 0 4px 14px}
+.mini-review blockquote{margin:0;font-style:italic;color:var(--charcoal);font-size:1rem}
+.mini-review figcaption{margin-top:4px;font-weight:700;font-size:.9rem;color:var(--muted)}
+.pricebox{text-align:center;font-family:var(--display);font-weight:800;line-height:.9}
+.pricebox s{display:block;font-size:1.6rem;color:#E9C9C6;text-decoration-thickness:3px}
+.pricebox b{display:block;font-size:4.2rem;color:var(--gold)}
+.pricebox .pill{display:inline-block;margin-top:8px;background:var(--gold);color:var(--charcoal);font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
+@media (max-width:860px){.pricebox{text-align:left}}
+.where{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;background:var(--white);border:2px solid var(--line);border-radius:16px;padding:24px 28px}
+.where h3{font-size:1.6rem;color:var(--charcoal)}
+.where p{color:var(--muted);margin-top:6px}
+@media (max-width:760px){.where{grid-template-columns:minmax(0,1fr)}}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BVVCYT1LLT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BVVCYT1LLT');
+</script>
 </head>
 <body>
-<p>This page has moved. <a href="/#learn">Continue to Bird Bam Mahjong Club</a>.</p>
+<header class="site" id="top">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Bird Bam Mahjong Club home"><img src="images/logo.svg" alt="Bird Bam Mahjong Club" width="195" height="78"></a>
+    <nav class="main" aria-label="Main">
+      <ul>
+        <li><a href="/#play">Play</a></li>
+        <li><a href="learn.html" aria-current="page">Learn</a></li>
+        <li><a href="/#shop">Shop</a></li>
+        <li><a href="/#membership">Membership</a></li>
+        <li><a href="/#private-events">Private Events</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="head-actions">
+      <a class="head-phone" href="tel:+18185647289"><span class="num">(818) 564-7289</span><span class="short">Call us</span></a>
+      <a class="btn primary small" href="https://app.playbypoint.com/play#/packages/565" target="_blank" rel="noopener">Book a class</a>
+    </div>
+    <details class="menu">
+      <summary>Menu</summary>
+      <ul>
+        <li><a href="/#play">Play</a></li>
+        <li><a href="learn.html" aria-current="page">Learn</a></li>
+        <li><a href="/#shop">Shop</a></li>
+        <li><a href="/#membership">Membership</a></li>
+        <li><a href="/#private-events">Private Events</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </details>
+  </div>
+</header>
+
+<main>
+  <!-- 1. TOP -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Mahjong lessons in Los Angeles</p>
+        <h1>Learn American Mahjong</h1>
+        <p class="lede">Small classes, patient teaching, and everything provided. Two classes take you from your first tile to a seat at a real game. Classes are held at our dedicated mahjong club in the Encino Town Center: a warm, comfortable room built for the game, with brand-new tables and sets.</p>
+        <ul class="facts"><li>No experience needed</li><li>All equipment provided</li><li>Small class size</li><li>Come solo or bring friends</li><li>Dedicated mahjong club</li></ul>
+        <figure class="hero-review"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>"Bird Bam is THE place and Jordana is THE teacher!"</blockquote><figcaption>Lara R. · <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google</figcaption></figure>
+      </div>
+      <figure class="hero-photo"><img class="photo" src="images/class.jpg" alt="Jordana teaching a small American Mahjong class at Bird Bam Mahjong Club" width="1600" height="900"><img class="bird" src="images/bird-professor-perch.png" alt="" width="600" height="417"></figure>
+    </div>
+  </section>
+
+  <!-- 2. PATH + 3. PACKAGE -->
+  <section class="block" id="path" style="padding-top:44px">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Your path to the table</p>
+        <h2>Two classes, then you're playing</h2>
+      </div>
+      <ol class="path">
+        <li>
+          <h3>Learn Mahjong 1:<br>Introductory Class</h3>
+          <p class="cost">$75 <small>· 3 hours</small></p>
+          <p>Learn the game from scratch: the tiles, the card, and how to build a hand. No experience or equipment needed.</p>
+          <p class="keep">Bird Bam's Quick Guide &amp; Mahjong Glossary are yours to keep!</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/intro-to-american-mahjong" target="_blank" rel="noopener">See dates</a>
+        </li>
+        <li>
+          <h3>Learn Mahjong 2:<br>Guided Play Session</h3>
+          <p class="cost">$75 <small>· 3 hours</small></p>
+          <p>A 30-minute refresher, followed by multiple real games with our instructor helping you choose hands, strategize, and improve your game.</p>
+          <p class="keep">Already know the basics? You can start here!</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/guided_play" target="_blank" rel="noopener">See dates</a>
+        </li>
+        <li>
+          <h3>You're ready:<br>Join open play</h3>
+          <p class="cost free">Free with Learn to Play Package (see below)</p>
+          <p>Sit down at a regular game with players at your level. Six sessions a week to choose from.</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">See dates</a>
+        </li>
+      </ol>
+
+      <div class="package">
+        <span class="sash" aria-hidden="true">BEST VALUE</span>
+        <p class="pricebox"><s aria-label="Regular price $170">$170</s><b>$140</b><span class="pill">Save $30</span></p>
+        <div>
+          <h3>Learn to Play Package: 9 hours of mahjong</h3>
+          <p>Book both classes and save! Plus come back for a free Open Play session.</p>
+        </div>
+        <a class="btn" href="https://app.playbypoint.com/play#/packages/565" target="_blank" rel="noopener">Book the package</a>
+      </div>
+
+      <div class="gift"><svg viewBox="0 0 100 120" aria-hidden="true"><rect x="14" y="30" width="72" height="86" rx="12" fill="#7A2423"/><rect x="8" y="30" width="72" height="86" rx="12" fill="#E7E2D4" stroke="#7A2423" stroke-width="3"/><rect x="4" y="30" width="72" height="86" rx="12" fill="#F8F7F1" stroke="#2C2B28" stroke-width="4"/><rect x="34" y="31" width="12" height="83" fill="#7A2423"/><rect x="6" y="64" width="68" height="12" fill="#7A2423"/><path d="M40 30 C26 6 6 14 18 28 C24 34 34 32 40 30 Z" fill="#9B3230" stroke="#2C2B28" stroke-width="3" stroke-linejoin="round"/><path d="M40 30 C54 6 74 14 62 28 C56 34 46 32 40 30 Z" fill="#9B3230" stroke="#2C2B28" stroke-width="3" stroke-linejoin="round"/><circle cx="40" cy="30" r="6" fill="#7A2423" stroke="#2C2B28" stroke-width="3"/></svg><p><b>Give the gift of mahjong</b><span>Lesson gift certificates available, delivered instantly by email.</span></p><div class="gift-cta"><a class="btn primary" href="https://checkout.yourgift.cards/29982598-332b-41a9-a807-b48d6b77d2b9" target="_blank" rel="noopener">Buy a gift certificate</a><span>Or call, text, or ask at the front desk</span></div></div>
+    </div>
+  </section>
+
+  <!-- 4. WHAT TO EXPECT -->
+  <section class="block band" id="expect">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">What to expect</p>
+        <h2>Just bring yourself</h2>
+      </div>
+      <ul class="expect">
+        <li><h3>Small class size</h3><p>Plenty of personal attention, so every question gets answered.</p></li>
+        <li><h3>Everything provided</h3><p>Tiles, racks, mats, and cards are all here for you. No equipment needed.</p></li>
+        <li><h3>Solo, with a friend, or a group</h3><p>Book however you like. We'll group you with other students when needed.</p></li>
+        <li><h3>A real mahjong club</h3><p>Comfortable tables, brand-new sets, and a welcoming space to learn, then come back to play.</p></li>
+        <li><h3>Keep the momentum</h3><p>We recommend booking Guided Play within a week or two of your intro, while it's fresh.</p></li>
+        <li><h3>Snacks welcome</h3><p>Bring your own food and drinks, or buy drinks and packaged snacks here.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. TEACHER + REVIEWS -->
+  <section class="block" id="teacher">
+    <div class="wrap">
+      <div class="learn-reviews six" style="margin-top:0">
+        <div class="panel teacher-panel">
+          <div class="teacher">
+            <img src="images/jordana.jpg" alt="Jordana Signer" width="192" height="193">
+            <div>
+              <p class="eyebrow">Meet your teacher</p>
+              <h3>Jordana Signer</h3>
+              <p>Co-founder and lead instructor. A seasoned player who has introduced "mahj" to hundreds of students from 8 to 80, with a clear, patient, and fun teaching style.</p>
+            </div>
+          </div>
+          <img class="teacher-photo" src="images/jordana-student.jpg" alt="Jordana with a student at a mahjong table in the Bird Bam club room" width="1200" height="800" loading="lazy">
+        </div>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Having zero experience in mahjong I was intimidated but Jordana provided interesting historical and cultural insights while breaking down the game and rules in an approachable way."</blockquote>
+          <figcaption>Elana S. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"I came to her after a cursory intro lesson of mahjong elsewhere and was very ready to throw the towel in… I'm so grateful I found Jordana."</blockquote>
+          <figcaption>Robin O. · <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"What an amazing experience learning mahj with Jordana! … She is patient and encouraging, and also thorough in her explanations without overwhelming newbies! If you've ever thought about learning mahj, Jordana is your teacher!"</blockquote>
+          <figcaption>Sarah P. · <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Jordana gave us a 30 minute refresher course and then we had 3 hours of guided play time with her and Dan. It really boosted my confidence level in my ability to read the card and choose my tiles."</blockquote>
+          <figcaption>Patty P. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Just took our second guided lessons with Jordana. She is adept at explaining the intricacies of this complex game and very patient with noobs. We are hooked!"</blockquote>
+          <figcaption>David T. · <i class="fa-brands fa-yelp" aria-hidden="true"></i>Yelp</figcaption>
+        </figure>
+        <figure class="review">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Instructor Jordana is a fantastic teacher. She's patient, gives a great introduction and orientation to the game. … It is money well spent, will definitely be back."</blockquote>
+          <figcaption>Jodi T. · <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. GROUP LESSONS + 7. PIVOTING CLINIC -->
+  <section class="block band" id="more">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">More ways to learn</p>
+        <h2>Groups and next steps</h2>
+      </div>
+      <div class="learn-more" style="margin-top:0">
+        <div class="panel group-class">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="10" y="10" width="80" height="80" rx="10" fill="#5E6E2C" stroke="#2C2B28" stroke-width="3"/><rect x="28" y="14" width="44" height="9" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><rect x="28" y="77" width="44" height="9" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><rect x="14" y="28" width="9" height="44" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><rect x="77" y="28" width="9" height="44" rx="3" fill="#A77347" stroke="#2C2B28" stroke-width="2"/><g fill="#F8F7F1" stroke="#2C2B28" stroke-width="1.5"><rect x="36" y="38" width="8" height="11" rx="1.5"/><rect x="46" y="38" width="8" height="11" rx="1.5"/><rect x="56" y="38" width="8" height="11" rx="1.5" transform="rotate(12 60 43)"/><rect x="40" y="52" width="8" height="11" rx="1.5" transform="rotate(-8 44 57)"/><rect x="51" y="52" width="8" height="11" rx="1.5"/></g></svg>
+          <div>
+            <h3>A class for your group</h3>
+            <p class="price-chip">$75 per person</p>
+            <p>Learn together! Book a private class for your friends, family, coworkers, or club, at a time that works for you.</p>
+            <ul class="tags"><li>Friends</li><li>Families</li><li>Coworkers</li><li>Birthdays</li><li>Bridal Showers</li></ul>
+            <figure class="mini-review"><blockquote>"A group of four of us decided to learn together, and she made the entire process fun, approachable, and totally addictive."</blockquote><figcaption>Leah L. · <svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google</figcaption></figure>
+            <p>Can't find a class time that works? We're adding sessions all the time.</p>
+            <a class="btn ghost small" href="tel:+18185647289">Call or text to schedule</a>
+          </div>
+        </div>
+        <div class="panel">
+          <span class="soon">Coming soon</span>
+          <h3>Pivoting Clinic</h3>
+          <p>Improve your game and mahj more often! Learn when to stay the course and when to switch to a new hand. Join the list and we'll tell you first when dates open.</p>
+          <a class="btn ghost small" href="https://birdbammahjongclub.playbypoint.com/programs/pivoting-clinic-interest" target="_blank" rel="noopener">Notify me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. OTHER STYLES -->
+  <section class="block" id="other-styles">
+    <div class="wrap styles">
+      <div>
+        <p class="eyebrow">Other styles of mahjong</p>
+        <h2>More ways to play, coming soon</h2>
+        <p class="lede">We teach American Mahjong today, and we're adding classes for more styles. Tell us which ones you'd like to learn, and you'll be the first to know when dates open.</p>
+      </div>
+      <form class="panel signup interest" id="interest">
+        <fieldset>
+          <legend>I'm interested in:</legend>
+          <div class="choices">
+            <label><input type="checkbox" name="style" value="Chinese / Hong Kong"> Chinese / Hong Kong</label>
+            <label><input type="checkbox" name="style" value="Riichi (Japanese)"> Riichi (Japanese)</label>
+            <label><input type="checkbox" name="style" value="Filipino"> Filipino</label>
+          </div>
+        </fieldset>
+        <label for="interest-email">Your email</label>
+        <div class="row">
+          <input id="interest-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+          <button class="btn primary" type="submit">Notify me</button>
+        </div>
+        <p class="done" id="interest-done" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- 9. FAQ -->
+  <section class="block band" id="faq">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Questions</p>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Do I need any experience?</summary><p>No. Learn Mahjong 1 starts from scratch: the tiles, the card, and how to build a hand. Most of our students have never played before.</p></details>
+        <details><summary>What should I bring?</summary><p>Just yourself. All equipment is provided, including tiles, racks, mats, and cards.</p></details>
+        <details><summary>Can I come by myself?</summary><p>Yes. Book solo, with a friend, or as a group. We&#x27;ll group you with other students when needed.</p></details>
+        <details><summary>I&#x27;ve played before. Where should I start?</summary><p>If you already know the basics, you can start with Learn Mahjong 2: Guided Play Session. Most people start with Learn Mahjong 1.</p></details>
+        <details><summary>How long are the classes?</summary><p>Each class is 3 hours. The Learn to Play Package includes both classes plus a free 3-hour open play session, for 9 hours of mahjong.</p></details>
+        <details><summary>What is American Mahjong?</summary><p>American Mahjong is the most popular style of mahjong in the U.S. It&#x27;s played with 152 tiles, including jokers and flowers, and a card of winning hands that the National Mah Jongg League publishes each year.</p></details>
+        <details><summary>Do you teach other styles?</summary><p>Not yet, but they&#x27;re coming. Join the interest list for Chinese / Hong Kong, Riichi (Japanese), or Filipino mahjong, and we&#x27;ll let you know when dates open.</p></details>
+        <details><summary>Can I book a private class for my group?</summary><p>Yes. Private and group classes are $75 per person, the same as our regular classes. Call or text (818) 564-7289 to schedule.</p></details>
+        <details><summary>Can I give a class as a gift?</summary><p>Yes. Lesson gift certificates are available online and delivered instantly by email. You can also call, text, or ask at the front desk.</p></details>
+        <details><summary>Can I bring food or drinks?</summary><p>Yes. You&#x27;re welcome to bring your own, and drinks and packaged snacks are also available for purchase.</p></details>
+        <details><summary>Where are you located?</summary><p>Bird Bam Mahjong Club is at 17200 Ventura Blvd, Suite 115, on the lower level of the Encino Town Center. Free parking is available on all sides of the center, plus underground parking.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. LOCATION -->
+  <section class="block" id="where">
+    <div class="wrap">
+      <div class="where">
+        <div>
+          <h3>Classes are held at Bird Bam Mahjong Club</h3>
+          <p>17200 Ventura Blvd, Suite 115 (lower level), Encino, CA 91316. Free parking on all sides of the center, plus underground parking.</p>
+        </div>
+        <div class="where-actions"><div class="btns"><a class="btn primary" href="https://maps.app.goo.gl/vJqeMvYfitUMzFzLA" target="_blank" rel="noopener">Get directions</a><a class="btn ghost" href="tel:+18185647289">Call or text</a></div><p>Or email <a class="mail" href="mailto:info@birdbamclub.com">info@birdbamclub.com</a></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap main-foot">
+    <div class="brand">
+      <img src="images/bird-tile.png" alt="" width="76" height="98">
+      <p>L.A.'s Premier<br>Mahjong Destination<span>Located in the Encino Town Center</span></p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+18185647289">(818) 564-7289</a></li>
+        <li><a href="mailto:info@birdbamclub.com">info@birdbamclub.com</a></li>
+        <li>17200 Ventura Blvd<br>Suite 115<br>Encino, CA 91316</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/#play">Play</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="/#shop">Shop</a></li>
+        <li><a href="/#membership">Membership</a></li>
+        <li><a href="/#private-events">Private Events</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <ul class="social">
+        <li><a href="https://www.instagram.com/bbmahjclub/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram" aria-hidden="true"></i><span>Instagram</span></a></li>
+        <li><a href="https://www.facebook.com/bbmahjclub" target="_blank" rel="noopener"><i class="fa-brands fa-facebook" aria-hidden="true"></i><span>Facebook</span></a></li>
+        <li><a href="https://www.tiktok.com/@bbmahjclub" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok" aria-hidden="true"></i><span>TikTok</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Bird Bam Mahjong Club LLC</span>
+      <a href="privacy.html">Privacy policy</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/brands.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/fontawesome.min.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Header shrinks on scroll; menu closes after a tap */
+const header = document.querySelector("header.site");
+const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 40);
+window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+document.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", () => a.closest("details").open = false));
+
+/* Other-styles interest list: one row per style in the mailing-list sheet (live site only) */
+const SIGNUP_URL = "https://script.google.com/macros/s/AKfycbwoECO9nOgLN2JzrsdI3TKDGDx4lclX2LyOQOZ2PHJdNmlt8i4xkCi1pDFAgbtqnFJE/exec";
+document.getElementById("interest").addEventListener("submit", async e => {
+  e.preventDefault();
+  const form = e.target, msg = document.getElementById("interest-done"), btn = form.querySelector("button");
+  const styles = [...form.querySelectorAll('input[name="style"]:checked')].map(i => i.value);
+  msg.hidden = false;
+  if(!styles.length){ msg.textContent = "Please choose at least one style."; return; }
+  const email = form.querySelector('input[type="email"]').value;
+  if(!/birdbamclub\.com$/.test(location.hostname)){ msg.textContent = "Thanks! We'll let you know when dates open. (Preview only: nothing was sent.)"; return; }
+  btn.disabled = true; msg.textContent = "Submitting…";
+  try {
+    for(const s of styles){
+      const data = new FormData(); data.append("email", email); data.append("source", "interest: " + s);
+      const res = await fetch(SIGNUP_URL, {method: "POST", body: data});
+      if(!res.ok) throw new Error(res.status);
+    }
+    msg.textContent = "Thanks! We'll let you know when dates open.";
+    form.reset();
+    if(window.gtag) gtag("event", "sign_up", {method: "style_interest", styles: styles.join(", ")});
+  } catch(err){ msg.textContent = "Something went wrong. Please try again, or email info@birdbamclub.com."; }
+  btn.disabled = false;
+});
+
+/* Analytics: count the clicks that matter */
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[href]"); if(!a || !window.gtag) return;
+  const h = a.getAttribute("href"), label = (a.getAttribute("aria-label") || a.textContent).trim().slice(0,80);
+  let ev = null;
+  if(h.startsWith("tel:")) ev = "phone_tap";
+  else if(h.startsWith("mailto:")) ev = "email_tap";
+  else if(h.includes("checkout.yourgift.cards")) ev = "gift_certificate_click";
+  else if(h.includes("packages/565")) ev = "package_click";
+  else if(h.includes("playbypoint.com")) ev = "booking_click";
+  else if(h.includes("maps.app.goo.gl")) ev = "directions_click";
+  if(ev) gtag("event", ev, {link_url: h, link_text: label, page: "learn"});
+});
+</script>
 </body>
 </html>
