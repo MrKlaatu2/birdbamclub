@@ -182,6 +182,20 @@ nav.main a:hover{color:var(--burgundy)}
 .gift-art .sparkles::after{bottom:12px;content:"✧   ✦  ✧     ✦   ✧"}
 @media (max-width:980px){.announce .art.gift-art{aspect-ratio:auto;min-height:220px}}
 .announce .gift-btn{flex:1 1 100%}
+.announce .art.pkg-art{display:block;cursor:pointer;background:var(--sand);min-height:240px;overflow:visible}
+.announce .art.pkg-art img:first-child{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.pkg-art .sash{z-index:2}
+.announce:has(.pkg-art){overflow:hidden}
+.pkg-row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--burgundy);border-radius:12px;padding:14px 16px;margin-top:4px}
+.pkg-row .pricebox s{color:#E9C9C6;font-size:1.3rem}
+.pkg-row .pricebox b{font-size:3.2rem;color:var(--gold)}
+.pkg-row .pricebox .pill{font-size:.9rem}
+.pkg-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pkg-list li{color:var(--cream);font-size:.95rem;border-bottom:1px solid rgba(248,247,241,.18);padding-bottom:5px}
+.pkg-list li:last-child{border-bottom:0;padding-bottom:0}
+.pkg-list b{font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;margin-right:6px}
+@media (max-width:980px){.announce .art.pkg-art{aspect-ratio:16/9;min-height:0}}
+@media (max-width:420px){.pkg-row{grid-template-columns:1fr}.pkg-row .pricebox{text-align:left}}
 .gift-picks{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .gift-picks li{background:var(--gold-soft);border:2px solid var(--gold);border-radius:10px;padding:6px 10px;font-weight:600;font-size:.95rem;line-height:1.2}
 .gift-picks b{display:block;font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--burgundy)}
@@ -522,11 +536,22 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
         </div>
       </template>
       <template id="announce-fallback">
+        <a class="art pkg-art" href="learn.html" aria-label="Learn to play mahjong at Bird Bam">
+          <img src="images/class.jpg" alt="Jordana teaching a small mahjong class at Bird Bam" width="1600" height="900" loading="lazy">
+          <span class="sash" aria-hidden="true">BEST VALUE</span>
+        </a>
         <div class="body">
-          <p class="label">Best value for beginners</p>
+          <p class="label">New to mahjong? Start here</p>
           <h2>Learn to Play Package</h2>
-          <p>Both beginner classes plus a free Open Play session: 9 hours of mahjong for $140.</p>
-          <div class="btns"><a class="btn primary" href="#learn">See the package</a></div>
+          <div class="pkg-row">
+            <p class="pricebox"><s aria-label="Regular price $170">$170</s><b>$140</b><span class="pill">Save $30</span></p>
+            <ul class="pkg-list">
+              <li><b>Intro class</b> 3 hours</li>
+              <li><b>Guided Play</b> 3 hours</li>
+              <li><b>Free open play</b> 3 hours</li>
+            </ul>
+          </div>
+          <div class="btns"><a class="btn primary pkg-btn" href="https://app.playbypoint.com/play#/packages/565" target="_blank" rel="noopener">Book the package</a><a class="btn ghost" href="learn.html">Class details</a></div>
         </div>
       </template>
     </div>
