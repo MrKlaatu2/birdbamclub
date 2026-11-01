@@ -138,7 +138,7 @@ def meter_page():
   <p class="top3h">Top mahjers</p>
   <div class="top3">{cards}</div>
   <div class="spacer"></div>
-  <p class="foot">Every mahjong at open play counts! Holiday Party: <b>Sat, Dec 12, 6–10:30 PM</b>. Attend 1+ November open play for the club price.<br>Full leaderboard &amp; rules: <b>birdbamclub.com/thankswinning.html</b></p>
+  <p class="foot">Every mahjong at open play counts! Holiday Party: <b>Sat, Dec 12, 6–10:30 PM</b>.<br>Attend 1+ November open play for the club price.<br>Full leaderboard &amp; rules: <b>birdbamclub.com/thankswinning.html</b></p>
 </div>'''
 
 
