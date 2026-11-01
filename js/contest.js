@@ -69,7 +69,7 @@ window.meterStatus = function(total, c){
 window.renderMeter = function(el, total, c, opts){
   c = c || window.CONTEST; opts = opts || {};
   const m = window.meterStatus(total, c);
-  const ticks = c.tiers.map(([v,price]) => `<span class="tick${total >= v ? " on" : ""}" style="left:${v / m.goal * 100}%"><i></i><b>${price}</b></span>`).join("");
+  const ticks = c.tiers.map(([v,price]) => `<span class="tick${total >= v ? " on" : ""}" style="left:${v / m.goal * 100}%"><i></i><em>${v}</em><b>${price}</b></span>`).join("");
   const msg = m.done ? `🎉 We did it! The ${c.goalName} is <b>FREE</b> for November players!`
     : `<b>${m.toNext}</b> more mahjong${m.toNext === 1 ? "" : "s"} until the price drops to <b>${m.next[1]}</b>!`;
   el.innerHTML = `<div class="meter${opts.compact ? " compact" : ""}">

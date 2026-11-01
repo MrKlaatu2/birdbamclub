@@ -8,12 +8,15 @@
 .meter-total b{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:800;font-size:2.8rem;line-height:1;color:var(--m-burg);margin-right:6px}
 .meter-price{text-align:right}
 .meter-price b{display:inline-block;font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:800;font-size:2.4rem;line-height:1;color:#fff;background:var(--m-green);border-radius:10px;padding:4px 14px}
-.meter-bar{position:relative;height:26px;margin:18px 10px 38px;background:var(--m-gold-soft);border:2px solid var(--m-brown);border-radius:999px}
+.meter-bar{position:relative;height:26px;margin:40px 10px 38px;background:var(--m-gold-soft);border:2px solid var(--m-brown);border-radius:999px}
 .meter-fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--m-gold),#E8B04A);min-width:12px;transition:width .8s ease}
 .meter-bar .tick{position:absolute;top:-2px;bottom:-2px;width:0}
 .meter-bar .tick i{position:absolute;left:-1px;top:0;bottom:0;width:2px;background:rgba(74,47,27,.35)}
 .meter-bar .tick:first-child i,.meter-bar .tick:last-child i{display:none}
 .meter-bar .tick b{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:800;font-size:1rem;color:#9A8F7A;white-space:nowrap}
+.meter-bar .tick em{position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);font-style:normal;font-family:"Barlow","Segoe UI",sans-serif;font-weight:700;font-size:.78rem;color:#9A8F7A;white-space:nowrap}
+.meter-bar .tick em::after{content:"";display:block;width:0;height:0;margin:1px auto 0;border:4px solid transparent;border-top-color:currentColor;border-bottom:0}
+.meter-bar .tick.on em{color:var(--m-brown)}
 .meter-bar .tick.on b{color:var(--m-burg)}
 .meter-bar .tick:last-child b{color:var(--m-green);font-size:1.05rem}
 .meter-msg{text-align:center;font-weight:600;font-size:1.05rem;color:var(--m-brown)}
@@ -21,13 +24,14 @@
 .meter.compact{padding:14px 16px 12px;box-shadow:4px 4px 0 var(--m-gold);border-width:2px}
 .meter.compact .meter-total b{font-size:2.1rem}
 .meter.compact .meter-price b{font-size:1.8rem;padding:2px 10px}
-.meter.compact .meter-bar{height:20px;margin:14px 8px 32px}
+.meter.compact .meter-bar{height:20px;margin:34px 8px 32px}
+.meter.compact .meter-bar .tick em{font-size:.7rem}
 .meter.compact .meter-bar .tick b{font-size:.85rem}
 .meter.compact .meter-msg{font-size:.95rem}
 @media (max-width:520px){
   .meter{padding:14px 14px 12px}
   .meter-total b{font-size:2.2rem}.meter-price{text-align:left}.meter-price b{font-size:1.8rem}
-  .meter-bar .tick b{font-size:.78rem}
-  .meter-bar .tick:nth-child(even) b{top:auto;bottom:calc(100% + 6px)}
-  .meter-bar{margin-top:30px}
+  .meter-bar .tick b{font-size:.74rem}
+  .meter-bar .tick em{font-size:.66rem}
+  .meter-bar{margin-left:12px;margin-right:12px}
 }

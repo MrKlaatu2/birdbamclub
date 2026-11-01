@@ -72,12 +72,14 @@ h1 span{color:var(--gold)}
 .tot{font-family:'BC';font-weight:700;font-size:22pt;color:var(--brown)}
 .pr{text-align:right}
 .pr b{display:inline-block;font-family:'BC';font-weight:800;font-size:58pt;line-height:1;color:#fff;background:var(--green);border-radius:14px;padding:4px 22px}
-.bar{position:relative;height:.5in;margin:.3in .15in .55in;background:var(--gs);border:3px solid var(--brown);border-radius:999px}
+.bar{position:relative;height:.5in;margin:.55in .15in .55in;background:var(--gs);border:3px solid var(--brown);border-radius:999px}
 .fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--gold);min-width:.3in}
 .tk{position:absolute;top:-3px;bottom:-3px;width:0}
 .tk i{position:absolute;left:-1.5px;top:0;bottom:0;width:3px;background:rgba(74,47,27,.35)}
 .tk.first i,.tk.last i{display:none}
 .tk b{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);font-family:'BC';font-weight:800;font-size:19pt;color:#A99E88;white-space:nowrap}
+.tk em{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);font-style:normal;font-family:'B';font-weight:600;font-size:13pt;color:#A99E88;white-space:nowrap}
+.tk.on em{color:var(--brown)}
 .tk.on b{color:var(--burg)}
 .tk.last b{color:var(--green)}
 .msg{text-align:center;font-family:'BC';font-weight:800;font-size:24pt;color:var(--brown);text-transform:uppercase;letter-spacing:.02em}
@@ -112,7 +114,7 @@ esc = html.escape
 
 def meter_page():
     ticks = "".join(
-        f'<span class="tk{" on" if total >= v else ""}{" first" if i == 0 else ""}{" last" if i == len(TIERS) - 1 else ""}" style="left:{v / goal * 100}%"><i></i><b>{p}</b></span>'
+        f'<span class="tk{" on" if total >= v else ""}{" first" if i == 0 else ""}{" last" if i == len(TIERS) - 1 else ""}" style="left:{v / goal * 100}%"><i></i><em>{v}</em><b>{p}</b></span>'
         for i, (v, p) in enumerate(TIERS))
     if nxt:
         msg = f'<em>{nxt[0] - total}</em> more mahjong{"s" if nxt[0] - total != 1 else ""} until the price drops to <em>{nxt[1]}</em>!'
