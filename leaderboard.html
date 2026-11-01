@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/meter.css">
 <style>
 :root{--cream:#F8F7F1;--sand:#EFEADB;--line:#DDD5BF;--charcoal:#2C2B28;--muted:#5F5B4E;--brown:#A77347;--burgundy:#7A2423;--gold:#C8963A;--gold-soft:#F3E6C4;--orange:#E0611C;--white:#fff;
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--body:"Barlow","Segoe UI",system-ui,sans-serif;color-scheme:light}
@@ -81,8 +82,9 @@ footer a{color:#D9D4C4}
 
 <main class="wrap">
   <p class="eyebrow" id="label">Open play contest leaderboard</p>
-  <h1 id="title">Hallo<span class="hl">win</span></h1>
-  <p class="intro">The top <span id="winners-n">5</span> players, highlighted below, are in prize position. Points update as we record them at the club. Every open play you attend earns another draw, so there's still time to climb!</p>
+  <h1 id="title">Leaderboard</h1>
+  <p class="intro" id="intro">The top <span id="winners-n">5</span> players, highlighted below, are in prize position. Points update as we record them at the club.</p>
+  <div id="meter-box" style="margin-top:22px" hidden></div>
 
   <div class="key" id="key"><b>Instant win prizes</b><ul></ul></div>
 
@@ -96,7 +98,7 @@ footer a{color:#D9D4C4}
 
   <div class="board">
     <table>
-      <thead><tr><th>Rank</th><th>Player</th><th class="pts">Points</th></tr></thead>
+      <thead><tr><th>Rank</th><th>Player</th><th class="pts" id="unit">Points</th></tr></thead>
       <tbody id="rows"><tr><td colspan="3">Loading the leaderboard…</td></tr></tbody>
     </table>
   </div>
@@ -105,7 +107,7 @@ footer a{color:#D9D4C4}
     <a class="btn ghost" id="rules" href="hallowin.html">Rules &amp; full prize list</a>
     <a class="btn primary" href="https://birdbammahjongclub.playbypoint.com/programs/mahj-open-play" target="_blank" rel="noopener">Book open play</a>
   </div>
-  <p class="fine">No purchase necessary. 18+. See official rules.</p>
+  <p class="fine" id="fine">No purchase necessary. 18+. See official rules.</p>
 </main>
 
 <footer>
@@ -120,23 +122,37 @@ footer a{color:#D9D4C4}
   document.getElementById("year").textContent = new Date().getFullYear();
   document.getElementById("label").textContent = `${months[+c.month.slice(5)-1]}'s open play contest leaderboard`;
   document.getElementById("rules").href = c.rules;
-  document.querySelector("#key ul").innerHTML = c.key.map(k => `<li>${k[0]} ${esc(k[1])}</li>`).join("");
+  document.getElementById("title").innerHTML = c.titleHtml || esc(c.name);
+  if(c.accent) document.querySelectorAll("#title .hl").forEach(el => el.style.color = c.accent);
+  document.title = `${c.name} Leaderboard | Bird Bam Mahjong Club`;
+  document.getElementById("unit").textContent = c.unit || "Points";
+  if(c.fine) document.getElementById("fine").textContent = c.fine;
+  if(c.type === "meter"){
+    document.getElementById("intro").innerHTML = `Every mahjong at open play counts toward the club total, which sets the price of our ${esc(c.goalName)}. The top ${c.winners} mahjers, highlighted below, win gift certificates.`;
+    document.querySelector("#key b").textContent = `Top ${c.winners} prizes`;
+    document.querySelector("#key ul").innerHTML = c.prizes.map(p => `<li>${esc(p[0])}: ${esc(p[1])}</li>`).join("");
+    document.getElementById("rules").textContent = "Mahj Meter & rules";
+  } else {
+    document.querySelector("#key ul").innerHTML = (c.key || []).map(k => `<li>${k[0]} ${esc(k[1])}</li>`).join("");
+  }
   const pts = document.getElementById("points");
   if(c.points && c.points.length){ pts.querySelector("dl").innerHTML = c.points.map(p => `<dt>${esc(p[0])}</dt><dd>${esc(p[1])}</dd>`).join(""); }
   else pts.hidden = true;
-  document.getElementById("winners-n").textContent = c.winners || 5;
+  const wn = document.getElementById("winners-n"); if(wn) wn.textContent = c.winners || 5;
   document.getElementById("winners-line").textContent = `The top ${c.winners || 5} players at the end of the month win prizes. Ties go to whoever reached that score first. See the official rules for details.`;
 
-  const {list} = await window.loadLeaderboard();
+  const {list, total} = await window.loadLeaderboard();
+  if(c.type === "meter"){ const mb = document.getElementById("meter-box"); mb.hidden = false; window.renderMeter(mb, total, c, {compact: true}); }
   const body = document.getElementById("rows");
   body.innerHTML = list.map(p => `<tr class="${p.rank <= (c.winners || 5) ? "top" : ""}" data-name="${esc(p.name.toLowerCase())}"><td class="rank">${p.rank}</td><td>${esc(p.name)}${p.prizes ? `<span class="prizes">${esc(p.prizes)}</span>` : ""}</td><td class="pts">${p.pts}</td></tr>`).join("");
+  if(!list.length) document.getElementById("rows").innerHTML = `<tr><td colspan="3">No ${esc((c.unit || "points").toLowerCase())} recorded yet. Come play!</td></tr>`;
 
   const input = document.getElementById("search"), status = document.getElementById("status");
   input.addEventListener("input", () => {
     const q = input.value.trim().toLowerCase();
     let shown = 0, first = null;
     body.querySelectorAll("tr").forEach(tr => {
-      const hit = !q || tr.dataset.name.includes(q);
+      const hit = !q || (tr.dataset.name || "").includes(q);
       tr.hidden = !hit; tr.classList.toggle("match", !!q && hit);
       if(hit){ shown++; if(!first) first = tr; }
     });

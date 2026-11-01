@@ -13,6 +13,7 @@
 <title>Bird Bam Mahjong Club | L.A.'s Premier Mahjong Destination in Encino</title>
 <meta name="description" content="L.A.'s Premier Mahjong Destination, in the Encino Town Center. American Mahjong open play six times a week, beginner classes, private and automatic tables, parties, and a mahjong boutique.">
 <link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="css/meter.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
@@ -256,6 +257,8 @@ section.block.band{background:var(--sand)}
 .contest h3{font-size:2.3rem;margin-top:4px}
 .contest h3 .hl{color:var(--orange)}
 .contest p{color:var(--muted);margin-top:8px;font-size:1rem}
+.tw-tag{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase;color:#5D7F2E!important;margin-top:2px!important}
+.board td.prize{text-align:right;color:#5D7F2E;font-weight:700;font-size:.9rem;white-space:nowrap}
 .prize-key{margin-top:16px;font-size:1.15rem;background:var(--sand);border-radius:10px;padding:14px 18px;text-align:center}
 .prize-key b{display:block;font-family:var(--display);font-size:1.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--burgundy);margin-bottom:6px}
 .prize-key ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px}
@@ -592,35 +595,30 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
           </div>
         </div>
 
-        <!-- Contest: shown during its month; otherwise the fallback. On the live site this comes from the Google Sheet. -->
-        <div class="panel" id="contest" data-month="2026-10">
+        <!-- Contest: shown between data-from and data-until (LA time); otherwise the fallback. Settings and live data come from js/contest.js. -->
+        <div class="panel" id="contest" data-contest="Thankswinning" data-from="2026-10-30" data-until="2026-11-30">
           <div class="contest">
             <div>
-              <button class="flyer-btn" type="button" data-full="images/hallowin.jpg" data-alt="HalloWIN contest flyer, full size" aria-label="View the full HalloWIN flyer"><img src="images/hallowin.jpg" alt="HalloWIN contest flyer" width="700" height="990"></button>
+              <button class="flyer-btn" type="button" data-full="images/thankswinning.jpg" data-alt="Thankswinning contest flyer, full size" aria-label="View the full Thankswinning flyer"><img src="images/thankswinning.jpg" alt="Thankswinning contest flyer" width="773" height="1000"></button>
               <p class="hint">Tap to enlarge</p>
             </div>
             <div>
-              <p class="eyebrow" id="contest-label">October's open play contest</p>
-              <h3>Hallo<span class="hl">win</span></h3>
-              <p>All month, draw haunted tiles to collect points and win. One draw for each open play you attend, plus a bonus draw every time you make mahjong!</p>
-              <p>Prizes include a free unlimited monthly membership, open play passes, and shop gift certificates!</p>
+              <p class="eyebrow" id="contest-label">November's open play contest</p>
+              <h3>Thanks<span class="hl" style="color:#D4952B">winning</span></h3>
+              <p class="tw-tag">Mahj together · Win together</p>
+              <p>Every mahjong at open play counts toward one club total. The higher the total, the lower the price of our Holiday Party on Sat, Dec 12. Mahj enough and it's free!</p>
+              <p>Plus, the top 3 mahjers win $100, $50, and $25 gift certificates!</p>
             </div>
           </div>
-          <div class="prize-key"><b>Instant win prizes</b><ul><li>👻 Free open play pass</li><li>🎃 $10 gift certificate</li><li>🦇 Snack bag</li></ul></div>
+          <div id="contest-meter" style="margin-top:18px"></div>
           <div class="board">
             <table>
-              <caption>Leaderboard: top 5</caption>
-              <tbody>
-                <tr><td class="rank">1</td><td>Sarah Z. 🦇🦇👻🦇</td><td class="pts">202</td></tr>
-                <tr><td class="rank">2</td><td>Bing W. 🦇</td><td class="pts">164</td></tr>
-                <tr><td class="rank">3</td><td>Sanam A. 🦇🦇👻</td><td class="pts">161</td></tr>
-                <tr><td class="rank">4</td><td>Patty P. 🦇🎃🎃🦇</td><td class="pts">134</td></tr>
-                <tr><td class="rank">5</td><td>Jane G. 🎃🎃</td><td class="pts">95</td></tr>
-              </tbody>
+              <caption>Top mahjers</caption>
+              <tbody><tr><td colspan="3">The count starts November 1.</td></tr></tbody>
             </table>
           </div>
-          <div class="contest-links"><a class="btn ghost small" href="leaderboard.html">Full leaderboard</a><a class="btn ghost small" href="hallowin.html">Rules &amp; full prize list</a></div>
-          <p class="fine">No purchase necessary. 18+. See official rules.</p>
+          <div class="contest-links"><a class="btn ghost small" href="thankswinning.html">Mahj Meter &amp; rules</a><a class="btn ghost small" href="leaderboard.html">Full leaderboard</a></div>
+          <p class="fine">Attend at least 1 open play in November to get the club price. Open to players 18+. <a href="hallowin-winners.html">See the HalloWIN winners</a></p>
         </div>
         <template id="contest-fallback">
           <h3>Open play contests</h3>
@@ -968,14 +966,15 @@ function flagSessions(){
 }
 flagSessions(); setInterval(flagSessions, 60000);
 
-/* Contest: only during its month */
+/* Contest box: only between its dates; otherwise the fallback */
 (function(){
   const box = document.getElementById("contest");
   const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  if(box.dataset.month !== now.month){
+  if(now.date < box.dataset.from || now.date > box.dataset.until){
     box.innerHTML = document.getElementById("contest-fallback").innerHTML;
   } else {
-    document.getElementById("contest-label").textContent = `${months[+now.month.slice(5)-1]}'s open play contest`;
+    const c = window.contestByName && window.contestByName(box.dataset.contest);
+    if(c) document.getElementById("contest-label").textContent = `${months[+c.month.slice(5)-1]}'s open play contest`;
   }
 })();
 
@@ -1021,27 +1020,19 @@ window.addEventListener("resize", fitLockup);
   }, {once:true});
 })();
 
-/* HalloWIN final-days card: live leader and instant-prize count */
+/* Contest box: live meter and top players from the contest sheet */
 (async function(){
-  const lead = document.getElementById("hw-leader"), prz = document.getElementById("hw-prizes");
-  if(!lead || !window.loadLeaderboard) return;
-  const {list} = await window.loadLeaderboard();
+  const box = document.getElementById("contest");
+  const tb = box.querySelector(".board tbody");
+  const c = window.contestByName && window.contestByName(box.dataset.contest);
+  if(!tb || !c) return;
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
-  if(list.length){ const top = list[0]; lead.innerHTML = `🏆 ${esc(top.name)} leads with ${top.pts} points`; }
-  const keys = (window.CONTEST.key || []).map(k => k[0]);
-  const counts = keys.map(k => list.reduce((n,p) => n + Array.from(p.prizes || "").filter(ch => ch === k).length, 0));
-  const total = counts.reduce((a,b) => a+b, 0);
-  const passes = counts[0] || 0;
-  if(total) prz.innerHTML = `🎃 ${total} instant prizes won so far${passes ? `, including ${passes} free open play passes` : ""}!`;
-})();
-
-/* Live top 5 from the leaderboard sheet (falls back to the copy above) */
-(async function(){
-  const tb = document.querySelector("#contest .board tbody");
-  if(!tb || !window.loadLeaderboard) return;
-  const {list} = await window.loadLeaderboard();
-  const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
-  tb.innerHTML = list.slice(0,5).map(p => `<tr><td class="rank">${p.rank}</td><td>${esc(p.name)} ${esc(p.prizes)}</td><td class="pts">${p.pts}</td></tr>`).join("");
+  const meter = document.getElementById("contest-meter");
+  if(meter && c.type === "meter") window.renderMeter(meter, 0, c, {compact: true});
+  const {list, total} = await window.loadLeaderboard(c);
+  if(meter && c.type === "meter") window.renderMeter(meter, total, c, {compact: true});
+  const top = list.filter(p => p.pts > 0).slice(0, c.winners || 5);
+  if(top.length) tb.innerHTML = top.map((p,i) => `<tr><td class="rank">${p.rank}</td><td>${esc(p.name)} ${esc(p.prizes || "")}</td><td class="pts">${p.pts}</td>${c.prizes ? `<td class="prize">${esc((c.prizes[i] || ["",""])[1].replace(" gift certificate"," gift cert"))}</td>` : ""}</tr>`).join("");
 })();
 
 /* Mailing list (live site posts to the existing Google Sheet) */
