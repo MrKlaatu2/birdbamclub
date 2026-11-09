@@ -183,6 +183,10 @@ nav.main a:hover{color:var(--burgundy)}
 .gift-art .sparkles::after{bottom:12px;content:"✧   ✦  ✧     ✦   ✧"}
 @media (max-width:980px){.announce .art.gift-art{aspect-ratio:auto;min-height:220px}}
 .announce .gift-btn{flex:1 1 100%}
+.announce .art.cf-art,.announce .art.cf-art:is(*){flex:none;min-height:0;height:auto;aspect-ratio:1632/1235}
+.announce .art.cf-art img{object-position:50% 0%}
+.announce .art.cf-art .hint{bottom:auto;top:10px}
+@media (max-width:980px){.announce .art.cf-art{aspect-ratio:1632/1235;height:auto}}
 .announce .art.pkg-art{display:block;cursor:pointer;background:var(--sand);min-height:240px;overflow:visible}
 .announce .art.pkg-art img:first-child{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .pkg-art .sash{z-index:2}
@@ -527,7 +531,7 @@ footer.site .brand p span{display:block;font-family:var(--body);font-weight:400;
       </article>
       <!-- Next announcement: Crak Friday Mega Mahj (through Fri, Nov 27), then gift certificates resume -->
       <template class="announce-next" data-until="2026-11-27">
-        <button class="art" type="button" data-full="images/crak-friday.jpg" data-alt="Crak Friday Mega Mahj flyer, full size" aria-label="View the full Crak Friday flyer"><img src="images/crak-friday.jpg" alt="Crak Friday Mega Mahj flyer" width="773" height="1000" style="object-position:50% 22%"><span class="hint">Tap to enlarge</span></button>
+        <button class="art cf-art" type="button" data-full="images/crak-friday.jpg" data-alt="Crak Friday Mega Mahj flyer, full size" aria-label="View the full Crak Friday flyer"><img src="images/crak-friday.jpg" alt="Crak Friday Mega Mahj flyer" width="773" height="1000"><span class="hint">Tap to enlarge</span></button>
         <div class="body">
           <p class="label">Fri, Nov 27 · 10 AM–6 PM</p>
           <h2>Crak Friday Mega Mahj</h2>
