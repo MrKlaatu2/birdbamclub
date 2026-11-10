@@ -49,6 +49,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.8rem;text-transform:up
 .pname{font-family:var(--display);font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:.03em;color:var(--brown);line-height:1.1}
 .pdesc{color:var(--muted);font-size:.9rem;margin:0;flex:1}
 .pprice{font-family:var(--display);font-weight:800;font-size:1.8rem;color:var(--burgundy);line-height:1}
+.pcard{margin:0;font-size:.85rem;color:var(--muted)}
 .pprice small{font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 20px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);cursor:pointer;background:var(--white);color:var(--burgundy)}
 .btn.primary{background:var(--burgundy);color:var(--cream)}
@@ -158,7 +159,7 @@ footer a{color:#D9D4C4}
         <div class="pbody">
           <div class="pname">Standard card</div>
           <p class="pdesc">The official 2027 NMJL card, regular size.</p>
-          <div class="pprice"><span class="price-sp">$16</span> <small>shipping included</small></div>
+          <div class="pprice"><span class="price-sp">$16</span> <small>with Venmo or cash</small></div><p class="pcard"><span class="cprice-sp">$16.79</span> by credit card</p>
           <div class="buy"></div>
         </div>
       </article>
@@ -167,12 +168,12 @@ footer a{color:#D9D4C4}
         <div class="pbody">
           <div class="pname">Large print card</div>
           <p class="pdesc">Same card with bigger, easier-to-read type.</p>
-          <div class="pprice"><span class="price-lp">$18</span> <small>shipping included</small></div>
+          <div class="pprice"><span class="price-lp">$18</span> <small>with Venmo or cash</small></div><p class="pcard"><span class="cprice-lp">$18.85</span> by credit card</p>
           <div class="buy"></div>
         </div>
       </article>
     </div>
-    <p class="hint" style="margin-top:12px">Cards ship to US addresses only. Each order is for one person and ships to one address.</p>
+    <p class="hint" style="margin-top:12px">Shipping is included. Cards ship to US addresses only. Each order is for one person and ships to one address.</p>
     <div class="cartbar">
       <div class="amt"><span class="cart-total">$0.00</span><small class="cart-sum">Your cart is empty</small></div>
       <button type="button" class="btn gold" id="to-checkout" disabled>Checkout</button>
@@ -185,7 +186,7 @@ footer a{color:#D9D4C4}
     <h1 style="margin-top:10px">Checkout</h1>
     <form id="f" novalidate>
       <h2 style="margin-top:6px">Order summary</h2>
-      <div class="summary"><div id="lines"></div><div class="sub" id="fee-line" hidden><span>Credit card fee (<span id="fee-pct">3</span>%)</span><span id="fee-amt"></span></div><div class="tot"><span>Total</span><span class="cart-total">$0.00</span></div></div>
+      <div class="summary"><div id="lines"></div><div class="sub" id="fee-line" hidden><span>Credit card price includes processing</span><span id="fee-amt"></span></div><div class="tot"><span>Total</span><span class="cart-total">$0.00</span></div></div>
 
       <h2>Shipping</h2>
       <p class="hint">The League mails your cards here when the 2027 card is released.</p>
@@ -206,16 +207,20 @@ footer a{color:#D9D4C4}
 
       <h2>Payment</h2>
       <div id="pay-online">
-        <div class="venmo-box">
+        <div class="pay">
+          <label class="opt"><input type="radio" name="payMethod" value="venmo" checked><div><b>Venmo</b><span>No fee. Venmo opens with the amount and your order number filled in.</span></div></label>
+          <label class="opt"><input type="radio" name="payMethod" value="card"><div><b>Credit card</b><span>Card prices ($<span class="cp-sp"></span> / $<span class="cp-lp"></span>) cover processing. You'll pay on our secure Shopify checkout.</span></div></label>
+        </div>
+        <div class="venmo-box" id="venmo-box">
           <div class="vh"><span class="vlogo">venmo</span> Pay with Venmo</div>
-          <p class="hint" style="margin-bottom:10px">When you place your order, Venmo opens with the amount and your order number filled in. Payment goes to Jordana Signer<span id="venmo-at"></span>, our NMJL collector.</p>
+          <p class="hint" style="margin-bottom:10px">Payment goes to Jordana Signer<span id="venmo-at"></span>, our NMJL collector.</p>
           <div class="f full"><label for="venmoUser">Your Venmo username</label><input id="venmoUser" autocomplete="off" autocapitalize="off" placeholder="@yourname"></div>
         </div>
-        <p class="inperson">Prefer cash or credit card? Place your order in person at the Bird Bam front desk. A credit card fee applies to cover processing costs.</p>
+        <p class="inperson">Paying cash? Place your order in person at the Bird Bam front desk.</p>
       </div>
       <div id="pay-desk" class="pay" hidden>
-        <label class="opt"><input type="radio" name="payMethod" value="cash" checked><div><b>Cash</b><span>No fee</span></div></label>
-        <label class="opt"><input type="radio" name="payMethod" value="card"><div><b>Credit card</b><span>Adds the processing fee. Charge the total shown.</span></div></label>
+        <label class="opt"><input type="radio" name="payMethod" value="cash"><div><b>Cash</b><span>No fee</span></div></label>
+        <label class="opt"><input type="radio" name="payMethod" value="card"><div><b>Credit card</b><span>Card prices cover processing. Charge the total shown.</span></div></label>
       </div>
 
       <div class="f full" style="margin-top:18px"><label for="notes">Anything we should know? <small>(optional)</small></label><textarea id="notes" rows="2"></textarea></div>
@@ -241,12 +246,15 @@ const CONFIG = {
   ENDPOINT: "",            // Google Apps Script web app URL (ends in /exec)
   VENMO: "",               // Jordana's Venmo handle without @
   PRICE_SP: 16, PRICE_LP: 18,
-  CARD_FEE_PCT: 3,         // in-person credit card fee (desk only)
+  CARD_SP: 16.79, CARD_LP: 18.85,   // credit card prices (cover Shopify 2.9% + 30c)
+  SHOP: "shop.birdbamclub.com",
+  VARIANT_SP: "67932137160781", VARIANT_LP: "67932137193549",  // unlisted Shopify product "2027 NMJL Card"
   MAX_EACH: 20
 };
 /* ============================================================================ */
 const STATES = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY PR VI GU AS MP AA AE AP".split(" ");
-const ITEMS = { sp: { name: "Standard card", price: CONFIG.PRICE_SP }, lp: { name: "Large print card", price: CONFIG.PRICE_LP } };
+const ITEMS = { sp: { name: "Standard card" }, lp: { name: "Large print card" } };
+const price = (k, m) => m === "card" ? (k === "sp" ? CONFIG.CARD_SP : CONFIG.CARD_LP) : (k === "sp" ? CONFIG.PRICE_SP : CONFIG.PRICE_LP);
 const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s), money = n => "$" + n.toFixed(2);
 const val = id => $("#" + id).value.trim();
 const form = $("#f"), DESK = new URLSearchParams(location.search).has("desk");
@@ -254,21 +262,26 @@ const cart = { sp: 0, lp: 0 };
 
 $$(".price-sp").forEach(e => e.textContent = "$" + CONFIG.PRICE_SP);
 $$(".price-lp").forEach(e => e.textContent = "$" + CONFIG.PRICE_LP);
-$("#fee-pct").textContent = CONFIG.CARD_FEE_PCT;
+$$(".cprice-sp").forEach(e => e.textContent = money(CONFIG.CARD_SP)); $$(".cprice-lp").forEach(e => e.textContent = money(CONFIG.CARD_LP));
+$$(".cp-sp").forEach(e => e.textContent = CONFIG.CARD_SP.toFixed(2)); $$(".cp-lp").forEach(e => e.textContent = CONFIG.CARD_LP.toFixed(2));
 $("#state").innerHTML = '<option value="">State</option>' + STATES.map(s => `<option${s === "CA" ? " selected" : ""}>${s}</option>`).join("");
 if (CONFIG.VENMO) $("#venmo-at").textContent = " (@" + CONFIG.VENMO + ")";
 
 if (DESK) {
   ["#intro", "#pay-online", "#fine"].forEach(x => $(x).hidden = true);
+  $$('#pay-online input[name="payMethod"]').forEach(r => r.disabled = true);
+  form.querySelector('#pay-desk [value="cash"]').checked = true;
   ["#desk-head", "#pay-desk", "#email-opt"].forEach(x => $(x).hidden = false);
   try { $("#deskPin").value = localStorage.getItem("nmjlDeskPin") || ""; $("#staff").value = localStorage.getItem("nmjlStaff") || ""; } catch (e) {}
   document.title = "NMJL Desk Sale | Bird Bam";
   $("#go").classList.replace("venmo", "primary");
-  $$('[name="payMethod"]').forEach(r => r.onchange = render);
 } else {
+  $$('#pay-desk input').forEach(r => r.disabled = true);
+  form.querySelector('#pay-online [value="venmo"]').checked = true;
   try { const saved = JSON.parse(sessionStorage.getItem("nmjlCart") || "{}"); ["sp", "lp"].forEach(k => cart[k] = Math.min(CONFIG.MAX_EACH, Math.max(0, saved[k] | 0))); } catch (e) {}
 }
-const method = () => DESK ? form.querySelector('[name="payMethod"]:checked').value : "venmo";
+const method = () => (form.querySelector('[name="payMethod"]:checked:not(:disabled)') || {}).value || (DESK ? "cash" : "venmo");
+$$('[name="payMethod"]').forEach(r => r.onchange = render);
 
 function setQty(k, n) {
   cart[k] = Math.max(0, Math.min(CONFIG.MAX_EACH, n));
@@ -276,9 +289,9 @@ function setQty(k, n) {
   render();
 }
 function totals() {
-  const sub = cart.sp * CONFIG.PRICE_SP + cart.lp * CONFIG.PRICE_LP;
-  const fee = DESK && method() === "card" ? Math.round(sub * CONFIG.CARD_FEE_PCT) / 100 : 0;
-  return { sub, fee, total: sub + fee, count: cart.sp + cart.lp };
+  const m = method(), r2 = n => Math.round(n * 100) / 100;
+  const sub = r2(cart.sp * CONFIG.PRICE_SP + cart.lp * CONFIG.PRICE_LP), total = r2(cart.sp * price("sp", m) + cart.lp * price("lp", m));
+  return { sub, fee: r2(total - sub), total, count: cart.sp + cart.lp, m };
 }
 function render() {
   const t = totals();
@@ -296,11 +309,13 @@ function render() {
   $("#to-checkout").disabled = !t.count;
   // checkout summary
   $("#lines").innerHTML = ["sp", "lp"].filter(k => cart[k]).map(k => `
-    <div class="line" data-item="${k}"><span class="n">${ITEMS[k].name}<small>${money(ITEMS[k].price)} each</small></span>
+    <div class="line" data-item="${k}"><span class="n">${ITEMS[k].name}<small>${money(price(k, t.m))} each</small></span>
       <span class="q"><button type="button" data-d="-1" aria-label="One fewer ${ITEMS[k].name}">−</button><span>${cart[k]}</span><button type="button" data-d="1" aria-label="One more ${ITEMS[k].name}">+</button></span>
-      <span class="p">${money(cart[k] * ITEMS[k].price)}</span></div>`).join("") || `<p class="hint" style="margin:10px 0">Your cart is empty. <button type="button" class="back" onclick="show('shop')">Add cards</button></p>`;
-  $("#fee-line").hidden = !t.fee; $("#fee-amt").textContent = money(t.fee);
-  $("#go").textContent = DESK ? `Record paid sale · ${money(t.total)}` : `Place order & pay ${money(t.total)} with Venmo`;
+      <span class="p">${money(cart[k] * price(k, t.m))}</span></div>`).join("") || `<p class="hint" style="margin:10px 0">Your cart is empty. <button type="button" class="back" onclick="show('shop')">Add cards</button></p>`;
+  $("#fee-line").hidden = !t.fee; $("#fee-amt").textContent = "+" + money(t.fee);
+  if (!DESK) $("#venmo-box").hidden = t.m !== "venmo";
+  $("#go").textContent = DESK ? `Record paid sale · ${money(t.total)}` : t.m === "card" ? `Place order & pay ${money(t.total)} by card` : `Place order & pay ${money(t.total)} with Venmo`;
+  $("#go").classList.toggle("venmo", !DESK && t.m === "venmo"); $("#go").classList.toggle("primary", DESK || t.m === "card");
   $("#go").disabled = !t.count;
 }
 document.addEventListener("click", e => {
@@ -329,7 +344,7 @@ function problem() {
   if (!val("city")) return ["city", "Please enter your city."];
   if (!val("state")) return ["state", "Please choose your state."];
   if (!/^\d{5}(-\d{4})?$/.test(val("zip"))) return ["zip", "ZIP code should be 5 digits."];
-  if (!DESK && !val("venmoUser").replace(/^@/, "")) return ["venmoUser", "Please enter your Venmo username so we can match your payment."];
+  if (!DESK && method() === "venmo" && !val("venmoUser").replace(/^@/, "")) return ["venmoUser", "Please enter your Venmo username so we can match your payment."];
   return null;
 }
 function showErr(msg, el) {
@@ -338,23 +353,25 @@ function showErr(msg, el) {
 }
 function newId() { const c = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s = ""; crypto.getRandomValues(new Uint8Array(5)).forEach(x => s += c[x % c.length]); return "BB-" + s; }
 let orderId = newId();
+const shopLink = (id, sp, lp, email) => `https://${CONFIG.SHOP}/cart/` + [sp ? CONFIG.VARIANT_SP + ":" + sp : "", lp ? CONFIG.VARIANT_LP + ":" + lp : ""].filter(Boolean).join(",") +
+  `?note=${encodeURIComponent("NMJL order " + id)}&attributes%5BNMJL%20Order%5D=${encodeURIComponent(id)}&checkout%5Bemail%5D=${encodeURIComponent(email)}`;
 const venmoLink = (id, total) => `https://venmo.com/${encodeURIComponent(CONFIG.VENMO)}?txn=pay&amount=${total.toFixed(2)}&note=${encodeURIComponent("NMJL 2027 cards " + id)}`;
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
   $("#err").hidden = true; if (DESK) $("#desk-ok").hidden = true;
   const bad = problem(); if (bad) { showErr(bad[1], bad[0]); return; }
-  if (!CONFIG.ENDPOINT || (!DESK && !CONFIG.VENMO)) { showErr("Online ordering isn't open yet. Please check back soon or email info@birdbamclub.com."); return; }
+  if (!CONFIG.ENDPOINT || (!DESK && method() === "venmo" && !CONFIG.VENMO)) { showErr("Online ordering isn't open yet. Please check back soon or email info@birdbamclub.com."); return; }
   const t = totals(), btn = $("#go"), m = method(), sp = cart.sp, lp = cart.lp;
-  // Open the Venmo tab inside the click so phones don't block it; point it at Venmo once the order is saved.
-  const win = DESK ? null : window.open("", "_blank");
+  // Venmo opens in a new tab (opened inside the click so phones don't block it); card goes to Shopify checkout in this tab.
+  const win = DESK || m === "card" ? null : window.open("", "_blank");
   const recipient = { first: val("first"), last: val("last"), email: val("email"), address1: val("address1"), address2: val("address2"), city: val("city"), state: val("state"), zip: val("zip"), memberId: val("memberId"), sp, lp };
   const body = new URLSearchParams({
     orderId, first: val("first"), last: val("last"), email: val("email"), phone: val("phone"),
     notes: val("notes"), website: form.website.value, payMethod: m, recipients: JSON.stringify([recipient])
   });
   if (DESK) { body.set("deskPin", val("deskPin")); body.set("staff", val("staff")); }
-  else body.set("venmoUser", val("venmoUser"));
+  else if (m === "venmo") body.set("venmoUser", val("venmoUser"));
   btn.disabled = true; btn.textContent = "Saving your order…";
   let res = null;
   try { const r = await fetch(CONFIG.ENDPOINT, { method: "POST", body }); res = await r.json(); } catch (err) { res = null; }
@@ -365,18 +382,19 @@ form.addEventListener("submit", async e => {
   const id = res.orderId || orderId, amt = typeof res.total === "number" ? res.total : t.total;
   if (window.gtag) gtag("event", "purchase", { transaction_id: id, value: amt, currency: "USD", payment_type: m });
   if (DESK) return deskDone(id, amt, m, res.fee || 0);
-  if (win) win.location.href = venmoLink(id, amt);
   try { sessionStorage.removeItem("nmjlCart"); } catch (e) {}
+  if (m === "card") { location.href = shopLink(id, sp, lp, val("email")); return; }
+  if (win) win.location.href = venmoLink(id, amt);
   done(id, amt, sp, lp, !win || win.closed);
 });
 
 function deskDone(id, amt, m, fee) {
   try { localStorage.setItem("nmjlDeskPin", val("deskPin")); localStorage.setItem("nmjlStaff", val("staff")); } catch (e) {}
   const ok = $("#desk-ok");
-  ok.innerHTML = `<b>Recorded ${id}</b> for ${esc(val("first"))} ${esc(val("last"))}: ${money(amt)} ${m === "card" ? "by credit card (incl. " + money(fee) + " fee)" : "cash"}. Marked paid.`;
+  ok.innerHTML = `<b>Recorded ${id}</b> for ${esc(val("first"))} ${esc(val("last"))}: ${money(amt)} ${m === "card" ? "by credit card (card price)" : "cash"}. Marked paid.`;
   ok.hidden = false;
   ["first", "last", "email", "phone", "address1", "address2", "city", "zip", "memberId", "notes"].forEach(k => $("#" + k).value = "");
-  $("#state").value = "CA"; form.querySelector('[value="cash"]').checked = true;
+  $("#state").value = "CA"; form.querySelector('#pay-desk [value="cash"]').checked = true;
   cart.sp = 0; cart.lp = 0; orderId = newId(); render(); show("shop");
 }
 

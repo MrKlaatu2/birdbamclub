@@ -16,14 +16,17 @@
  *   Save manifest CSV to Drive   makes the upload file for the NMJL portal
  *   Mark manifest as sent to NMJL   stamps today's date so those people drop off the Manifest
  *
- * Online orders (birdbamclub.com/nmjl) are Venmo only: placing the order opens Venmo with the amount filled in.
+ * Online orders (birdbamclub.com/nmjl) pay by Venmo (no fee) or credit card through the club's Shopify checkout
+ * (card prices cover Shopify's 2.9% + 30c). Cash is in person only, at the desk.
+ * Card payments are matched from Shopify's "Order #... placed by" emails to info@ (order number in the order note,
+ * or the buyer's email + amount).
  * Venmo payments are matched automatically: the script reads Venmo's "paid you" emails in this Google account's
  * Gmail every 15 minutes, finds the order number in the note, and ticks Paid when the amount is right.
  * (If Jordana's Venmo emails go to a different inbox, add a Gmail filter there that forwards
  *  emails from venmo@venmo.com to the account that owns this sheet.)
  * Unpaid online orders get a reminder email after reminderHours and are cancelled after cancelDays.
  * You can always tick Paid by hand; Status updates to Paid.
- * Desk orders (birdbamclub.com/nmjl/?desk + deskPin) are cash or credit card, recorded as already paid.
+ * Desk orders (birdbamclub.com/nmjl/?desk + deskPin) are cash (base price) or credit card (card price), recorded as paid.
  */
 
 const SETTINGS = {
@@ -31,7 +34,11 @@ const SETTINGS = {
   priceLP: 18.00,                 // Large print card (NMJL item 9002)
   venmoHandle: "",                // Jordana's Venmo handle (no @). Online ordering stays closed until set.
   deskPin: "",                    // PIN staff type on the desk page (birdbamclub.com/nmjl/?desk). Desk entry is off until set.
-  cardFeePct: 3,                  // fee added to in-person credit card orders, in percent
+  cardPriceSP: 16.79,             // credit card price, Standard (covers Shopify 2.9% + 30c on a 1-card order)
+  cardPriceLP: 18.85,             // credit card price, Large print
+  shopDomain: "shop.birdbamclub.com",
+  shopVariantSP: "67932137160781",   // Shopify variant IDs of the unlisted "2027 NMJL Card" product
+  shopVariantLP: "67932137193549",
   reminderHours: 24,              // email a Venmo reminder to unpaid online orders after this many hours
   cancelDays: 3,                  // cancel unpaid online orders after this many days
   notifyEmail: "info@birdbamclub.com",
@@ -201,11 +208,12 @@ function parseOrder_(p) {
   };
   const desk = !!SETTINGS.deskPin && p.deskPin === SETTINGS.deskPin;
   if (p.deskPin && !desk) throw new Error("Wrong desk PIN.");
-  if (!desk && !SETTINGS.venmoHandle) throw new Error("Online ordering isn't open yet. Please check back soon.");
+  const card = p.payMethod === "card";
+  if (!desk && !card && !SETTINGS.venmoHandle) throw new Error("Venmo isn't set up yet. Please choose credit card.");
   if (!payer.first || !payer.last) throw new Error("Please enter your name.");
   if ((payer.email || !desk) && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payer.email)) throw new Error("Please enter a valid email.");
   const venmoUser = clean_(p.venmoUser, 40).replace(/^'?@/, "");
-  if (!desk && !venmoUser) throw new Error("Please enter your Venmo username so we can match your payment.");
+  if (!desk && !card && !venmoUser) throw new Error("Please enter your Venmo username so we can match your payment.");
 
   let list;
   try { list = JSON.parse(p.recipients || "[]"); } catch (x) { throw new Error("Order data was garbled. Please try again."); }
@@ -235,15 +243,20 @@ function parseOrder_(p) {
 
   const sp = recips.reduce((t, r) => t + r.sp, 0), lp = recips.reduce((t, r) => t + r.lp, 0);
   if (sp + lp > SETTINGS.maxCardsPerOrder) throw new Error("That's a lot of cards! Please call the club for orders over " + SETTINGS.maxCardsPerOrder + ".");
-  const subtotal = Math.round((sp * SETTINGS.priceSP + lp * SETTINGS.priceLP) * 100) / 100;
-  let method = "Venmo", fee = 0, paid = false, payNote = "Venmo @" + venmoUser;
+  const r2 = n => Math.round(n * 100) / 100;
+  const subtotal = r2(sp * SETTINGS.priceSP + lp * SETTINGS.priceLP);
+  const total = card ? r2(sp * SETTINGS.cardPriceSP + lp * SETTINGS.cardPriceLP) : subtotal;
+  const fee = r2(total - subtotal);
+  let method, paid = false, payNote;
   if (desk) {
-    method = p.payMethod === "card" ? "Card at club" : "Cash at club";
-    if (method === "Card at club") fee = Math.round(subtotal * SETTINGS.cardFeePct) / 100;
+    method = card ? "Card at club" : "Cash at club";
     paid = true;
-    payNote = "Desk" + (fee ? ", includes $" + fee.toFixed(2) + " card fee" : "") + (p.staff ? " (" + clean_(p.staff, 30) + ")" : "");
+    payNote = "Desk" + (fee ? ", includes $" + fee.toFixed(2) + " card processing" : "") + (p.staff ? " (" + clean_(p.staff, 30) + ")" : "");
+  } else if (card) {
+    method = "Card (Shopify)"; payNote = "Shopify checkout";
+  } else {
+    method = "Venmo"; payNote = "Venmo @" + venmoUser;
   }
-  const total = Math.round((subtotal + fee) * 100) / 100;
 
   return { id, payer, recips, sp, lp, cards: sp + lp, subtotal, fee, total, method, paid, payNote, notes: clean_(p.notes, 300) };
 }
@@ -281,6 +294,18 @@ function venmoLink_(o) {
     "&note=" + encodeURIComponent("NMJL 2027 cards " + o.id);
 }
 
+function shopifyLink_(id, sp, lp, email) {
+  const items = [sp ? SETTINGS.shopVariantSP + ":" + sp : "", lp ? SETTINGS.shopVariantLP + ":" + lp : ""].filter(String).join(",");
+  return "https://" + SETTINGS.shopDomain + "/cart/" + items + "?note=" + encodeURIComponent("NMJL order " + id) +
+    "&attributes%5BNMJL%20Order%5D=" + encodeURIComponent(id) + (email ? "&checkout%5Bemail%5D=" + encodeURIComponent(email) : "");
+}
+
+function payLine_(o) {
+  return o.method === "Card (Shopify)"
+    ? "please pay " + "$" + o.total.toFixed(2) + " by credit card here:\n" + shopifyLink_(o.id, o.sp, o.lp, o.payer.email)
+    : "please send $" + o.total.toFixed(2) + " by Venmo to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + "), our NMJL collector, as a regular friends payment, and keep " + o.id + " in the note:\n" + venmoLink_(o);
+}
+
 function sendEmails_(o) {
   const money = n => "$" + n.toFixed(2);
   const lines = o.recips.map(r => "• " + r.first + " " + r.last + ": " +
@@ -288,8 +313,7 @@ function sendEmails_(o) {
     " → " + r.address1 + (r.address2 ? ", " + r.address2 : "") + ", " + r.city + ", " + r.state + " " + r.zip).join("\n");
   const pay = o.paid
     ? "Paid " + money(o.total) + " at the club (" + (o.method === "Card at club" ? "credit card, includes " + money(o.fee) + " processing fee" : "cash") + "). Thank you!"
-    : "If you haven't finished paying yet, please send " + money(o.total) + " by Venmo to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + "), our NMJL collector, as a regular friends payment, and keep " + o.id + " in the note:\n" + venmoLink_(o) +
-      "\nOrders not paid within 3 days are cancelled.";
+    : "If you haven't finished paying yet, " + payLine_(o) + "\nOrders not paid within " + SETTINGS.cancelDays + " days are cancelled.";
 
   if (o.payer.email) MailApp.sendEmail({
     to: o.payer.email,
@@ -303,7 +327,7 @@ function sendEmails_(o) {
   if (SETTINGS.notifyEmail) {
     MailApp.sendEmail(SETTINGS.notifyEmail, "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",
       o.payer.first + " " + o.payer.last + " <" + o.payer.email + "> " + o.payer.phone + "\n\n" + lines + (o.notes ? "\n\nNote: " + o.notes : "") +
-      (o.paid ? "\n\n" + o.payNote + ". Already marked Paid.\n" : "\n\n" + o.payNote + ". Tick Paid in the Orders tab when the Venmo payment arrives.\n") + SpreadsheetApp.getActive().getUrl());
+      (o.paid ? "\n\n" + o.payNote + ". Already marked Paid.\n" : "\n\n" + o.payNote + ". It's marked Paid automatically when the payment arrives (or tick Paid by hand).\n") + SpreadsheetApp.getActive().getUrl());
   }
 }
 
@@ -322,6 +346,7 @@ function onEditInstalled(e) {
 
 // Reads Venmo "paid you" emails and ticks Paid when the order number and amount match
 function checkVenmoPayments() {
+  try { checkShopifyPayments(); } catch (e) { console.error(e); }
   const ss = SpreadsheetApp.getActive(), orders = ss.getSheetByName("Orders");
   if (!orders || orders.getLastRow() < 2) return;
   const label = GmailApp.getUserLabelByName("NMJL Venmo matched") || GmailApp.createLabel("NMJL Venmo matched");
@@ -359,13 +384,13 @@ function checkVenmoPayments() {
   });
 }
 
-function paymentReceivedEmail_(r, got) {
+function paymentReceivedEmail_(r, got, how) {
   const email = r[COL.email - 1]; if (!email) return;
   try {
     MailApp.sendEmail({
       to: email, replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
       subject: "Payment received: NMJL card order " + r[0],
-      body: "Hi " + r[COL.first - 1] + ",\n\nWe received your $" + got.toFixed(2) + " Venmo payment for order " + r[0] +
+      body: "Hi " + r[COL.first - 1] + ",\n\nWe received your $" + got.toFixed(2) + (how === "card" ? " card" : " Venmo") + " payment for order " + r[0] +
         ". You're all set. Your order goes to the League, and your 2027 card will be mailed to you when it's released.\n\nThank you!\n" + SETTINGS.clubName
     });
   } catch (e) { console.error(e); }
@@ -378,10 +403,10 @@ function followUpUnpaid() {
   const now = Date.now(), data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
   data.forEach((r, i) => {
     const row = i + 2, status = String(r[COL.status - 1] || "");
-    if (!r[0] || r[COL.paid - 1] === true || r[COL.method - 1] !== "Venmo") return;
+    if (!r[0] || r[COL.paid - 1] === true || ["Venmo", "Card (Shopify)"].indexOf(r[COL.method - 1]) < 0) return;
     if (status === "Cancelled" || /^Underpaid/.test(status)) return;
     const ageH = (now - new Date(r[COL.ordered - 1]).getTime()) / 36e5;
-    const o = { id: r[0], total: Number(r[COL.due - 1]) };
+    const o = { id: r[0], total: Number(r[COL.due - 1]), method: r[COL.method - 1], sp: Number(r[6]) || 0, lp: Number(r[7]) || 0, payer: { email: r[COL.email - 1] } };
     if (ageH >= SETTINGS.cancelDays * 24) {
       orders.getRange(row, COL.status).setValue("Cancelled");
       if (r[COL.email - 1]) try {
@@ -394,10 +419,46 @@ function followUpUnpaid() {
       if (r[COL.email - 1]) try {
         MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
           subject: "Reminder: finish paying for NMJL card order " + o.id,
-          body: "Hi " + r[COL.first - 1] + ",\n\nWe haven't received the Venmo payment for your 2027 NMJL card order " + o.id + " yet. Please send $" + o.total.toFixed(2) +
-            " to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + ") with " + o.id + " in the note:\n" + venmoLink_(o) +
+          body: "Hi " + r[COL.first - 1] + ",\n\nWe haven't received payment for your 2027 NMJL card order " + o.id + " yet. To finish, " + payLine_(o) +
             "\n\nUnpaid orders are cancelled after " + SETTINGS.cancelDays + " days.\n\n" + SETTINGS.clubName });
       } catch (e) { console.error(e); }
     }
+  });
+}
+
+// Reads Shopify's "Order #1234 placed by ..." staff emails (sent to the store's contact email) and ticks Paid
+// for "Card (Shopify)" orders: by NMJL order number in the email, or by the buyer's email + an amount that covers it.
+function checkShopifyPayments() {
+  const orders = SpreadsheetApp.getActive().getSheetByName("Orders");
+  if (!orders || orders.getLastRow() < 2) return;
+  const label = GmailApp.getUserLabelByName("NMJL Shopify matched") || GmailApp.createLabel("NMJL Shopify matched");
+  const threads = GmailApp.search('subject:"placed by" "NMJL" newer_than:30d -label:"NMJL Shopify matched"', 0, 50);
+  if (!threads.length) return;
+  const data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
+  threads.forEach(th => {
+    let matched = false;
+    th.getMessages().forEach(m => {
+      if (!/shopify/i.test(m.getFrom() + " " + m.getReplyTo() + " " + m.getPlainBody().slice(-2000))) return;
+      const body = m.getPlainBody(), lower = body.toLowerCase();
+      const amounts = (body.match(/\$\s?([\d,]+\.\d{2})/g) || []).map(x => Number(x.replace(/[$,\s]/g, "")));
+      const top = amounts.length ? Math.max.apply(null, amounts) : 0;
+      const shopNo = (m.getSubject().match(/Order\s*#?\s*(\d+)/i) || [])[1] || "";
+      const ids = body.match(/BB-[A-Z0-9]{5}/g) || [];
+      data.forEach((r, i) => {
+        if (r[COL.method - 1] !== "Card (Shopify)" || r[COL.paid - 1] === true || r[COL.status - 1] === "Cancelled") return;
+        const due = Number(r[COL.due - 1]), email = String(r[COL.email - 1] || "").toLowerCase();
+        const byId = ids.indexOf(r[0]) >= 0, byEmail = email && lower.indexOf(email) >= 0 && top + 0.005 >= due;
+        if (!byId && !byEmail) return;
+        const row = i + 2;
+        orders.getRange(row, COL.paid).setValue(true);
+        orders.getRange(row, COL.received).setValue(due);
+        orders.getRange(row, COL.paidDate).setValue(m.getDate());
+        orders.getRange(row, COL.note).setValue("Shopify order #" + shopNo + (byId ? "" : " (matched by email)"));
+        orders.getRange(row, COL.status).setValue("Paid");
+        r[COL.paid - 1] = true; matched = true;
+        paymentReceivedEmail_(r, due, "card");
+      });
+    });
+    if (matched) th.addLabel(label);
   });
 }
