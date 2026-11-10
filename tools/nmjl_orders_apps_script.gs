@@ -17,7 +17,12 @@
  *   Mark manifest as sent to NMJL   stamps today's date so those people drop off the Manifest
  *
  * Online orders (birdbamclub.com/nmjl) are Venmo only: placing the order opens Venmo with the amount filled in.
- * Tick Paid when the money shows up in Venmo.
+ * Venmo payments are matched automatically: the script reads Venmo's "paid you" emails in this Google account's
+ * Gmail every 15 minutes, finds the order number in the note, and ticks Paid when the amount is right.
+ * (If Jordana's Venmo emails go to a different inbox, add a Gmail filter there that forwards
+ *  emails from venmo@venmo.com to the account that owns this sheet.)
+ * Unpaid online orders get a reminder email after reminderHours and are cancelled after cancelDays.
+ * You can always tick Paid by hand; Status updates to Paid.
  * Desk orders (birdbamclub.com/nmjl/?desk + deskPin) are cash or credit card, recorded as already paid.
  */
 
@@ -27,6 +32,8 @@ const SETTINGS = {
   venmoHandle: "",                // Jordana's Venmo handle (no @). Online ordering stays closed until set.
   deskPin: "",                    // PIN staff type on the desk page (birdbamclub.com/nmjl/?desk). Desk entry is off until set.
   cardFeePct: 3,                  // fee added to in-person credit card orders, in percent
+  reminderHours: 24,              // email a Venmo reminder to unpaid online orders after this many hours
+  cancelDays: 3,                  // cancel unpaid online orders after this many days
   notifyEmail: "info@birdbamclub.com",
   country: "USA",                 // value written to the Country column
   clubName: "Bird Bam Mahjong Club",
@@ -35,7 +42,7 @@ const SETTINGS = {
   maxCardsPerOrder: 40
 };
 
-const ORDERS_HEAD = ["Order ID","Ordered","First","Last","Email","Phone","Standard (SP)","Large (LP)","Cards","Amount Due","Pay Method","Paid","Amount Received","Paid Date","Payment Note","Notes"];
+const ORDERS_HEAD = ["Order ID","Ordered","First","Last","Email","Phone","Standard (SP)","Large (LP)","Cards","Amount Due","Pay Method","Paid","Amount Received","Paid Date","Payment Note","Notes","Status"];
 const RECIP_HEAD  = ["Order ID","MemberID","First_Name","Last_Name","Email","Address1","Address2","City","State","Zip","Country","SP","LP","Paid","Sent to NMJL"];
 const MANIFEST_HEAD = ["MemberID","First_Name","Last_Name","Email","Address1","Address2","City","State","Zip","Country","SP","LP"];
 const STATES = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY PR VI GU AS MP AA AE AP".split(" ");
@@ -63,7 +70,7 @@ function setup() {
   // Highlight paid orders green
   const rule = SpreadsheetApp.newConditionalFormatRule()
     .whenFormulaSatisfied("=$L2=TRUE").setBackground("#EEF3E2")
-    .setRanges([orders.getRange("A2:P1000")]).build();
+    .setRanges([orders.getRange("A2:Q1000")]).build();
   orders.setConditionalFormatRules([rule]);
 
   // Manifest: paid people not yet sent to NMJL, in the portal's column order
@@ -88,6 +95,15 @@ function setup() {
 
   const blank = ss.getSheetByName("Sheet1");
   if (blank && ss.getSheets().length > 1 && blank.getLastRow() === 0) ss.deleteSheet(blank);
+  // Automatic jobs: Venmo email matching every 15 minutes, reminders/cancellations hourly
+  ScriptApp.getProjectTriggers().forEach(t => {
+    if (["checkVenmoPayments", "followUpUnpaid"].indexOf(t.getHandlerFunction()) >= 0) ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger("checkVenmoPayments").timeBased().everyMinutes(15).create();
+  ScriptApp.newTrigger("followUpUnpaid").timeBased().everyHours(1).create();
+  ScriptApp.getProjectTriggers().forEach(t => { if (t.getHandlerFunction() === "onEditInstalled") ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger("onEditInstalled").forSpreadsheet(ss).onEdit().create();
+
   SpreadsheetApp.getUi().alert("Setup done. Now Deploy > New deployment > Web app (Execute as: Me, Who has access: Anyone).");
 }
 
@@ -98,6 +114,7 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu("NMJL Cards")
     .addItem("Save manifest CSV to Drive", "saveManifestCsv")
     .addItem("Mark manifest as sent to NMJL", "markManifestSent")
+    .addItem("Check Venmo payments now", "checkVenmoPayments")
     .addSeparator()
     .addItem("Run setup again", "setup")
     .addToUi();
@@ -243,7 +260,7 @@ function save_(o) {
   const or = orders.getLastRow() + 1;
   orders.getRange(or, 1, 1, ORDERS_HEAD.length).setValues([[
     o.id, new Date(), o.payer.first, o.payer.last, o.payer.email, o.payer.phone,
-    o.sp, o.lp, o.cards, o.total, o.method, o.paid, o.paid ? o.total : "", o.paid ? new Date() : "", o.payNote, o.notes
+    o.sp, o.lp, o.cards, o.total, o.method, o.paid, o.paid ? o.total : "", o.paid ? new Date() : "", o.payNote, o.notes, o.paid ? "Paid" : "Awaiting payment"
   ]]);
   orders.getRange(or, 12).insertCheckboxes().setValue(o.paid);
 
@@ -288,4 +305,99 @@ function sendEmails_(o) {
       o.payer.first + " " + o.payer.last + " <" + o.payer.email + "> " + o.payer.phone + "\n\n" + lines + (o.notes ? "\n\nNote: " + o.notes : "") +
       (o.paid ? "\n\n" + o.payNote + ". Already marked Paid.\n" : "\n\n" + o.payNote + ". Tick Paid in the Orders tab when the Venmo payment arrives.\n") + SpreadsheetApp.getActive().getUrl());
   }
+}
+
+/* ---------- payment follow-through ---------- */
+const COL = { id: 1, ordered: 2, first: 3, email: 5, due: 10, method: 11, paid: 12, received: 13, paidDate: 14, note: 15, status: 17 };
+
+// Ticking Paid by hand keeps Status in step
+function onEditInstalled(e) {
+  const r = e.range, s = r.getSheet();
+  if (s.getName() !== "Orders" || r.getColumn() !== COL.paid || r.getRow() < 2) return;
+  const row = r.getRow(), paid = r.getValue() === true;
+  s.getRange(row, COL.status).setValue(paid ? "Paid" : "Awaiting payment");
+  if (paid && !s.getRange(row, COL.paidDate).getValue()) s.getRange(row, COL.paidDate).setValue(new Date());
+  if (paid && !s.getRange(row, COL.received).getValue()) s.getRange(row, COL.received).setValue(s.getRange(row, COL.due).getValue());
+}
+
+// Reads Venmo "paid you" emails and ticks Paid when the order number and amount match
+function checkVenmoPayments() {
+  const ss = SpreadsheetApp.getActive(), orders = ss.getSheetByName("Orders");
+  if (!orders || orders.getLastRow() < 2) return;
+  const label = GmailApp.getUserLabelByName("NMJL Venmo matched") || GmailApp.createLabel("NMJL Venmo matched");
+  const threads = GmailApp.search('from:venmo@venmo.com "paid you" newer_than:30d -label:"NMJL Venmo matched"', 0, 50);
+  if (!threads.length) return;
+  const data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
+  const rowOf = {}; data.forEach((r, i) => rowOf[r[0]] = i);
+  threads.forEach(th => {
+    let matched = false;
+    th.getMessages().forEach(m => {
+      if (!/venmo\.com/i.test(m.getFrom())) return;
+      const text = m.getSubject() + "\n" + m.getPlainBody();
+      const amt = (m.getSubject().match(/paid you \$([\d,]+\.\d{2})/i) || text.match(/\$([\d,]+\.\d{2})/) || [])[1];
+      const ids = text.match(/BB-[A-Z0-9]{5}/g) || [];
+      ids.forEach(id => {
+        const i = rowOf[id]; if (i === undefined || !amt) return;
+        const r = data[i], got = Number(amt.replace(/,/g, "")), row = i + 2;
+        if (r[COL.paid - 1] === true) { matched = true; return; }
+        if (got + 0.005 >= Number(r[COL.due - 1])) {
+          orders.getRange(row, COL.paid).setValue(true);
+          orders.getRange(row, COL.received).setValue(got);
+          orders.getRange(row, COL.paidDate).setValue(m.getDate());
+          orders.getRange(row, COL.note).setValue(String(r[COL.note - 1] || "") + " · auto-matched Venmo email");
+          orders.getRange(row, COL.status).setValue("Paid");
+          r[COL.paid - 1] = true;
+          paymentReceivedEmail_(r, got);
+        } else {
+          orders.getRange(row, COL.received).setValue(got);
+          orders.getRange(row, COL.status).setValue("Underpaid: check Venmo");
+        }
+        matched = true;
+      });
+    });
+    if (matched) th.addLabel(label);
+  });
+}
+
+function paymentReceivedEmail_(r, got) {
+  const email = r[COL.email - 1]; if (!email) return;
+  try {
+    MailApp.sendEmail({
+      to: email, replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
+      subject: "Payment received: NMJL card order " + r[0],
+      body: "Hi " + r[COL.first - 1] + ",\n\nWe received your $" + got.toFixed(2) + " Venmo payment for order " + r[0] +
+        ". You're all set. Your order goes to the League, and your 2027 card will be mailed to you when it's released.\n\nThank you!\n" + SETTINGS.clubName
+    });
+  } catch (e) { console.error(e); }
+}
+
+// Reminder after reminderHours, cancel after cancelDays (online Venmo orders only)
+function followUpUnpaid() {
+  const orders = SpreadsheetApp.getActive().getSheetByName("Orders");
+  if (!orders || orders.getLastRow() < 2) return;
+  const now = Date.now(), data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
+  data.forEach((r, i) => {
+    const row = i + 2, status = String(r[COL.status - 1] || "");
+    if (!r[0] || r[COL.paid - 1] === true || r[COL.method - 1] !== "Venmo") return;
+    if (status === "Cancelled" || /^Underpaid/.test(status)) return;
+    const ageH = (now - new Date(r[COL.ordered - 1]).getTime()) / 36e5;
+    const o = { id: r[0], total: Number(r[COL.due - 1]) };
+    if (ageH >= SETTINGS.cancelDays * 24) {
+      orders.getRange(row, COL.status).setValue("Cancelled");
+      if (r[COL.email - 1]) try {
+        MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
+          subject: "NMJL card order " + o.id + " cancelled",
+          body: "Hi " + r[COL.first - 1] + ",\n\nWe didn't receive payment for NMJL card order " + o.id + ", so it has been cancelled. If you still want a 2027 card, you can order again any time at https://birdbamclub.com/nmjl or in person at the club.\n\nIf you did pay, just reply to this email and we'll sort it out.\n\n" + SETTINGS.clubName });
+      } catch (e) { console.error(e); }
+    } else if (ageH >= SETTINGS.reminderHours && status === "Awaiting payment") {
+      orders.getRange(row, COL.status).setValue("Reminder sent");
+      if (r[COL.email - 1]) try {
+        MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
+          subject: "Reminder: finish paying for NMJL card order " + o.id,
+          body: "Hi " + r[COL.first - 1] + ",\n\nWe haven't received the Venmo payment for your 2027 NMJL card order " + o.id + " yet. Please send $" + o.total.toFixed(2) +
+            " to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + ") with " + o.id + " in the note:\n" + venmoLink_(o) +
+            "\n\nUnpaid orders are cancelled after " + SETTINGS.cancelDays + " days.\n\n" + SETTINGS.clubName });
+      } catch (e) { console.error(e); }
+    }
+  });
 }

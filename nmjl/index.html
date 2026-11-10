@@ -137,7 +137,7 @@ footer a{color:#D9D4C4}
           <div class="f full"><label for="memberId">NMJL member number <small>(optional; leave blank if you don't know it or are new)</small></label><input id="memberId" inputmode="numeric" maxlength="20"></div>
         </div>
         <div class="qty">
-          <div><label>Standard ($<span class="psp">16</span>)</label><div class="stepper" id="sp"><button type="button" aria-label="Fewer standard cards">−</button><output>1</output><button type="button" aria-label="More standard cards">+</button></div></div>
+          <div><label>Standard ($<span class="psp">16</span>)</label><div class="stepper" id="sp"><button type="button" aria-label="Fewer standard cards">−</button><output>0</output><button type="button" aria-label="More standard cards">+</button></div></div>
           <div><label>Large print ($<span class="plp">18</span>)</label><div class="stepper" id="lp"><button type="button" aria-label="Fewer large print cards">−</button><output>0</output><button type="button" aria-label="More large print cards">+</button></div></div>
         </div>
       </div>
@@ -279,7 +279,7 @@ function deskDone(id, amt, m, fee) {
   ok.innerHTML = `<b>Recorded ${id}</b> for ${esc(val("first"))} ${esc(val("last"))}: ${money(amt)} ${m === "card" ? "by credit card (incl. " + money(fee) + " fee)" : "cash"}. Marked paid.`;
   ok.hidden = false;
   ["first", "last", "email", "phone", "address1", "address2", "city", "zip", "memberId", "notes"].forEach(k => $("#" + k).value = "");
-  $("#state").value = "CA"; $("#sp output").textContent = "1"; $("#lp output").textContent = "0";
+  $("#state").value = "CA"; $("#sp output").textContent = "0"; $("#lp output").textContent = "0";
   form.querySelector('[value="cash"]').checked = true;
   orderId = newId(); calc(); scrollTo(0, 0);
 }
