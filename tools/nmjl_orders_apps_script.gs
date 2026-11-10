@@ -24,6 +24,7 @@ const SETTINGS = {
   notifyEmail: "info@birdbamclub.com",
   country: "USA",                 // value written to the Country column
   clubName: "Bird Bam Mahjong Club",
+  collector: "Jordana Signer",     // NMJL collector whose personal Venmo receives payments
   charity: "Milken Community School",
   maxCardsPerOrder: 40
 };
@@ -206,7 +207,7 @@ function parseOrder_(p) {
 
   const sp = recips.reduce((t, r) => t + r.sp, 0), lp = recips.reduce((t, r) => t + r.lp, 0);
   if (sp + lp > SETTINGS.maxCardsPerOrder) throw new Error("That's a lot of cards! Please call the club for orders over " + SETTINGS.maxCardsPerOrder + ".");
-  const method = p.payMethod === "club" || !SETTINGS.venmoHandle ? "Cash/check at club" : "Venmo";
+  const method = p.payMethod === "club" || !SETTINGS.venmoHandle ? "Cash at club" : "Venmo";
   const total = Math.round((sp * SETTINGS.priceSP + lp * SETTINGS.priceLP) * 100) / 100;
 
   return { id, payer, recips, sp, lp, cards: sp + lp, total, method, notes: clean_(p.notes, 300) };
@@ -251,8 +252,8 @@ function sendEmails_(o) {
     [r.sp ? r.sp + " standard" : "", r.lp ? r.lp + " large print" : ""].filter(String).join(", ") +
     " → " + r.address1 + (r.address2 ? ", " + r.address2 : "") + ", " + r.city + ", " + r.state + " " + r.zip).join("\n");
   const pay = o.method === "Venmo"
-    ? "Please pay " + money(o.total) + " by Venmo to @" + SETTINGS.venmoHandle + " and put " + o.id + " in the note:\n" + venmoLink_(o)
-    : "Please pay " + money(o.total) + " by cash or check (payable to " + SETTINGS.clubName + ") at the club.";
+    ? "Please pay " + money(o.total) + " by Venmo to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + "), our NMJL collector, as a regular friends payment, and keep " + o.id + " in the note:\n" + venmoLink_(o)
+    : "Please pay " + money(o.total) + " in cash at the club's front desk.";
 
   MailApp.sendEmail({
     to: o.payer.email,
@@ -260,8 +261,8 @@ function sendEmails_(o) {
     name: SETTINGS.clubName,
     subject: "Your 2027 NMJL card order " + o.id,
     body: "Hi " + o.payer.first + ",\n\nThanks for ordering your 2027 National Mah Jongg League cards through " + SETTINGS.clubName +
-      ". Every card supports " + SETTINGS.charity + ".\n\nOrder " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
-      "\n\nWe send paid orders to the League, and the League mails the cards to each address when the 2027 card is released.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
+      ". " + SETTINGS.collector + ", our NMJL collector, sends the orders to the League, and every card supports " + SETTINGS.charity + ".\n\nOrder " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
+      "\n\nPaid orders go to the League, and the League mails the cards to each address when the 2027 card is released.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
   });
   if (SETTINGS.notifyEmail) {
     MailApp.sendEmail(SETTINGS.notifyEmail, "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",

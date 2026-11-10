@@ -96,7 +96,7 @@ footer a{color:#D9D4C4}
   <div id="order-view">
     <p class="eyebrow">National Mah Jongg League</p>
     <h1>Your 20<span class="hl">27</span> card</h1>
-    <p class="lead">Order your new NMJL card through Bird Bam. We send the orders to the League, and the League mails each card to the address you give us when the 2027 card is released in the spring.</p>
+    <p class="lead">Order your new NMJL card through Bird Bam. Jordana Signer, our NMJL collector, sends the orders to the League, and the League mails each card to the address you give us when the 2027 card is released in the spring.</p>
     <p class="charity">Every card ordered through Bird Bam means a donation from the League to <b>Milken Community School</b>.</p>
     <div class="prices">
       <div class="price"><span>Standard</span><b id="p-sp">$16</b></div>
@@ -181,8 +181,8 @@ $("#p-sp").textContent = "$" + CONFIG.PRICE_SP; $("#p-lp").textContent = "$" + C
 
 /* payment options */
 const opts = [];
-if (CONFIG.VENMO) opts.push(["venmo", "Venmo", "Pay @" + CONFIG.VENMO + " right after you order. We'll open Venmo with the amount filled in."]);
-opts.push(["club", "Cash or check at the club", "Pay at the front desk next time you're in. Checks payable to Bird Bam Mahjong Club."]);
+if (CONFIG.VENMO) opts.push(["venmo", "Venmo", "Pay Jordana Signer (@" + CONFIG.VENMO + ") right after you order. We'll open Venmo with the amount filled in."]);
+opts.push(["club", "Cash at the club", "Pay cash at the front desk next time you're in."]);
 $("#pay").innerHTML = opts.map((o, i) =>
   `<label class="opt"><input type="radio" name="payMethod" value="${o[0]}" ${i ? "" : "checked"}><div><b>${o[1]}</b><span>${o[2]}</span></div></label>`).join("");
 
@@ -293,8 +293,8 @@ function done(id, total, method, sp, lp) {
     ${method === "venmo" ? `
       <p><b>One more step: pay by Venmo.</b> Your order is reserved once payment arrives.</p>
       <p><a class="btn venmo" href="${venmo}" target="_blank" rel="noopener">Pay ${money(total)} on Venmo</a></p>
-      <p class="hint">Paying to <b>@${esc(CONFIG.VENMO)}</b>. Please keep <b>${id}</b> in the note so we can match it.</p>`
-    : `<p>Please pay <b>${money(total)}</b> by cash or check (payable to Bird Bam Mahjong Club) at the front desk. Your order is reserved once payment arrives.</p>`}
+      <p class="hint">Paying Jordana Signer, <b>@${esc(CONFIG.VENMO)}</b>, our NMJL collector. Send it as a regular (friends) payment. Please keep <b>${id}</b> in the note so we can match it.</p>`
+    : `<p>Please pay <b>${money(total)}</b> in cash at the front desk. Your order is reserved once payment arrives.</p>`}
     <p class="hint">We emailed a copy to ${esc($("#email").value.trim())}. The League mails the cards when the 2027 card is released.</p>
     <p><a class="btn" href="./">Place another order</a></p>`;
   $("#order-view").hidden = true; $("#done-view").hidden = false; scrollTo(0, 0);
