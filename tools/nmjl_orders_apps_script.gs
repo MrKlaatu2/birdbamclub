@@ -322,7 +322,7 @@ function sendEmails_(o) {
     subject: "Your 2027 NMJL card order " + o.id,
     body: "Hi " + o.payer.first + ",\n\nThanks for ordering your 2027 National Mah Jongg League cards through " + SETTINGS.clubName +
       ". " + SETTINGS.collector + ", our NMJL collector, sends the orders to the League. We take orders at cost, and a donation is made to " + SETTINGS.charity + " for every card.\n\nOrder " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
-      "\n\nPaid orders go to the League, and the League mails the cards to each address when the 2027 card is released.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
+      "\n\nPaid orders go to the League, and the League mails the cards to each address when the 2027 card is released in early April.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
   });
   if (SETTINGS.notifyEmail) {
     MailApp.sendEmail(SETTINGS.notifyEmail, "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",
