@@ -2,7 +2,7 @@
  * Bird Bam — 2027 NMJL card orders (collector program)
  *
  * Paste this whole file into a NEW Google Sheet made in the Gmail account that receives the Venmo and Shopify
- * emails (mrklaatu@gmail.com): Extensions > Apps Script.
+ * emails (a dedicated club Gmail account): Extensions > Apps Script.
  * 1. Fill in SETTINGS below (Venmo handle).
  * 2. Run setup() once (choose "setup" in the function menu, click Run, allow access).
  * 3. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
