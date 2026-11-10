@@ -319,10 +319,10 @@ function sendEmails_(o) {
     to: o.payer.email,
     replyTo: SETTINGS.notifyEmail,
     name: SETTINGS.clubName,
-    subject: "Your 2027 NMJL card order " + o.id,
-    body: "Hi " + o.payer.first + ",\n\nThanks for ordering your 2027 National Mah Jongg League cards through " + SETTINGS.clubName +
-      ". " + SETTINGS.collector + ", our NMJL collector, sends the orders to the League. We take orders at cost, and a donation is made to " + SETTINGS.charity + " for every card.\n\nOrder " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
-      "\n\nPaid orders go to the League, and the League mails the cards to each address when the 2027 card is released in early April.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
+    subject: "Your 2027 NMJL card pre-order " + o.id,
+    body: "Hi " + o.payer.first + ",\n\nThanks for pre-ordering your 2027 NMJL card through " + SETTINGS.clubName + "! We take orders at cost via our official NMJL collector, " + SETTINGS.collector +
+      ", and a donation is made to " + SETTINGS.charity + " for every card.\n\nYour order: " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
+      "\n\nThe League will mail your card to the address above when the 2027 card is released in early April.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
   });
   if (SETTINGS.notifyEmail) {
     MailApp.sendEmail(SETTINGS.notifyEmail, "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",
@@ -391,7 +391,7 @@ function paymentReceivedEmail_(r, got, how) {
       to: email, replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
       subject: "Payment received: NMJL card order " + r[0],
       body: "Hi " + r[COL.first - 1] + ",\n\nWe received your $" + got.toFixed(2) + (how === "card" ? " card" : " Venmo") + " payment for order " + r[0] +
-        ". You're all set. Your order goes to the League, and your 2027 card will be mailed to you when it's released.\n\nThank you!\n" + SETTINGS.clubName
+        ". You're all set. Your order goes to the League, and your 2027 card will be mailed to you when it's released in early April.\n\nThank you!\n" + SETTINGS.clubName
     });
   } catch (e) { console.error(e); }
 }
