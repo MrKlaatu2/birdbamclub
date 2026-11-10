@@ -1,7 +1,8 @@
 /**
  * Bird Bam — 2027 NMJL card orders (collector program)
  *
- * Paste this whole file into a NEW Google Sheet: Extensions > Apps Script.
+ * Paste this whole file into a NEW Google Sheet made in the Gmail account that receives the Venmo and Shopify
+ * emails (mrklaatu@gmail.com): Extensions > Apps Script.
  * 1. Fill in SETTINGS below (Venmo handle).
  * 2. Run setup() once (choose "setup" in the function menu, click Run, allow access).
  * 3. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
@@ -42,6 +43,7 @@ const SETTINGS = {
   reminderHours: 24,              // email a Venmo reminder to unpaid online orders after this many hours
   cancelHours: 72,                // cancel unpaid online orders after this many hours
   notifyEmail: "info@birdbamclub.com",
+  sendAs: "info@birdbamclub.com",  // send customer emails from this address if it's a "Send mail as" address in this Gmail
   country: "USA",                 // value written to the Country column
   clubName: "Bird Bam Mahjong Club",
   collector: "Jordana Signer",     // NMJL collector whose personal Venmo receives payments
@@ -315,7 +317,7 @@ function sendEmails_(o) {
     ? "Paid " + money(o.total) + " at the club (" + (o.method === "Card at club" ? "credit card, includes " + money(o.fee) + " processing fee" : "cash") + "). Thank you!"
     : "If you haven't finished paying yet, " + payLine_(o) + "\nOrders not paid within " + SETTINGS.cancelHours + " hours are automatically cancelled.";
 
-  if (o.payer.email) MailApp.sendEmail({
+  if (o.payer.email) sendMail_({
     to: o.payer.email,
     replyTo: SETTINGS.notifyEmail,
     name: SETTINGS.clubName,
@@ -325,9 +327,9 @@ function sendEmails_(o) {
       "\n\nThe League will mail your card to the address above when the 2027 card is released in early April.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
   });
   if (SETTINGS.notifyEmail) {
-    MailApp.sendEmail(SETTINGS.notifyEmail, "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",
-      o.payer.first + " " + o.payer.last + " <" + o.payer.email + "> " + o.payer.phone + "\n\n" + lines + (o.notes ? "\n\nNote: " + o.notes : "") +
-      (o.paid ? "\n\n" + o.payNote + ". Already marked Paid.\n" : "\n\n" + o.payNote + ". It's marked Paid automatically when the payment arrives (or tick Paid by hand).\n") + SpreadsheetApp.getActive().getUrl());
+    sendMail_({ to: SETTINGS.notifyEmail, subject: "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",
+      body: o.payer.first + " " + o.payer.last + " <" + o.payer.email + "> " + o.payer.phone + "\n\n" + lines + (o.notes ? "\n\nNote: " + o.notes : "") +
+      (o.paid ? "\n\n" + o.payNote + ". Already marked Paid.\n" : "\n\n" + o.payNote + ". It's marked Paid automatically when the payment arrives (or tick Paid by hand).\n") + SpreadsheetApp.getActive().getUrl() });
   }
 }
 
@@ -387,7 +389,7 @@ function checkVenmoPayments() {
 function paymentReceivedEmail_(r, got, how) {
   const email = r[COL.email - 1]; if (!email) return;
   try {
-    MailApp.sendEmail({
+    sendMail_({
       to: email, replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
       subject: "Payment received: NMJL card order " + r[0],
       body: "Hi " + r[COL.first - 1] + ",\n\nWe received your $" + got.toFixed(2) + (how === "card" ? " card" : " Venmo") + " payment for order " + r[0] +
@@ -410,14 +412,14 @@ function followUpUnpaid() {
     if (ageH >= SETTINGS.cancelHours) {
       orders.getRange(row, COL.status).setValue("Cancelled");
       if (r[COL.email - 1]) try {
-        MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
+        sendMail_({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
           subject: "NMJL card order " + o.id + " cancelled",
           body: "Hi " + r[COL.first - 1] + ",\n\nWe didn't receive payment for NMJL card order " + o.id + ", so it has been cancelled. If you still want a 2027 card, you can order again any time at https://birdbamclub.com/nmjl or in person at the club.\n\nIf you did pay, just reply to this email and we'll sort it out.\n\n" + SETTINGS.clubName });
       } catch (e) { console.error(e); }
     } else if (ageH >= SETTINGS.reminderHours && status === "Awaiting payment") {
       orders.getRange(row, COL.status).setValue("Reminder sent");
       if (r[COL.email - 1]) try {
-        MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
+        sendMail_({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
           subject: "Reminder: finish paying for NMJL card order " + o.id,
           body: "Hi " + r[COL.first - 1] + ",\n\nWe haven't received payment for your 2027 NMJL card order " + o.id + " yet. To finish, " + payLine_(o) +
             "\n\nOrders not paid within " + SETTINGS.cancelHours + " hours of ordering are automatically cancelled.\n\n" + SETTINGS.clubName });
@@ -461,4 +463,11 @@ function checkShopifyPayments() {
     });
     if (matched) th.addLabel(label);
   });
+}
+
+// Sends from SETTINGS.sendAs when this Gmail account has it set up under "Send mail as"; otherwise from the account itself.
+function sendMail_(m) {
+  const opts = { name: m.name || SETTINGS.clubName, replyTo: m.replyTo || SETTINGS.notifyEmail };
+  try { if (SETTINGS.sendAs && GmailApp.getAliases().indexOf(SETTINGS.sendAs) >= 0) opts.from = SETTINGS.sendAs; } catch (e) {}
+  GmailApp.sendEmail(m.to, m.subject, m.body, opts);
 }
