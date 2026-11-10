@@ -99,7 +99,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:none}
 .venmo-box .vh{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:8px}
 .vlogo{background:var(--venmo);color:#fff;font-weight:800;font-style:italic;border-radius:6px;padding:1px 8px}
 .inperson{margin-top:12px;background:var(--sand);border-radius:12px;padding:10px 14px;font-size:.95rem}
-.paybar{margin-top:20px}
+.paybar{margin-top:12px}
+.warn{margin:20px 0 0;background:var(--gold-soft);border-left:6px solid var(--gold);border-radius:10px;padding:10px 14px;font-weight:600;font-size:.95rem}
 .err{background:#FBEAEA;border:2px solid var(--burgundy);color:var(--burgundy);border-radius:10px;padding:10px 14px;margin-top:16px;font-weight:600}
 .done{text-align:center}
 .done .big{font-family:var(--display);font-weight:800;font-size:2.6rem;color:var(--burgundy);margin:6px 0}
@@ -229,8 +230,9 @@ footer a{color:#D9D4C4}
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div id="err" class="err" role="alert" hidden></div>
+      <p class="warn" id="warn">Please pay right away: orders not paid within 72 hours are automatically cancelled.</p>
       <div class="paybar"><button class="btn venmo block" id="go" type="submit">Place order &amp; pay with Venmo</button></div>
-      <p class="fine" id="fine">Orders not paid within 3 days are cancelled. Orders are submitted to the National Mah Jongg League in batches. Questions? Email <a href="mailto:info@birdbamclub.com">info@birdbamclub.com</a>.</p>
+      <p class="fine" id="fine">Orders are submitted to the National Mah Jongg League in batches. Questions? Email <a href="mailto:info@birdbamclub.com">info@birdbamclub.com</a>.</p>
     </form>
   </section>
 
@@ -270,7 +272,7 @@ $("#state").innerHTML = '<option value="">State</option>' + STATES.map(s => `<op
 if (CONFIG.VENMO) $("#venmo-at").textContent = " (@" + CONFIG.VENMO + ")";
 
 if (DESK) {
-  ["#intro", "#pay-online", "#fine"].forEach(x => $(x).hidden = true);
+  ["#intro", "#pay-online", "#fine", "#warn"].forEach(x => $(x).hidden = true);
   $$('#pay-online input[name="payMethod"]').forEach(r => r.disabled = true);
   form.querySelector('#pay-desk [value="cash"]').checked = true;
   ["#desk-head", "#pay-desk", "#email-opt"].forEach(x => $(x).hidden = false);
@@ -409,7 +411,8 @@ function done(id, total, sp, lp, blocked) {
     <p>${cards} · <b>${money(total)}</b></p>
     <p><b>${blocked ? "Next: send your payment in Venmo." : "Finish your payment in the Venmo tab we opened."}</b><br>Your order goes to the League once payment arrives.</p>
     <p><a class="btn venmo" href="${venmoLink(id, total)}" target="_blank" rel="noopener">${blocked ? "Pay" : "Didn't open? Pay"} ${money(total)} on Venmo</a></p>
-    <p class="hint">Paying Jordana Signer, <b>@${esc(CONFIG.VENMO)}</b>, our NMJL collector. Send it as a regular friends payment and keep <b>${id}</b> in the note. Orders not paid within 3 days are cancelled.</p>
+    <p class="hint">Paying Jordana Signer, <b>@${esc(CONFIG.VENMO)}</b>, our NMJL collector. Send it as a regular friends payment and keep <b>${id}</b> in the note.</p>
+    <p class="warn">Orders not paid within 72 hours are automatically cancelled.</p>
     <p class="hint">We emailed a copy to ${esc(val("email"))}.</p>`;
   show("done");
 }

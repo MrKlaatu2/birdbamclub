@@ -24,7 +24,7 @@
  * Gmail every 15 minutes, finds the order number in the note, and ticks Paid when the amount is right.
  * (If Jordana's Venmo emails go to a different inbox, add a Gmail filter there that forwards
  *  emails from venmo@venmo.com to the account that owns this sheet.)
- * Unpaid online orders get a reminder email after reminderHours and are cancelled after cancelDays.
+ * Unpaid online orders get a reminder email after reminderHours and are cancelled after cancelHours.
  * You can always tick Paid by hand; Status updates to Paid.
  * Desk orders (birdbamclub.com/nmjl/?desk + deskPin) are cash (base price) or credit card (card price), recorded as paid.
  */
@@ -40,7 +40,7 @@ const SETTINGS = {
   shopVariantSP: "67932137160781",   // Shopify variant IDs of the unlisted "2027 NMJL Card" product
   shopVariantLP: "67932137193549",
   reminderHours: 24,              // email a Venmo reminder to unpaid online orders after this many hours
-  cancelDays: 3,                  // cancel unpaid online orders after this many days
+  cancelHours: 72,                // cancel unpaid online orders after this many hours
   notifyEmail: "info@birdbamclub.com",
   country: "USA",                 // value written to the Country column
   clubName: "Bird Bam Mahjong Club",
@@ -313,7 +313,7 @@ function sendEmails_(o) {
     " → " + r.address1 + (r.address2 ? ", " + r.address2 : "") + ", " + r.city + ", " + r.state + " " + r.zip).join("\n");
   const pay = o.paid
     ? "Paid " + money(o.total) + " at the club (" + (o.method === "Card at club" ? "credit card, includes " + money(o.fee) + " processing fee" : "cash") + "). Thank you!"
-    : "If you haven't finished paying yet, " + payLine_(o) + "\nOrders not paid within " + SETTINGS.cancelDays + " days are cancelled.";
+    : "If you haven't finished paying yet, " + payLine_(o) + "\nOrders not paid within " + SETTINGS.cancelHours + " hours are automatically cancelled.";
 
   if (o.payer.email) MailApp.sendEmail({
     to: o.payer.email,
@@ -396,7 +396,7 @@ function paymentReceivedEmail_(r, got, how) {
   } catch (e) { console.error(e); }
 }
 
-// Reminder after reminderHours, cancel after cancelDays (online Venmo orders only)
+// Reminder after reminderHours, cancel after cancelHours (online Venmo and card orders)
 function followUpUnpaid() {
   const orders = SpreadsheetApp.getActive().getSheetByName("Orders");
   if (!orders || orders.getLastRow() < 2) return;
@@ -407,7 +407,7 @@ function followUpUnpaid() {
     if (status === "Cancelled" || /^Underpaid/.test(status)) return;
     const ageH = (now - new Date(r[COL.ordered - 1]).getTime()) / 36e5;
     const o = { id: r[0], total: Number(r[COL.due - 1]), method: r[COL.method - 1], sp: Number(r[6]) || 0, lp: Number(r[7]) || 0, payer: { email: r[COL.email - 1] } };
-    if (ageH >= SETTINGS.cancelDays * 24) {
+    if (ageH >= SETTINGS.cancelHours) {
       orders.getRange(row, COL.status).setValue("Cancelled");
       if (r[COL.email - 1]) try {
         MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
@@ -420,7 +420,7 @@ function followUpUnpaid() {
         MailApp.sendEmail({ to: r[COL.email - 1], replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
           subject: "Reminder: finish paying for NMJL card order " + o.id,
           body: "Hi " + r[COL.first - 1] + ",\n\nWe haven't received payment for your 2027 NMJL card order " + o.id + " yet. To finish, " + payLine_(o) +
-            "\n\nUnpaid orders are cancelled after " + SETTINGS.cancelDays + " days.\n\n" + SETTINGS.clubName });
+            "\n\nOrders not paid within " + SETTINGS.cancelHours + " hours of ordering are automatically cancelled.\n\n" + SETTINGS.clubName });
       } catch (e) { console.error(e); }
     }
   });
