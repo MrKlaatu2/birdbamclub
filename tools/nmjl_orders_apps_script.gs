@@ -15,12 +15,18 @@
  * Sheet menu "NMJL Cards":
  *   Save manifest CSV to Drive   makes the upload file for the NMJL portal
  *   Mark manifest as sent to NMJL   stamps today's date so those people drop off the Manifest
+ *
+ * Online orders (birdbamclub.com/nmjl) are Venmo only: placing the order opens Venmo with the amount filled in.
+ * Tick Paid when the money shows up in Venmo.
+ * Desk orders (birdbamclub.com/nmjl/?desk + deskPin) are cash or credit card, recorded as already paid.
  */
 
 const SETTINGS = {
   priceSP: 16.00,                 // Standard card (NMJL item 9001)
   priceLP: 18.00,                 // Large print card (NMJL item 9002)
-  venmoHandle: "",                // e.g. "BirdBamMahjong" (no @). Leave "" to hide Venmo.
+  venmoHandle: "",                // Jordana's Venmo handle (no @). Online ordering stays closed until set.
+  deskPin: "",                    // PIN staff type on the desk page (birdbamclub.com/nmjl/?desk). Desk entry is off until set.
+  cardFeePct: 3,                  // fee added to in-person credit card orders, in percent
   notifyEmail: "info@birdbamclub.com",
   country: "USA",                 // value written to the Country column
   clubName: "Bird Bam Mahjong Club",
@@ -151,7 +157,7 @@ function doPost(e) {
     const order = parseOrder_(p);
     save_(order);
     try { sendEmails_(order); } catch (mailErr) { console.error(mailErr); }
-    return json_({ ok: true, orderId: order.id, total: order.total, cards: order.cards });
+    return json_({ ok: true, orderId: order.id, total: order.total, fee: order.fee, cards: order.cards, paid: order.paid });
   } catch (err) {
     return json_({ ok: false, error: String(err.message || err) });
   } finally {
@@ -176,8 +182,13 @@ function parseOrder_(p) {
     first: clean_(p.first, 40), last: clean_(p.last, 40),
     email: clean_(p.email, 120).toLowerCase(), phone: clean_(p.phone, 30)
   };
+  const desk = !!SETTINGS.deskPin && p.deskPin === SETTINGS.deskPin;
+  if (p.deskPin && !desk) throw new Error("Wrong desk PIN.");
+  if (!desk && !SETTINGS.venmoHandle) throw new Error("Online ordering isn't open yet. Please check back soon.");
   if (!payer.first || !payer.last) throw new Error("Please enter your name.");
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payer.email)) throw new Error("Please enter a valid email.");
+  if ((payer.email || !desk) && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payer.email)) throw new Error("Please enter a valid email.");
+  const venmoUser = clean_(p.venmoUser, 40).replace(/^'?@/, "");
+  if (!desk && !venmoUser) throw new Error("Please enter your Venmo username so we can match your payment.");
 
   let list;
   try { list = JSON.parse(p.recipients || "[]"); } catch (x) { throw new Error("Order data was garbled. Please try again."); }
@@ -207,10 +218,17 @@ function parseOrder_(p) {
 
   const sp = recips.reduce((t, r) => t + r.sp, 0), lp = recips.reduce((t, r) => t + r.lp, 0);
   if (sp + lp > SETTINGS.maxCardsPerOrder) throw new Error("That's a lot of cards! Please call the club for orders over " + SETTINGS.maxCardsPerOrder + ".");
-  const method = p.payMethod === "club" || !SETTINGS.venmoHandle ? "Cash at club" : "Venmo";
-  const total = Math.round((sp * SETTINGS.priceSP + lp * SETTINGS.priceLP) * 100) / 100;
+  const subtotal = Math.round((sp * SETTINGS.priceSP + lp * SETTINGS.priceLP) * 100) / 100;
+  let method = "Venmo", fee = 0, paid = false, payNote = "Venmo @" + venmoUser;
+  if (desk) {
+    method = p.payMethod === "card" ? "Card at club" : "Cash at club";
+    if (method === "Card at club") fee = Math.round(subtotal * SETTINGS.cardFeePct) / 100;
+    paid = true;
+    payNote = "Desk" + (fee ? ", includes $" + fee.toFixed(2) + " card fee" : "") + (p.staff ? " (" + clean_(p.staff, 30) + ")" : "");
+  }
+  const total = Math.round((subtotal + fee) * 100) / 100;
 
-  return { id, payer, recips, sp, lp, cards: sp + lp, total, method, notes: clean_(p.notes, 300) };
+  return { id, payer, recips, sp, lp, cards: sp + lp, subtotal, fee, total, method, paid, payNote, notes: clean_(p.notes, 300) };
 }
 
 function save_(o) {
@@ -225,9 +243,9 @@ function save_(o) {
   const or = orders.getLastRow() + 1;
   orders.getRange(or, 1, 1, ORDERS_HEAD.length).setValues([[
     o.id, new Date(), o.payer.first, o.payer.last, o.payer.email, o.payer.phone,
-    o.sp, o.lp, o.cards, o.total, o.method, false, "", "", "", o.notes
+    o.sp, o.lp, o.cards, o.total, o.method, o.paid, o.paid ? o.total : "", o.paid ? new Date() : "", o.payNote, o.notes
   ]]);
-  orders.getRange(or, 12).insertCheckboxes();
+  orders.getRange(or, 12).insertCheckboxes().setValue(o.paid);
 
   const start = recip.getLastRow() + 1;
   const rows = o.recips.map(r => [
@@ -251,22 +269,23 @@ function sendEmails_(o) {
   const lines = o.recips.map(r => "• " + r.first + " " + r.last + ": " +
     [r.sp ? r.sp + " standard" : "", r.lp ? r.lp + " large print" : ""].filter(String).join(", ") +
     " → " + r.address1 + (r.address2 ? ", " + r.address2 : "") + ", " + r.city + ", " + r.state + " " + r.zip).join("\n");
-  const pay = o.method === "Venmo"
-    ? "Please pay " + money(o.total) + " by Venmo to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + "), our NMJL collector, as a regular friends payment, and keep " + o.id + " in the note:\n" + venmoLink_(o)
-    : "Please pay " + money(o.total) + " in cash at the club's front desk.";
+  const pay = o.paid
+    ? "Paid " + money(o.total) + " at the club (" + (o.method === "Card at club" ? "credit card, includes " + money(o.fee) + " processing fee" : "cash") + "). Thank you!"
+    : "If you haven't finished paying yet, please send " + money(o.total) + " by Venmo to " + SETTINGS.collector + " (@" + SETTINGS.venmoHandle + "), our NMJL collector, as a regular friends payment, and keep " + o.id + " in the note:\n" + venmoLink_(o) +
+      "\nOrders not paid within 3 days are cancelled.";
 
-  MailApp.sendEmail({
+  if (o.payer.email) MailApp.sendEmail({
     to: o.payer.email,
     replyTo: SETTINGS.notifyEmail,
     name: SETTINGS.clubName,
     subject: "Your 2027 NMJL card order " + o.id,
     body: "Hi " + o.payer.first + ",\n\nThanks for ordering your 2027 National Mah Jongg League cards through " + SETTINGS.clubName +
-      ". " + SETTINGS.collector + ", our NMJL collector, sends the orders to the League, and every card supports " + SETTINGS.charity + ".\n\nOrder " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
+      ". " + SETTINGS.collector + ", our NMJL collector, sends the orders to the League. We take orders at cost, and a donation is made to " + SETTINGS.charity + " for every card.\n\nOrder " + o.id + "\n" + lines + "\n\nTotal: " + money(o.total) + "\n\n" + pay +
       "\n\nPaid orders go to the League, and the League mails the cards to each address when the 2027 card is released.\n\nQuestions? Just reply to this email.\n\n" + SETTINGS.clubName
   });
   if (SETTINGS.notifyEmail) {
     MailApp.sendEmail(SETTINGS.notifyEmail, "NMJL order " + o.id + ": " + o.cards + " cards, " + money(o.total) + " (" + o.method + ")",
       o.payer.first + " " + o.payer.last + " <" + o.payer.email + "> " + o.payer.phone + "\n\n" + lines + (o.notes ? "\n\nNote: " + o.notes : "") +
-      "\n\nTick Paid in the Orders tab when the money arrives.\n" + SpreadsheetApp.getActive().getUrl());
+      (o.paid ? "\n\n" + o.payNote + ". Already marked Paid.\n" : "\n\n" + o.payNote + ". Tick Paid in the Orders tab when the Venmo payment arrives.\n") + SpreadsheetApp.getActive().getUrl());
   }
 }
