@@ -38,7 +38,9 @@ h2{font-family:var(--display);font-weight:800;font-size:1.8rem;text-transform:up
 .products{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .product{background:var(--white);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .product.incart{border-color:var(--burgundy)}
-.pimg{aspect-ratio:4/3;background:var(--sand);display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--line)}
+.pimg{position:relative;aspect-ratio:4/3;background:#fff;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--line);padding:6%}
+.pimg img{width:100%;height:100%;object-fit:contain;display:block}
+.ptag{position:absolute;top:8px;left:8px;background:var(--burgundy);color:var(--cream);font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2px 8px}
 .mini{width:58%;background:var(--white);border:2px solid var(--brown);border-radius:6px;padding:8% 7%;box-shadow:4px 4px 0 var(--gold)}
 .mini b{display:block;font-family:var(--display);font-weight:800;color:var(--burgundy);text-transform:uppercase;line-height:1;text-align:center}
 .mini i{display:block;height:5px;border-radius:3px;background:var(--line);margin-top:7%}
@@ -155,16 +157,16 @@ footer a{color:#D9D4C4}
     </div>
     <div class="products">
       <article class="product sp" data-item="sp">
-        <div class="pimg" aria-hidden="true"><div class="mini"><b style="font-size:1.1rem">2027</b><i></i><i></i><i></i><i></i></div></div>
+        <div class="pimg"><img src="../images/nmjl-2027-card.jpg" alt="2027 National Mah Jongg League card, 90th year" width="430" height="336"></div>
         <div class="pbody">
           <div class="pname">Standard card</div>
-          <p class="pdesc">The official 2027 NMJL card, regular size.</p>
+          <p class="pdesc">The official 2027 NMJL card, 90th year. Regular size.</p>
           <div class="pprice"><span class="price-sp">$16</span> <small>with Venmo or cash</small></div><p class="pcard"><span class="cprice-sp">$16.79</span> by credit card</p>
           <div class="buy"></div>
         </div>
       </article>
       <article class="product lp" data-item="lp">
-        <div class="pimg" aria-hidden="true"><div class="mini"><b style="font-size:1.35rem">2027</b><i></i><i></i><i></i></div></div>
+        <div class="pimg"><img src="../images/nmjl-2027-card.jpg" alt="2027 National Mah Jongg League card, large print" width="430" height="336"><span class="ptag">Large print</span></div>
         <div class="pbody">
           <div class="pname">Large print card</div>
           <p class="pdesc">Same card with bigger, easier-to-read type.</p>
