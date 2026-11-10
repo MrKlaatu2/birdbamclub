@@ -47,14 +47,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:none}
 .stepper{display:flex;align-items:center;gap:8px}
 .stepper button{width:44px;height:44px;border-radius:10px;border:2px solid var(--burgundy);background:var(--white);color:var(--burgundy);font-size:1.4rem;font-weight:700;cursor:pointer}
 .stepper output{min-width:2ch;text-align:center;font-family:var(--display);font-weight:800;font-size:1.6rem}
-.remove{background:none;border:0;color:var(--burgundy);font:inherit;font-size:.9rem;text-decoration:underline;cursor:pointer;text-transform:none;letter-spacing:0}
-.same{display:flex;gap:8px;align-items:center;font-size:.95rem;margin:2px 0 8px}
-.same input{width:auto;min-height:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 20px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);cursor:pointer;background:var(--white);color:var(--burgundy)}
 .btn.primary{background:var(--burgundy);color:var(--cream)}
 .btn.venmo{background:var(--venmo);border-color:var(--venmo);color:#fff}
 .btn:disabled{opacity:.55;cursor:wait}
-.add{margin-top:14px}
 .pay{display:grid;gap:10px}
 .opt{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
 .opt input{width:22px;height:22px;min-height:0;margin-top:3px;accent-color:var(--burgundy)}
@@ -105,21 +101,26 @@ footer a{color:#D9D4C4}
     <p class="hint">Price includes US shipping. Cards can only be mailed to US addresses through us.</p>
 
     <form id="f" novalidate>
-      <h2>Your info</h2>
-      <p class="hint">So we can confirm your order and match your payment.</p>
+      <h2>Your order</h2>
+      <p class="hint">Cards are mailed by the League to the address below.</p>
       <div class="card">
         <div class="grid">
           <div class="f"><label for="first">First name</label><input id="first" name="first" autocomplete="given-name" required></div>
           <div class="f"><label for="last">Last name</label><input id="last" name="last" autocomplete="family-name" required></div>
           <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
           <div class="f"><label for="phone">Phone <small>(optional)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="f full"><label for="address1">Street address</label><input id="address1" autocomplete="address-line1" required></div>
+          <div class="f full"><label for="address2">Apt, suite, unit <small>(optional)</small></label><input id="address2" autocomplete="address-line2"></div>
+          <div class="f s2"><label for="city">City</label><input id="city" autocomplete="address-level2" required></div>
+          <div class="f s2 half"><label for="state">State</label><select id="state" autocomplete="address-level1" required></select></div>
+          <div class="f s2 half"><label for="zip">ZIP</label><input id="zip" inputmode="numeric" maxlength="10" autocomplete="postal-code" required></div>
+          <div class="f full"><label for="memberId">NMJL member number <small>(optional; leave blank if you don't know it or are new)</small></label><input id="memberId" inputmode="numeric" maxlength="20"></div>
+        </div>
+        <div class="qty">
+          <div><label>Standard ($<span class="psp">16</span>)</label><div class="stepper" id="sp"><button type="button" aria-label="Fewer standard cards">−</button><output>1</output><button type="button" aria-label="More standard cards">+</button></div></div>
+          <div><label>Large print ($<span class="plp">18</span>)</label><div class="stepper" id="lp"><button type="button" aria-label="Fewer large print cards">−</button><output>0</output><button type="button" aria-label="More large print cards">+</button></div></div>
         </div>
       </div>
-
-      <h2>Who gets cards</h2>
-      <p class="hint">Ordering for friends too? Add each person with their own mailing address. The League mails the cards straight to them.</p>
-      <div id="people"></div>
-      <button type="button" class="btn add" id="add">+ Add another person</button>
 
       <h2>How you'll pay</h2>
       <div class="pay" id="pay"></div>
@@ -143,27 +144,6 @@ footer a{color:#D9D4C4}
   <div class="wrap"><span>© 2026 Bird Bam Mahjong Club LLC</span><span><a href="../index.html">Home</a> · <a href="../privacy.html">Privacy policy</a></span></div>
 </footer>
 
-<template id="person-t">
-  <div class="card person">
-    <h3><span class="ptitle">Person 1</span><button type="button" class="remove">Remove</button></h3>
-    <label class="same"><input type="checkbox" class="me"> This is me</label>
-    <div class="grid">
-      <div class="f"><label>First name</label><input data-k="first" autocomplete="off" required></div>
-      <div class="f"><label>Last name</label><input data-k="last" autocomplete="off" required></div>
-      <div class="f full"><label>Email <small>(optional, the League uses it for card updates)</small></label><input data-k="email" type="email" autocomplete="off"></div>
-      <div class="f full"><label>Street address</label><input data-k="address1" required></div>
-      <div class="f full"><label>Apt, suite, unit <small>(optional)</small></label><input data-k="address2"></div>
-      <div class="f s2"><label>City</label><input data-k="city" required></div>
-      <div class="f s2 half"><label>State</label><select data-k="state" required></select></div>
-      <div class="f s2 half"><label>ZIP</label><input data-k="zip" inputmode="numeric" maxlength="10" required></div>
-      <div class="f full"><label>NMJL member number <small>(optional; leave blank if you don't know it or are new)</small></label><input data-k="memberId" inputmode="numeric" maxlength="20"></div>
-    </div>
-    <div class="qty">
-      <div><label>Standard ($<span class="psp">16</span>)</label><div class="stepper" data-k="sp"><button type="button" aria-label="Fewer standard cards">−</button><output>1</output><button type="button" aria-label="More standard cards">+</button></div></div>
-      <div><label>Large print ($<span class="plp">18</span>)</label><div class="stepper" data-k="lp"><button type="button" aria-label="Fewer large print cards">−</button><output>0</output><button type="button" aria-label="More large print cards">+</button></div></div>
-    </div>
-  </div>
-</template>
 
 <script>
 /* ===== SETTINGS: keep prices and Venmo handle the same as the Apps Script ===== */
@@ -176,8 +156,11 @@ const CONFIG = {
 /* ============================================================================ */
 const STATES = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY PR VI GU AS MP AA AE AP".split(" ");
 const $ = s => document.querySelector(s), money = n => "$" + n.toFixed(2);
-const people = $("#people"), form = $("#f");
+const form = $("#f");
 $("#p-sp").textContent = "$" + CONFIG.PRICE_SP; $("#p-lp").textContent = "$" + CONFIG.PRICE_LP;
+document.querySelectorAll(".psp").forEach(e => e.textContent = CONFIG.PRICE_SP);
+document.querySelectorAll(".plp").forEach(e => e.textContent = CONFIG.PRICE_LP);
+$("#state").innerHTML = '<option value="">State</option>' + STATES.map(s => `<option${s === "CA" ? " selected" : ""}>${s}</option>`).join("");
 
 /* payment options */
 const opts = [];
@@ -186,67 +169,28 @@ opts.push(["club", "Cash at the club", "Pay cash at the front desk next time you
 $("#pay").innerHTML = opts.map((o, i) =>
   `<label class="opt"><input type="radio" name="payMethod" value="${o[0]}" ${i ? "" : "checked"}><div><b>${o[1]}</b><span>${o[2]}</span></div></label>`).join("");
 
-let uid = 0;
-function addPerson(first) {
-  const n = $("#person-t").content.firstElementChild.cloneNode(true);
-  n.querySelector("select").innerHTML = '<option value="">State</option>' + STATES.map(s => `<option${s === "CA" ? " selected" : ""}>${s}</option>`).join("");
-  n.querySelector(".psp").textContent = CONFIG.PRICE_SP; n.querySelector(".plp").textContent = CONFIG.PRICE_LP;
-  n.querySelectorAll("label + input, label + select").forEach((el, i) => { el.id = "p" + (++uid) + "_" + i; el.previousElementSibling.htmlFor = el.id; });
-  if (!first) { n.querySelector(".me").closest(".same").remove(); n.querySelector('[data-k="sp"] output').textContent = "1"; }
-  else { n.querySelector(".me").checked = true; n.querySelector(".remove").remove(); }
-  n.querySelectorAll(".stepper").forEach(st => {
-    const out = st.querySelector("output"), [minus, plus] = st.querySelectorAll("button");
-    minus.onclick = () => { out.textContent = Math.max(0, +out.textContent - 1); calc(); };
-    plus.onclick = () => { out.textContent = Math.min(CONFIG.MAX_EACH, +out.textContent + 1); calc(); };
-  });
-  const rm = n.querySelector(".remove");
-  if (rm) rm.onclick = () => { n.remove(); renumber(); calc(); };
-  const me = n.querySelector(".me");
-  if (me) me.onchange = syncMe;
-  people.appendChild(n); renumber(); calc(); syncMe();
-  if (!first) n.querySelector('[data-k="first"]').focus();
-}
-function renumber() { people.querySelectorAll(".ptitle").forEach((t, i) => t.textContent = "Person " + (i + 1)); }
-function syncMe() {
-  const p = people.querySelector(".person"), me = p && p.querySelector(".me");
-  if (!me || !me.checked) return;
-  ["first", "last", "email"].forEach(k => p.querySelector(`[data-k="${k}"]`).value = $("#" + k).value);
-}
-["first", "last", "email"].forEach(k => $("#" + k).addEventListener("input", syncMe));
-people.addEventListener("input", e => {
-  const p = e.target.closest(".person"), me = p && p.querySelector(".me");
-  if (me && ["first", "last", "email"].includes(e.target.dataset.k)) me.checked = false;
+document.querySelectorAll(".stepper").forEach(st => {
+  const out = st.querySelector("output"), [minus, plus] = st.querySelectorAll("button");
+  minus.onclick = () => { out.textContent = Math.max(0, +out.textContent - 1); calc(); };
+  plus.onclick = () => { out.textContent = Math.min(CONFIG.MAX_EACH, +out.textContent + 1); calc(); };
 });
-
-function readPeople() {
-  return [...people.querySelectorAll(".person")].map(p => {
-    const o = {};
-    p.querySelectorAll("[data-k]").forEach(el => o[el.dataset.k] = el.tagName === "DIV" ? +el.querySelector("output").textContent : el.value.trim());
-    return o;
-  });
-}
+const val = id => $("#" + id).value.trim(), qty = id => +$("#" + id + " output").textContent;
 function calc() {
-  const ps = readPeople(), sp = ps.reduce((t, p) => t + p.sp, 0), lp = ps.reduce((t, p) => t + p.lp, 0);
-  const total = sp * CONFIG.PRICE_SP + lp * CONFIG.PRICE_LP;
+  const sp = qty("sp"), lp = qty("lp"), total = sp * CONFIG.PRICE_SP + lp * CONFIG.PRICE_LP;
   $("#tot").textContent = money(total);
   $("#tot-sub").textContent = [sp ? sp + " standard" : "", lp ? lp + " large print" : ""].filter(Boolean).join(" + ") || "0 cards";
-  return { ps, sp, lp, total };
+  return { sp, lp, total };
 }
 
 function problem() {
-  const v = id => $("#" + id).value.trim(), emailOk = s => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s);
-  if (!v("first") || !v("last")) return ["first", "Please enter your name."];
-  if (!emailOk(v("email"))) return ["email", "Please enter a valid email."];
-  const nodes = [...people.querySelectorAll(".person")];
-  for (let i = 0; i < nodes.length; i++) {
-    const p = nodes[i], g = k => p.querySelector(`[data-k="${k}"]`), who = "Person " + (i + 1) + ": ";
-    if (!g("first").value.trim() || !g("last").value.trim()) return [g("first"), who + "enter a first and last name."];
-    if (g("email").value.trim() && !emailOk(g("email").value.trim())) return [g("email"), who + "the email looks wrong."];
-    if (!g("address1").value.trim() || !g("city").value.trim()) return [g("address1"), who + "enter the mailing address."];
-    if (!g("state").value) return [g("state"), who + "choose a state."];
-    if (!/^\d{5}(-\d{4})?$/.test(g("zip").value.trim())) return [g("zip"), who + "ZIP code should be 5 digits."];
-    if (+g("sp").querySelector("output").textContent + +g("lp").querySelector("output").textContent < 1) return [g("sp").querySelector("button:last-child"), who + "choose at least one card."];
-  }
+  const emailOk = x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x);
+  if (!val("first") || !val("last")) return [val("first") ? "last" : "first", "Please enter your first and last name."];
+  if (!emailOk(val("email"))) return ["email", "Please enter a valid email."];
+  if (!val("address1")) return ["address1", "Please enter your street address."];
+  if (!val("city")) return ["city", "Please enter your city."];
+  if (!val("state")) return ["state", "Please choose your state."];
+  if (!/^\d{5}(-\d{4})?$/.test(val("zip"))) return ["zip", "ZIP code should be 5 digits."];
+  if (qty("sp") + qty("lp") < 1) return [$("#sp button:last-child"), "Choose at least one card."];
   return null;
 }
 function showErr(msg, el) {
@@ -262,11 +206,12 @@ form.addEventListener("submit", async e => {
   $("#err").hidden = true;
   const bad = problem(); if (bad) { showErr(bad[1], bad[0]); return; }
   if (!CONFIG.ENDPOINT) { showErr("Online ordering isn't open yet. Please check back soon or email info@birdbamclub.com."); return; }
-  const { ps, sp, lp, total } = calc(), btn = $("#go");
+  const { sp, lp, total } = calc(), btn = $("#go");
+  const recipient = { first: val("first"), last: val("last"), email: val("email"), address1: val("address1"), address2: val("address2"), city: val("city"), state: val("state"), zip: val("zip"), memberId: val("memberId"), sp, lp };
   const method = (form.querySelector('[name="payMethod"]:checked') || {}).value || "club";
   const body = new URLSearchParams({
     orderId, first: $("#first").value, last: $("#last").value, email: $("#email").value, phone: $("#phone").value,
-    notes: $("#notes").value, website: form.website.value, payMethod: method, recipients: JSON.stringify(ps)
+    notes: $("#notes").value, website: form.website.value, payMethod: method, recipients: JSON.stringify([recipient])
   });
   btn.disabled = true; btn.textContent = "Sending…";
   let res = null;
@@ -301,8 +246,8 @@ function done(id, total, method, sp, lp) {
 }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
 
-$("#add").onclick = () => addPerson(false);
-addPerson(true);
+form.addEventListener("input", () => { $("#err").hidden = true; });
+calc();
 </script>
 </body>
 </html>
