@@ -272,14 +272,14 @@ function save_(o) {
   const ids = orders.getLastRow() > 1 ? orders.getRange(2, 1, orders.getLastRow() - 1, 1).getValues().flat() : [];
   if (ids.indexOf(o.id) >= 0) return;
 
-  const or = orders.getLastRow() + 1;
+  const or = nextRow_(orders);
   orders.getRange(or, 1, 1, ORDERS_HEAD.length).setValues([[
     o.id, new Date(), o.payer.first, o.payer.last, o.payer.email, o.payer.phone,
     o.sp, o.lp, o.cards, o.total, o.method, o.paid, o.paid ? o.total : "", o.paid ? new Date() : "", o.payNote, o.notes, o.paid ? "Paid" : "Awaiting payment"
   ]]);
   orders.getRange(or, 12).insertCheckboxes().setValue(o.paid);
 
-  const start = recip.getLastRow() + 1;
+  const start = nextRow_(recip);
   const rows = o.recips.map(r => [
     o.id, r.memberId, r.first, r.last, r.email, r.address1, r.address2, r.city, r.state, r.zip,
     SETTINGS.country, r.sp, r.lp, "", ""
@@ -289,6 +289,15 @@ function save_(o) {
   recip.getRange(start, 1, rows.length, RECIP_HEAD.length).setValues(rows);
   recip.getRange(start, 14, rows.length, 1).setFormulas(rows.map((_, i) =>
     ['=IFERROR(VLOOKUP($A' + (start + i) + ',Orders!$A:$L,12,FALSE),FALSE)']));
+}
+
+// First empty row by column A (checkbox columns would otherwise count as "used" rows)
+function nextRow_(sheet) {
+  const n = Math.max(sheet.getLastRow() - 1, 1);
+  const ids = sheet.getRange(2, 1, n, 1).getValues();
+  let last = 1;
+  for (let i = 0; i < ids.length; i++) if (String(ids[i][0]).trim()) last = i + 2;
+  return last + 1;
 }
 
 function venmoLink_(o) {
