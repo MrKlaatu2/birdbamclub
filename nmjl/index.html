@@ -22,21 +22,63 @@ a{color:var(--burgundy)}
 header{border-bottom:2px solid var(--line)}
 header .wrap{max-width:1160px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
 header img{height:56px;width:auto;display:block}
-.home{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--charcoal)}
+.cartlink{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;border:2px solid var(--burgundy);border-radius:10px;background:var(--white);color:var(--burgundy);font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.cartlink svg{width:22px;height:22px}
+.badge{min-width:22px;height:22px;border-radius:11px;background:var(--burgundy);color:var(--cream);font-family:var(--body);font-size:.8rem;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
 main{padding-block:28px 64px}
 .eyebrow{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin:0}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,9vw,4.4rem);text-transform:uppercase;line-height:.95;margin:4px 0 10px;color:var(--burgundy)}
 h1 .hl{color:var(--gold)}
 .lead{margin:0 0 6px}
 .charity{background:var(--green-soft);border-left:6px solid var(--green);border-radius:10px;padding:12px 16px;margin:18px 0}
-.prices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
-.price{background:var(--white);border:2px solid var(--line);border-top:6px solid var(--gold);border-radius:14px;padding:12px 16px;text-align:center}
-.price b{display:block;font-family:var(--display);font-size:2.2rem;color:var(--burgundy);line-height:1.1}
-.price span{font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brown)}
 h2{font-family:var(--display);font-weight:800;font-size:1.8rem;text-transform:uppercase;letter-spacing:.03em;margin:34px 0 4px;color:var(--burgundy)}
 .hint{color:var(--muted);font-size:.95rem;margin:0 0 12px}
-.card{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
-.card h3{display:flex;justify-content:space-between;align-items:center;margin:0 0 6px;font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:.04em;text-transform:uppercase;color:var(--brown)}
+
+/* products */
+.products{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.product{background:var(--white);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.product.incart{border-color:var(--burgundy)}
+.pimg{aspect-ratio:4/3;background:var(--sand);display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--line)}
+.mini{width:58%;background:var(--white);border:2px solid var(--brown);border-radius:6px;padding:8% 7%;box-shadow:4px 4px 0 var(--gold)}
+.mini b{display:block;font-family:var(--display);font-weight:800;color:var(--burgundy);text-transform:uppercase;line-height:1;text-align:center}
+.mini i{display:block;height:5px;border-radius:3px;background:var(--line);margin-top:7%}
+.mini i:nth-child(odd){width:80%}
+.product.lp .mini{width:66%}
+.product.lp .mini i{height:8px}
+.pbody{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pname{font-family:var(--display);font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:.03em;color:var(--brown);line-height:1.1}
+.pdesc{color:var(--muted);font-size:.9rem;margin:0;flex:1}
+.pprice{font-family:var(--display);font-weight:800;font-size:1.8rem;color:var(--burgundy);line-height:1}
+.pprice small{font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 20px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);cursor:pointer;background:var(--white);color:var(--burgundy)}
+.btn.primary{background:var(--burgundy);color:var(--cream)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--charcoal)}
+.btn.venmo{background:var(--venmo);border-color:var(--venmo);color:#fff}
+.btn.block{width:100%}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:8px;border:2px solid var(--burgundy);border-radius:10px;min-height:48px;padding:0 4px}
+.stepper button{width:40px;height:40px;border-radius:8px;border:0;background:none;color:var(--burgundy);font-size:1.5rem;font-weight:700;cursor:pointer}
+.stepper output{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--burgundy)}
+.incart-note{font-size:.8rem;font-weight:700;color:var(--green);text-align:center;margin-top:-2px}
+
+/* cart bar + summary */
+.cartbar{position:sticky;bottom:0;margin-top:22px;background:var(--charcoal);color:var(--cream);border-radius:14px;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;box-shadow:0 -4px 18px rgba(0,0,0,.12)}
+.cartbar .amt{font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1}
+.cartbar .amt small{display:block;font-family:var(--body);font-weight:400;font-size:.85rem;color:#C9C4B4;margin-top:3px}
+.summary{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:6px 16px 12px;margin-top:12px}
+.line{display:grid;grid-template-columns:1fr auto auto;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.line .n{font-weight:700}
+.line .n small{display:block;font-weight:400;color:var(--muted)}
+.line .q{display:flex;align-items:center;gap:4px}
+.line .q button{width:34px;height:34px;border-radius:8px;border:2px solid var(--line);background:var(--white);color:var(--burgundy);font-size:1.2rem;font-weight:700;cursor:pointer}
+.line .q span{min-width:2ch;text-align:center;font-weight:700}
+.line .p{font-weight:700;min-width:4.5em;text-align:right;font-variant-numeric:tabular-nums}
+.tot{display:flex;justify-content:space-between;padding-top:10px;font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--burgundy)}
+.sub{display:flex;justify-content:space-between;padding-top:8px;color:var(--muted);font-size:.95rem}
+.back{background:none;border:0;padding:0;font:inherit;color:var(--burgundy);text-decoration:underline;cursor:pointer;font-weight:600}
+
+/* forms */
+.card{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:12px}
 .grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px 12px}
 .f{display:flex;flex-direction:column;grid-column:span 3;min-width:0}
 .f.full{grid-column:span 6}.f.s2{grid-column:span 2}
@@ -44,35 +86,23 @@ label{font-weight:600;font-size:.92rem;margin-bottom:3px}
 label small{font-weight:400;color:var(--muted)}
 input,select,textarea{font:inherit;font-size:1rem;padding:9px 11px;border:2px solid var(--line);border-radius:9px;background:var(--white);color:var(--charcoal);width:100%;min-height:44px}
 input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:none}
-.qty{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
-.stepper{display:flex;align-items:center;gap:8px}
-.stepper button{width:44px;height:44px;border-radius:10px;border:2px solid var(--burgundy);background:var(--white);color:var(--burgundy);font-size:1.4rem;font-weight:700;cursor:pointer}
-.stepper output{min-width:2ch;text-align:center;font-family:var(--display);font-weight:800;font-size:1.6rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 20px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--burgundy);cursor:pointer;background:var(--white);color:var(--burgundy)}
-.btn.primary{background:var(--burgundy);color:var(--cream)}
-.btn.venmo{background:var(--venmo);border-color:var(--venmo);color:#fff}
-.btn:disabled{opacity:.55;cursor:wait}
-.pay{display:grid;gap:10px}
+.pay{display:grid;gap:10px;margin-top:12px}
 .opt{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
 .opt input{width:22px;height:22px;min-height:0;margin-top:3px;accent-color:var(--burgundy)}
 .opt:has(input:checked){border-color:var(--burgundy);background:#FBF6F2}
 .opt b{display:block}
 .opt span{color:var(--muted);font-size:.93rem}
-.total{position:sticky;bottom:0;margin-top:26px;background:var(--charcoal);color:var(--cream);border-radius:14px;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;box-shadow:0 -4px 18px rgba(0,0,0,.12)}
-.total .amt{font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1}
-.total .amt small{display:block;font-family:var(--body);font-weight:400;font-size:.85rem;color:#C9C4B4}
-.total .btn.primary{border-color:var(--gold);background:var(--gold);color:var(--charcoal)}
+.venmo-box{background:var(--white);border:2px solid var(--venmo);border-radius:14px;padding:14px 16px;margin-top:12px}
+.venmo-box .vh{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:8px}
+.vlogo{background:var(--venmo);color:#fff;font-weight:800;font-style:italic;border-radius:6px;padding:1px 8px}
+.inperson{margin-top:12px;background:var(--sand);border-radius:12px;padding:10px 14px;font-size:.95rem}
+.paybar{margin-top:20px}
 .err{background:#FBEAEA;border:2px solid var(--burgundy);color:var(--burgundy);border-radius:10px;padding:10px 14px;margin-top:16px;font-weight:600}
 .done{text-align:center}
 .done .big{font-family:var(--display);font-weight:800;font-size:2.6rem;color:var(--burgundy);margin:6px 0}
 .done .oid{display:inline-block;font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:.08em;background:var(--gold-soft);border:2px dashed var(--gold);border-radius:10px;padding:4px 14px}
-.done ul{text-align:left;display:inline-block;margin:10px auto}
-.venmo-box{background:var(--white);border:2px solid var(--venmo);border-radius:14px;padding:14px 16px}
-.venmo-box .vh{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:8px}
-.venmo-box .vlogo{background:var(--venmo);color:#fff;font-weight:800;font-style:italic;border-radius:6px;padding:1px 8px}
-.inperson{margin-top:12px;background:var(--sand);border-radius:12px;padding:10px 14px;font-size:.95rem}
 .deskbar{background:var(--charcoal);color:var(--cream);border-radius:14px;padding:12px 16px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end}
-.deskbar .f{grid-column:auto;flex:1 1 140px}
+.deskbar .f{flex:1 1 140px}
 .deskbar label{color:var(--cream)}
 .ok{background:var(--green-soft);border:2px solid var(--green);color:var(--charcoal);border-radius:12px;padding:12px 16px;margin-bottom:16px}
 .fine{font-size:.85rem;color:var(--muted);margin-top:22px}
@@ -84,6 +114,9 @@ footer a{color:#D9D4C4}
   header img{height:44px}
   .f,.f.s2{grid-column:span 6}.f.s2.half{grid-column:span 3}
   .card{padding:14px}
+  .products{gap:10px}
+  .pbody{padding:10px 11px 12px}
+  .pname{font-size:1.2rem}
 }
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVVCYT1LLT"></script>
@@ -93,42 +126,75 @@ footer a{color:#D9D4C4}
 <header>
   <div class="wrap">
     <a href="../index.html"><img src="../images/logo.svg" alt="Bird Bam Mahjong Club" width="140" height="56"></a>
-    <a class="home" href="../index.html">Home</a>
+    <button type="button" class="cartlink" id="cartlink" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h3l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.1L21 7.5H6.4"/></svg>
+      Cart <span class="badge" id="badge">0</span>
+    </button>
   </div>
 </header>
 
 <main class="wrap">
-  <div id="order-view">
-    <div id="desk-head" hidden>
-      <p class="eyebrow">Front desk</p>
-      <h1>NMJL card <span class="hl">desk</span> order</h1>
-      <div class="deskbar">
-        <div class="f"><label for="deskPin">Desk PIN</label><input id="deskPin" type="password" inputmode="numeric" autocomplete="off"></div>
-        <div class="f"><label for="staff">Your name</label><input id="staff" autocomplete="off"></div>
-      </div>
-      <div id="desk-ok" class="ok" role="status" hidden></div>
+  <div id="desk-head" hidden>
+    <p class="eyebrow">Front desk</p>
+    <h1>NMJL card <span class="hl">desk</span> sale</h1>
+    <div class="deskbar">
+      <div class="f"><label for="deskPin">Desk PIN</label><input id="deskPin" type="password" inputmode="numeric" autocomplete="off"></div>
+      <div class="f"><label for="staff">Your name</label><input id="staff" autocomplete="off"></div>
     </div>
-    <div id="intro">
-    <p class="eyebrow">National Mah Jongg League</p>
-    <h1>Your 20<span class="hl">27</span> card</h1>
-    <p class="lead">Order your new NMJL card through Bird Bam. We take orders at cost: Jordana Signer, our NMJL collector, sends them to the League, and the League mails each card to your address when the 2027 card is released in the spring.</p>
-    <p class="charity">For every card ordered through Bird Bam, a donation is made to <b>Milken Community School</b>.</p>
-    <div class="prices">
-      <div class="price"><span>Standard</span><b id="p-sp">$16</b></div>
-      <div class="price"><span>Large print</span><b id="p-lp">$18</b></div>
-    </div>
-    <p class="hint">Price includes US shipping. Cards can only be mailed to US addresses through us.</p>
-    </div>
+    <div id="desk-ok" class="ok" role="status" hidden></div>
+  </div>
 
+  <!-- STEP 1: SHOP -->
+  <section id="shop-view">
+    <div id="intro">
+      <p class="eyebrow">National Mah Jongg League</p>
+      <h1>Your 20<span class="hl">27</span> card</h1>
+      <p class="lead">Order your new NMJL card through Bird Bam. We take orders at cost: Jordana Signer, our NMJL collector, sends them to the League, and the League mails each card to your address when the 2027 card is released in the spring.</p>
+      <p class="charity">For every card ordered through Bird Bam, a donation is made to <b>Milken Community School</b>.</p>
+    </div>
+    <div class="products">
+      <article class="product sp" data-item="sp">
+        <div class="pimg" aria-hidden="true"><div class="mini"><b style="font-size:1.1rem">2027</b><i></i><i></i><i></i><i></i></div></div>
+        <div class="pbody">
+          <div class="pname">Standard card</div>
+          <p class="pdesc">The official 2027 NMJL card, regular size.</p>
+          <div class="pprice"><span class="price-sp">$16</span> <small>shipping included</small></div>
+          <div class="buy"></div>
+        </div>
+      </article>
+      <article class="product lp" data-item="lp">
+        <div class="pimg" aria-hidden="true"><div class="mini"><b style="font-size:1.35rem">2027</b><i></i><i></i><i></i></div></div>
+        <div class="pbody">
+          <div class="pname">Large print card</div>
+          <p class="pdesc">Same card with bigger, easier-to-read type.</p>
+          <div class="pprice"><span class="price-lp">$18</span> <small>shipping included</small></div>
+          <div class="buy"></div>
+        </div>
+      </article>
+    </div>
+    <p class="hint" style="margin-top:12px">Cards ship to US addresses only. Each order is for one person and ships to one address.</p>
+    <div class="cartbar">
+      <div class="amt"><span class="cart-total">$0.00</span><small class="cart-sum">Your cart is empty</small></div>
+      <button type="button" class="btn gold" id="to-checkout" disabled>Checkout</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: CHECKOUT -->
+  <section id="checkout-view" hidden>
+    <button type="button" class="back" id="back">← Keep shopping</button>
+    <h1 style="margin-top:10px">Checkout</h1>
     <form id="f" novalidate>
-      <h2 id="order-h">Your order</h2>
-      <p class="hint">Cards are mailed by the League to the address below.</p>
+      <h2 style="margin-top:6px">Order summary</h2>
+      <div class="summary"><div id="lines"></div><div class="sub" id="fee-line" hidden><span>Credit card fee (<span id="fee-pct">3</span>%)</span><span id="fee-amt"></span></div><div class="tot"><span>Total</span><span class="cart-total">$0.00</span></div></div>
+
+      <h2>Shipping</h2>
+      <p class="hint">The League mails your cards here when the 2027 card is released.</p>
       <div class="card">
         <div class="grid">
-          <div class="f"><label for="first">First name</label><input id="first" name="first" autocomplete="given-name" required></div>
-          <div class="f"><label for="last">Last name</label><input id="last" name="last" autocomplete="family-name" required></div>
-          <div class="f"><label for="email">Email <small id="email-opt" hidden>(optional)</small></label><input id="email" name="email" type="email" autocomplete="email" required></div>
-          <div class="f"><label for="phone">Phone <small>(optional)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="f"><label for="first">First name</label><input id="first" autocomplete="given-name" required></div>
+          <div class="f"><label for="last">Last name</label><input id="last" autocomplete="family-name" required></div>
+          <div class="f"><label for="email">Email <small id="email-opt" hidden>(optional)</small></label><input id="email" type="email" autocomplete="email" required></div>
+          <div class="f"><label for="phone">Phone <small>(optional)</small></label><input id="phone" type="tel" autocomplete="tel"></div>
           <div class="f full"><label for="address1">Street address</label><input id="address1" autocomplete="address-line1" required></div>
           <div class="f full"><label for="address2">Apt, suite, unit <small>(optional)</small></label><input id="address2" autocomplete="address-line2"></div>
           <div class="f s2"><label for="city">City</label><input id="city" autocomplete="address-level2" required></div>
@@ -136,121 +202,151 @@ footer a{color:#D9D4C4}
           <div class="f s2 half"><label for="zip">ZIP</label><input id="zip" inputmode="numeric" maxlength="10" autocomplete="postal-code" required></div>
           <div class="f full"><label for="memberId">NMJL member number <small>(optional; leave blank if you don't know it or are new)</small></label><input id="memberId" inputmode="numeric" maxlength="20"></div>
         </div>
-        <div class="qty">
-          <div><label>Standard ($<span class="psp">16</span>)</label><div class="stepper" id="sp"><button type="button" aria-label="Fewer standard cards">−</button><output>0</output><button type="button" aria-label="More standard cards">+</button></div></div>
-          <div><label>Large print ($<span class="plp">18</span>)</label><div class="stepper" id="lp"><button type="button" aria-label="Fewer large print cards">−</button><output>0</output><button type="button" aria-label="More large print cards">+</button></div></div>
-        </div>
       </div>
 
       <h2>Payment</h2>
       <div id="pay-online">
         <div class="venmo-box">
           <div class="vh"><span class="vlogo">venmo</span> Pay with Venmo</div>
-          <p class="hint" style="margin-bottom:10px">Placing your order opens Venmo with the amount and your order number filled in. Payment goes to Jordana Signer<span id="venmo-at"></span>, our NMJL collector.</p>
+          <p class="hint" style="margin-bottom:10px">When you place your order, Venmo opens with the amount and your order number filled in. Payment goes to Jordana Signer<span id="venmo-at"></span>, our NMJL collector.</p>
           <div class="f full"><label for="venmoUser">Your Venmo username</label><input id="venmoUser" autocomplete="off" autocapitalize="off" placeholder="@yourname"></div>
         </div>
         <p class="inperson">Prefer cash or credit card? Place your order in person at the Bird Bam front desk. A credit card fee applies to cover processing costs.</p>
       </div>
       <div id="pay-desk" class="pay" hidden>
         <label class="opt"><input type="radio" name="payMethod" value="cash" checked><div><b>Cash</b><span>No fee</span></div></label>
-        <label class="opt"><input type="radio" name="payMethod" value="card"><div><b>Credit card</b><span>Adds <span id="fee-pct">3</span>% to cover processing. Charge the total shown below.</span></div></label>
+        <label class="opt"><input type="radio" name="payMethod" value="card"><div><b>Credit card</b><span>Adds the processing fee. Charge the total shown.</span></div></label>
       </div>
 
-      <div class="f full" style="margin-top:18px"><label for="notes">Anything we should know? <small>(optional)</small></label><textarea id="notes" name="notes" rows="2"></textarea></div>
+      <div class="f full" style="margin-top:18px"><label for="notes">Anything we should know? <small>(optional)</small></label><textarea id="notes" rows="2"></textarea></div>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div id="err" class="err" role="alert" hidden></div>
-      <div class="total">
-        <div class="amt"><span id="tot">$0.00</span><small id="tot-sub">0 cards</small></div>
-        <button class="btn primary" id="go" type="submit">Place order</button>
-      </div>
+      <div class="paybar"><button class="btn venmo block" id="go" type="submit">Place order &amp; pay with Venmo</button></div>
+      <p class="fine" id="fine">Orders not paid within 3 days are cancelled. Orders are submitted to the National Mah Jongg League in batches. Questions? Email <a href="mailto:info@birdbamclub.com">info@birdbamclub.com</a>.</p>
     </form>
-    <p class="fine" id="fine">Orders not paid within 3 days are cancelled. Orders are submitted to the National Mah Jongg League in batches. Questions? Email <a href="mailto:info@birdbamclub.com">info@birdbamclub.com</a>.</p>
-  </div>
+  </section>
 
-  <div id="done-view" class="done" hidden></div>
+  <!-- STEP 3: DONE -->
+  <section id="done-view" class="done" hidden></section>
 </main>
 
 <footer>
   <div class="wrap"><span>© 2026 Bird Bam Mahjong Club LLC</span><span><a href="../index.html">Home</a> · <a href="../privacy.html">Privacy policy</a></span></div>
 </footer>
 
-
 <script>
 /* ===== SETTINGS: keep prices and Venmo handle the same as the Apps Script ===== */
 const CONFIG = {
   ENDPOINT: "",            // Google Apps Script web app URL (ends in /exec)
-  VENMO: "",               // Venmo handle without @, e.g. "BirdBamMahjong"
+  VENMO: "",               // Jordana's Venmo handle without @
   PRICE_SP: 16, PRICE_LP: 18,
   CARD_FEE_PCT: 3,         // in-person credit card fee (desk only)
   MAX_EACH: 20
 };
 /* ============================================================================ */
 const STATES = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY PR VI GU AS MP AA AE AP".split(" ");
-const $ = s => document.querySelector(s), money = n => "$" + n.toFixed(2);
-const form = $("#f");
-$("#p-sp").textContent = "$" + CONFIG.PRICE_SP; $("#p-lp").textContent = "$" + CONFIG.PRICE_LP;
-document.querySelectorAll(".psp").forEach(e => e.textContent = CONFIG.PRICE_SP);
-document.querySelectorAll(".plp").forEach(e => e.textContent = CONFIG.PRICE_LP);
-$("#state").innerHTML = '<option value="">State</option>' + STATES.map(s => `<option${s === "CA" ? " selected" : ""}>${s}</option>`).join("");
+const ITEMS = { sp: { name: "Standard card", price: CONFIG.PRICE_SP }, lp: { name: "Large print card", price: CONFIG.PRICE_LP } };
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s), money = n => "$" + n.toFixed(2);
+const val = id => $("#" + id).value.trim();
+const form = $("#f"), DESK = new URLSearchParams(location.search).has("desk");
+const cart = { sp: 0, lp: 0 };
 
-const DESK = new URLSearchParams(location.search).has("desk");
-if (CONFIG.VENMO) $("#venmo-at").textContent = " (@" + CONFIG.VENMO + ")";
+$$(".price-sp").forEach(e => e.textContent = "$" + CONFIG.PRICE_SP);
+$$(".price-lp").forEach(e => e.textContent = "$" + CONFIG.PRICE_LP);
 $("#fee-pct").textContent = CONFIG.CARD_FEE_PCT;
+$("#state").innerHTML = '<option value="">State</option>' + STATES.map(s => `<option${s === "CA" ? " selected" : ""}>${s}</option>`).join("");
+if (CONFIG.VENMO) $("#venmo-at").textContent = " (@" + CONFIG.VENMO + ")";
+
 if (DESK) {
   ["#intro", "#pay-online", "#fine"].forEach(x => $(x).hidden = true);
   ["#desk-head", "#pay-desk", "#email-opt"].forEach(x => $(x).hidden = false);
   try { $("#deskPin").value = localStorage.getItem("nmjlDeskPin") || ""; $("#staff").value = localStorage.getItem("nmjlStaff") || ""; } catch (e) {}
-  document.title = "NMJL Desk Order | Bird Bam";
-  $("#order-h").textContent = "Customer";
-  document.querySelectorAll('[name="payMethod"]').forEach(r => r.onchange = calc);
+  document.title = "NMJL Desk Sale | Bird Bam";
+  $("#go").classList.replace("venmo", "primary");
+  $$('[name="payMethod"]').forEach(r => r.onchange = render);
+} else {
+  try { const saved = JSON.parse(sessionStorage.getItem("nmjlCart") || "{}"); ["sp", "lp"].forEach(k => cart[k] = Math.min(CONFIG.MAX_EACH, Math.max(0, saved[k] | 0))); } catch (e) {}
 }
 const method = () => DESK ? form.querySelector('[name="payMethod"]:checked').value : "venmo";
-const venmoLink = (id, total) => `https://venmo.com/${encodeURIComponent(CONFIG.VENMO)}?txn=pay&amount=${total.toFixed(2)}&note=${encodeURIComponent("NMJL 2027 cards " + id)}`;
 
-document.querySelectorAll(".stepper").forEach(st => {
-  const out = st.querySelector("output"), [minus, plus] = st.querySelectorAll("button");
-  minus.onclick = () => { out.textContent = Math.max(0, +out.textContent - 1); calc(); };
-  plus.onclick = () => { out.textContent = Math.min(CONFIG.MAX_EACH, +out.textContent + 1); calc(); };
-});
-const val = id => $("#" + id).value.trim(), qty = id => +$("#" + id + " output").textContent;
-function calc() {
-  const sp = qty("sp"), lp = qty("lp"), sub = sp * CONFIG.PRICE_SP + lp * CONFIG.PRICE_LP;
-  const fee = DESK && method() === "card" ? Math.round(sub * CONFIG.CARD_FEE_PCT) / 100 : 0, total = sub + fee;
-  $("#tot").textContent = money(total);
-  $("#tot-sub").textContent = ([sp ? sp + " standard" : "", lp ? lp + " large print" : ""].filter(Boolean).join(" + ") || "0 cards") + (fee ? " + " + money(fee) + " card fee" : "");
-  $("#go").textContent = DESK ? "Record paid order" : (total ? "Pay " + money(total) + " with Venmo" : "Pay with Venmo");
-  return { sp, lp, total };
+function setQty(k, n) {
+  cart[k] = Math.max(0, Math.min(CONFIG.MAX_EACH, n));
+  if (!DESK) try { sessionStorage.setItem("nmjlCart", JSON.stringify(cart)); } catch (e) {}
+  render();
 }
+function totals() {
+  const sub = cart.sp * CONFIG.PRICE_SP + cart.lp * CONFIG.PRICE_LP;
+  const fee = DESK && method() === "card" ? Math.round(sub * CONFIG.CARD_FEE_PCT) / 100 : 0;
+  return { sub, fee, total: sub + fee, count: cart.sp + cart.lp };
+}
+function render() {
+  const t = totals();
+  // product buttons
+  $$(".product").forEach(p => {
+    const k = p.dataset.item, n = cart[k], box = p.querySelector(".buy");
+    p.classList.toggle("incart", n > 0);
+    box.innerHTML = n
+      ? `<div class="stepper"><button type="button" data-d="-1" aria-label="One fewer ${ITEMS[k].name}">−</button><output>${n}</output><button type="button" data-d="1" aria-label="One more ${ITEMS[k].name}">+</button></div><div class="incart-note">✓ In your cart</div>`
+      : `<button type="button" class="btn primary block" data-d="1">Add to cart</button>`;
+  });
+  $("#badge").textContent = t.count;
+  $$(".cart-total").forEach(e => e.textContent = money(t.total));
+  $(".cart-sum").textContent = t.count ? [cart.sp ? cart.sp + " standard" : "", cart.lp ? cart.lp + " large print" : ""].filter(Boolean).join(" + ") : "Your cart is empty";
+  $("#to-checkout").disabled = !t.count;
+  // checkout summary
+  $("#lines").innerHTML = ["sp", "lp"].filter(k => cart[k]).map(k => `
+    <div class="line" data-item="${k}"><span class="n">${ITEMS[k].name}<small>${money(ITEMS[k].price)} each</small></span>
+      <span class="q"><button type="button" data-d="-1" aria-label="One fewer ${ITEMS[k].name}">−</button><span>${cart[k]}</span><button type="button" data-d="1" aria-label="One more ${ITEMS[k].name}">+</button></span>
+      <span class="p">${money(cart[k] * ITEMS[k].price)}</span></div>`).join("") || `<p class="hint" style="margin:10px 0">Your cart is empty. <button type="button" class="back" onclick="show('shop')">Add cards</button></p>`;
+  $("#fee-line").hidden = !t.fee; $("#fee-amt").textContent = money(t.fee);
+  $("#go").textContent = DESK ? `Record paid sale · ${money(t.total)}` : `Place order & pay ${money(t.total)} with Venmo`;
+  $("#go").disabled = !t.count;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-d]"); if (!b) return;
+  const k = b.closest("[data-item]").dataset.item; setQty(k, cart[k] + +b.dataset.d);
+});
+
+function show(step) {
+  $("#shop-view").hidden = step !== "shop"; $("#checkout-view").hidden = step !== "checkout"; $("#done-view").hidden = step !== "done";
+  $("#cartlink").hidden = step === "done";
+  scrollTo(0, 0);
+  if (step === "checkout" && history.state !== "checkout") history.pushState("checkout", "");
+}
+$("#to-checkout").onclick = () => { show("checkout"); if (window.gtag) gtag("event", "begin_checkout", { value: totals().total, currency: "USD" }); };
+$("#cartlink").onclick = () => show(totals().count ? "checkout" : "shop");
+$("#back").onclick = () => history.state === "checkout" ? history.back() : show("shop");
+addEventListener("popstate", () => { if ($("#done-view").hidden) show(history.state === "checkout" ? "checkout" : "shop"); });
 
 function problem() {
   const emailOk = x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x);
+  if (!totals().count) return [null, "Your cart is empty."];
+  if (DESK && !val("deskPin")) return ["deskPin", "Enter the desk PIN at the top."];
   if (!val("first") || !val("last")) return [val("first") ? "last" : "first", "Please enter your first and last name."];
-  if (DESK && !val("deskPin")) return ["deskPin", "Enter the desk PIN."];
   if ((val("email") || !DESK) && !emailOk(val("email"))) return ["email", "Please enter a valid email."];
   if (!val("address1")) return ["address1", "Please enter your street address."];
   if (!val("city")) return ["city", "Please enter your city."];
   if (!val("state")) return ["state", "Please choose your state."];
   if (!/^\d{5}(-\d{4})?$/.test(val("zip"))) return ["zip", "ZIP code should be 5 digits."];
-  if (qty("sp") + qty("lp") < 1) return [$("#sp button:last-child"), "Choose at least one card."];
   if (!DESK && !val("venmoUser").replace(/^@/, "")) return ["venmoUser", "Please enter your Venmo username so we can match your payment."];
   return null;
 }
 function showErr(msg, el) {
   const box = $("#err"); box.textContent = msg; box.hidden = false;
-  if (el) { (typeof el === "string" ? $("#" + el) : el).focus(); } else box.scrollIntoView({ block: "center" });
+  if (el) $("#" + el).focus(); else box.scrollIntoView({ block: "center" });
 }
-
-function newId() { const c = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s = ""; const r = crypto.getRandomValues(new Uint8Array(5)); r.forEach(x => s += c[x % c.length]); return "BB-" + s; }
+function newId() { const c = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s = ""; crypto.getRandomValues(new Uint8Array(5)).forEach(x => s += c[x % c.length]); return "BB-" + s; }
 let orderId = newId();
+const venmoLink = (id, total) => `https://venmo.com/${encodeURIComponent(CONFIG.VENMO)}?txn=pay&amount=${total.toFixed(2)}&note=${encodeURIComponent("NMJL 2027 cards " + id)}`;
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
   $("#err").hidden = true; if (DESK) $("#desk-ok").hidden = true;
   const bad = problem(); if (bad) { showErr(bad[1], bad[0]); return; }
   if (!CONFIG.ENDPOINT || (!DESK && !CONFIG.VENMO)) { showErr("Online ordering isn't open yet. Please check back soon or email info@birdbamclub.com."); return; }
-  const { sp, lp, total } = calc(), btn = $("#go"), m = method();
-  // Open the Venmo tab right away (inside the click) so phones don't block it; point it at Venmo once the order is saved.
+  const t = totals(), btn = $("#go"), m = method(), sp = cart.sp, lp = cart.lp;
+  // Open the Venmo tab inside the click so phones don't block it; point it at Venmo once the order is saved.
   const win = DESK ? null : window.open("", "_blank");
   const recipient = { first: val("first"), last: val("last"), email: val("email"), address1: val("address1"), address2: val("address2"), city: val("city"), state: val("state"), zip: val("zip"), memberId: val("memberId"), sp, lp };
   const body = new URLSearchParams({
@@ -259,17 +355,18 @@ form.addEventListener("submit", async e => {
   });
   if (DESK) { body.set("deskPin", val("deskPin")); body.set("staff", val("staff")); }
   else body.set("venmoUser", val("venmoUser"));
-  btn.disabled = true; btn.textContent = "Saving…";
+  btn.disabled = true; btn.textContent = "Saving your order…";
   let res = null;
   try { const r = await fetch(CONFIG.ENDPOINT, { method: "POST", body }); res = await r.json(); } catch (err) { res = null; }
-  btn.disabled = false; calc();
+  btn.disabled = false; render();
   const fail = msg => { if (win) win.close(); showErr(msg); };
   if (!res) return fail("We couldn't reach the order system. Please try again in a minute, or email info@birdbamclub.com.");
   if (!res.ok) return fail(res.error || "Something went wrong. Please try again.");
-  const id = res.orderId || orderId, amt = typeof res.total === "number" ? res.total : total;
-  if (window.gtag) gtag("event", "nmjl_card_order", { value: amt, currency: "USD", cards: res.cards, method: m });
+  const id = res.orderId || orderId, amt = typeof res.total === "number" ? res.total : t.total;
+  if (window.gtag) gtag("event", "purchase", { transaction_id: id, value: amt, currency: "USD", payment_type: m });
   if (DESK) return deskDone(id, amt, m, res.fee || 0);
   if (win) win.location.href = venmoLink(id, amt);
+  try { sessionStorage.removeItem("nmjlCart"); } catch (e) {}
   done(id, amt, sp, lp, !win || win.closed);
 });
 
@@ -279,13 +376,11 @@ function deskDone(id, amt, m, fee) {
   ok.innerHTML = `<b>Recorded ${id}</b> for ${esc(val("first"))} ${esc(val("last"))}: ${money(amt)} ${m === "card" ? "by credit card (incl. " + money(fee) + " fee)" : "cash"}. Marked paid.`;
   ok.hidden = false;
   ["first", "last", "email", "phone", "address1", "address2", "city", "zip", "memberId", "notes"].forEach(k => $("#" + k).value = "");
-  $("#state").value = "CA"; $("#sp output").textContent = "0"; $("#lp output").textContent = "0";
-  form.querySelector('[value="cash"]').checked = true;
-  orderId = newId(); calc(); scrollTo(0, 0);
+  $("#state").value = "CA"; form.querySelector('[value="cash"]').checked = true;
+  cart.sp = 0; cart.lp = 0; orderId = newId(); render(); show("shop");
 }
 
 function done(id, total, sp, lp, blocked) {
-  const venmo = venmoLink(id, total);
   const cards = [sp ? sp + " standard" : "", lp ? lp + " large print" : ""].filter(Boolean).join(" + ");
   $("#done-view").innerHTML = `
     <p class="eyebrow">Order saved</p>
@@ -293,15 +388,15 @@ function done(id, total, sp, lp, blocked) {
     <p>Your order number is<br><span class="oid">${id}</span></p>
     <p>${cards} · <b>${money(total)}</b></p>
     <p><b>${blocked ? "Next: send your payment in Venmo." : "Finish your payment in the Venmo tab we opened."}</b><br>Your order goes to the League once payment arrives.</p>
-    <p><a class="btn venmo" href="${venmo}" target="_blank" rel="noopener">${blocked ? "Pay" : "Didn't open? Pay"} ${money(total)} on Venmo</a></p>
+    <p><a class="btn venmo" href="${venmoLink(id, total)}" target="_blank" rel="noopener">${blocked ? "Pay" : "Didn't open? Pay"} ${money(total)} on Venmo</a></p>
     <p class="hint">Paying Jordana Signer, <b>@${esc(CONFIG.VENMO)}</b>, our NMJL collector. Send it as a regular friends payment and keep <b>${id}</b> in the note. Orders not paid within 3 days are cancelled.</p>
     <p class="hint">We emailed a copy to ${esc(val("email"))}.</p>`;
-  $("#order-view").hidden = true; $("#done-view").hidden = false; scrollTo(0, 0);
+  show("done");
 }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
 
 form.addEventListener("input", () => { $("#err").hidden = true; });
-calc();
+render();
 </script>
 </body>
 </html>
