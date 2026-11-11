@@ -361,29 +361,48 @@ function checkVenmoPayments() {
   const ss = SpreadsheetApp.getActive(), orders = ss.getSheetByName("Orders");
   if (!orders || orders.getLastRow() < 2) return;
   const label = GmailApp.getUserLabelByName("NMJL Venmo matched") || GmailApp.createLabel("NMJL Venmo matched");
-  const threads = GmailApp.search('from:venmo@venmo.com "paid you" newer_than:30d -label:"NMJL Venmo matched"', 0, 50);
+  // in:anywhere also finds payment emails that landed in Spam
+  const threads = GmailApp.search('in:anywhere -in:trash from:venmo.com "paid you" newer_than:30d -label:"NMJL Venmo matched"', 0, 50);
+  console.log("Venmo emails to check: " + threads.length);
   if (!threads.length) return;
   const data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
-  const rowOf = {}; data.forEach((r, i) => rowOf[r[0]] = i);
+  const rowOf = {}; data.forEach((r, i) => { if (r[0]) rowOf[r[0]] = i; });
+  const norm = x => String(x || "").toLowerCase().replace(/[^a-z]/g, "");
+
   threads.forEach(th => {
     let matched = false;
     th.getMessages().forEach(m => {
       if (!/venmo\.com/i.test(m.getFrom())) return;
-      const text = m.getSubject() + "\n" + m.getPlainBody();
-      const amt = (m.getSubject().match(/paid you \$([\d,]+\.\d{2})/i) || text.match(/\$([\d,]+\.\d{2})/) || [])[1];
-      const ids = text.match(/BB-[A-Z0-9]{5}/g) || [];
-      ids.forEach(id => {
-        const i = rowOf[id]; if (i === undefined || !amt) return;
-        const r = data[i], got = Number(amt.replace(/,/g, "")), row = i + 2;
+      const subj = m.getSubject(), body = m.getPlainBody(), text = subj + "\n" + body;
+      const amt = (subj.match(/\$\s?([\d,]+\.\d{2})/) || text.match(/\$\s?([\d,]+\.\d{2})/) || [])[1];
+      if (!amt) { console.log("No amount found in: " + subj); return; }
+      const got = Number(amt.replace(/,/g, ""));
+      // 1) by order number in the Venmo note
+      let hits = (text.match(/BB-[A-Z0-9]{5}/g) || []).map(id => rowOf[id]).filter(i => i !== undefined);
+      let how = "order number";
+      // 2) otherwise by payer name + amount, if exactly one unpaid Venmo order fits
+      if (!hits.length) {
+        const payer = norm((subj.match(/^(?:Fwd:\s*)?(.+?) paid (?:you )?\$/i) || body.match(/^\s*(.+?) paid you/im) || [])[1]);
+        const cands = [];
+        data.forEach((r, i) => {
+          if (r[COL.method - 1] !== "Venmo" || r[COL.paid - 1] === true || r[COL.status - 1] === "Cancelled") return;
+          if (payer && norm(r[COL.first - 1] + r[3]) === payer && Math.abs(Number(r[COL.due - 1]) - got) < 0.005) cands.push(i);
+        });
+        if (cands.length === 1) { hits = cands; how = "payer name and amount"; }
+        else console.log("Couldn't match: " + subj + (cands.length > 1 ? " (" + cands.length + " possible orders)" : ""));
+      }
+      hits.forEach(i => {
+        const r = data[i], row = i + 2;
         if (r[COL.paid - 1] === true) { matched = true; return; }
         if (got + 0.005 >= Number(r[COL.due - 1])) {
           orders.getRange(row, COL.paid).setValue(true);
           orders.getRange(row, COL.received).setValue(got);
           orders.getRange(row, COL.paidDate).setValue(m.getDate());
-          orders.getRange(row, COL.note).setValue(String(r[COL.note - 1] || "") + " · auto-matched Venmo email");
+          orders.getRange(row, COL.note).setValue(String(r[COL.note - 1] || "") + " · Venmo matched by " + how);
           orders.getRange(row, COL.status).setValue("Paid");
           r[COL.paid - 1] = true;
           paymentReceivedEmail_(r, got);
+          console.log("Marked paid: " + r[0] + " by " + how);
         } else {
           orders.getRange(row, COL.received).setValue(got);
           orders.getRange(row, COL.status).setValue("Underpaid: check Venmo");
@@ -402,7 +421,7 @@ function paymentReceivedEmail_(r, got, how) {
       to: email, replyTo: SETTINGS.notifyEmail, name: SETTINGS.clubName,
       subject: "Payment received: NMJL card order " + r[0],
       body: "Hi " + r[COL.first - 1] + ",\n\nWe received your $" + got.toFixed(2) + (how === "card" ? " card" : " Venmo") + " payment for order " + r[0] +
-        ". You're all set. Your order goes to the League, and your 2027 card will be mailed to you when it's released in early April.\n\nThank you!\n" + SETTINGS.clubName
+        ". You're all set! Your 2027 card will be mailed to you by the NMJL when it's released in early April.\n\nThank you!\n" + SETTINGS.clubName
     });
   } catch (e) { console.error(e); }
 }
@@ -443,7 +462,7 @@ function checkShopifyPayments() {
   const orders = SpreadsheetApp.getActive().getSheetByName("Orders");
   if (!orders || orders.getLastRow() < 2) return;
   const label = GmailApp.getUserLabelByName("NMJL Shopify matched") || GmailApp.createLabel("NMJL Shopify matched");
-  const threads = GmailApp.search('subject:"placed by" "NMJL" newer_than:30d -label:"NMJL Shopify matched"', 0, 50);
+  const threads = GmailApp.search('in:anywhere -in:trash subject:"placed by" "NMJL" newer_than:30d -label:"NMJL Shopify matched"', 0, 50);
   if (!threads.length) return;
   const data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
   threads.forEach(th => {
