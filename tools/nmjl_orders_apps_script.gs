@@ -389,7 +389,7 @@ function checkVenmoPayments() {
           if (payer && norm(r[COL.first - 1] + r[3]) === payer && Math.abs(Number(r[COL.due - 1]) - got) < 0.005) cands.push(i);
         });
         if (cands.length === 1) { hits = cands; how = "payer name and amount"; }
-        else console.log("Couldn't match: " + subj + (cands.length > 1 ? " (" + cands.length + " possible orders)" : ""));
+        else if (cands.length > 1 || /nmjl|BB-/i.test(text)) console.log("Couldn't match: " + subj + (cands.length > 1 ? " (" + cands.length + " possible orders)" : ""));
       }
       hits.forEach(i => {
         const r = data[i], row = i + 2;
@@ -477,24 +477,33 @@ function checkShopifyPayments() {
       const top = amounts.length ? Math.max.apply(null, amounts) : 0;
       const shopNo = (subj.match(/Order\s*#?\s*(\d+)/i) || [])[1] || "";
       const ids = body.match(/BB-[A-Z0-9]{5}/g) || [];
+      const norm = x => String(x || "").toLowerCase().replace(/[^a-z]/g, "");
+      const buyer = norm((subj.match(/placed by\s+(.+?)\s*$/i) || [])[1]);
+      // name + exact amount fallback, only when exactly one unpaid card order fits
+      const nameHits = data.map((r, i) => i).filter(i => {
+        const r = data[i];
+        return r[COL.method - 1] === "Card (Shopify)" && r[COL.paid - 1] !== true && r[COL.status - 1] !== "Cancelled" &&
+          buyer && norm(r[COL.first - 1] + r[3]) === buyer && /nmjl/.test(lower) && amounts.some(a => Math.abs(a - Number(r[COL.due - 1])) < 0.005);
+      });
       let hit = false;
       data.forEach((r, i) => {
         if (r[COL.method - 1] !== "Card (Shopify)" || r[COL.paid - 1] === true || r[COL.status - 1] === "Cancelled") return;
         const due = Number(r[COL.due - 1]), email = String(r[COL.email - 1] || "").toLowerCase();
         const byId = ids.indexOf(r[0]) >= 0;
         const byEmail = !!email && lower.indexOf(email) >= 0 && /nmjl/.test(lower) && top + 0.005 >= due;
-        if (!byId && !byEmail) return;
+        const byName = nameHits.length === 1 && nameHits[0] === i;
+        if (!byId && !byEmail && !byName) return;
         const row = i + 2;
         orders.getRange(row, COL.paid).setValue(true);
         orders.getRange(row, COL.received).setValue(due);
         orders.getRange(row, COL.paidDate).setValue(m.getDate());
-        orders.getRange(row, COL.note).setValue("Shopify order #" + shopNo + (byId ? "" : " (matched by email)"));
+        orders.getRange(row, COL.note).setValue("Shopify order #" + shopNo + (byId ? "" : byEmail ? " (matched by email)" : " (matched by name and amount)"));
         orders.getRange(row, COL.status).setValue("Paid");
         r[COL.paid - 1] = true; matched = true; hit = true;
         paymentReceivedEmail_(r, due, "card");
         console.log("Marked paid: " + r[0] + " from Shopify #" + shopNo);
       });
-      if (!hit) console.log("No match in: " + subj + " | ids: " + ids.join(",") + " | NMJL in email: " + /nmjl/.test(lower) + " | top $: " + top);
+      if (!hit && /nmjl/.test(lower)) console.log("No match in: " + subj + " | ids: " + ids.join(",") + " | NMJL in email: " + /nmjl/.test(lower) + " | top $: " + top);
     });
     if (matched) th.addLabel(label);
   });
