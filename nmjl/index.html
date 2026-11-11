@@ -368,7 +368,7 @@ form.addEventListener("submit", async e => {
   if (!CONFIG.ENDPOINT || (!DESK && method() === "venmo" && !CONFIG.VENMO)) { showErr("Online ordering isn't open yet. Please check back soon or email info@birdbamclub.com."); return; }
   const t = totals(), btn = $("#go"), m = method(), sp = cart.sp, lp = cart.lp;
   // Venmo opens in a new tab (opened inside the click so phones don't block it); card goes to Shopify checkout in this tab.
-  const win = DESK || m === "card" ? null : window.open("", "_blank");
+  const win = DESK ? null : window.open("", "_blank");
   const recipient = { first: val("first"), last: val("last"), email: val("email"), address1: val("address1"), address2: val("address2"), city: val("city"), state: val("state"), zip: val("zip"), memberId: val("memberId"), sp, lp };
   const body = new URLSearchParams({
     orderId, first: val("first"), last: val("last"), email: val("email"), phone: val("phone"),
@@ -387,9 +387,9 @@ form.addEventListener("submit", async e => {
   if (window.gtag) gtag("event", "purchase", { transaction_id: id, value: amt, currency: "USD", payment_type: m });
   if (DESK) return deskDone(id, amt, m, res.fee || 0);
   try { sessionStorage.removeItem("nmjlCart"); } catch (e) {}
-  if (m === "card") { location.href = shopLink(id, sp, lp, val("email")); return; }
-  if (win) win.location.href = venmoLink(id, amt);
-  done(id, amt, sp, lp, !win || win.closed);
+  const payUrl = m === "card" ? shopLink(id, sp, lp, val("email")) : venmoLink(id, amt);
+  if (win) win.location.href = payUrl;
+  done(id, amt, sp, lp, !win || win.closed, m, payUrl);
 });
 
 function deskDone(id, amt, m, fee) {
@@ -402,7 +402,8 @@ function deskDone(id, amt, m, fee) {
   cart.sp = 0; cart.lp = 0; orderId = newId(); render(); show("shop");
 }
 
-function done(id, total, sp, lp, blocked) {
+function done(id, total, sp, lp, blocked, m, payUrl) {
+  const card = m === "card";
   const cards = [sp ? sp + " standard" : "", lp ? lp + " large print" : ""].filter(Boolean).join(" + ");
   $("#done-view").innerHTML = `
     <p class="eyebrow">Thank you for your order</p>
@@ -410,9 +411,10 @@ function done(id, total, sp, lp, blocked) {
     <p>Your order number is<br><span class="oid">${id}</span></p>
     <p>${cards} · <b>${money(total)}</b></p>
     <p>Your card will be mailed to you by the NMJL when it's released in early April.</p>
-    <p><b>${blocked ? "Next: send your payment in Venmo." : "Please finish your payment in the Venmo tab we opened."}</b></p>
-    <p><a class="btn venmo" href="${venmoLink(id, total)}" target="_blank" rel="noopener">${blocked ? "Pay" : "Didn't open? Pay"} ${money(total)} on Venmo</a></p>
-    <p class="hint">Paying Jordana Signer, <b>@${esc(CONFIG.VENMO)}</b>, our NMJL collector. Send it as a regular friends payment and keep <b>${id}</b> in the note.</p>
+    <p><b>${blocked ? (card ? "Next: pay by credit card." : "Next: send your payment in Venmo.") : (card ? "Please finish your payment in the secure checkout tab we opened." : "Please finish your payment in the Venmo tab we opened.")}</b></p>
+    <p><a class="btn ${card ? "primary" : "venmo"}" href="${payUrl}" target="_blank" rel="noopener">${blocked ? "Pay" : "Didn't open? Pay"} ${money(total)} ${card ? "by card" : "on Venmo"}</a></p>
+    ${card ? `<p class="hint">Checkout is through the Bird Bam shop. When you're done there, you can close that tab.</p>`
+           : `<p class="hint">Paying Jordana Signer, <b>@${esc(CONFIG.VENMO)}</b>, our NMJL collector. Send it as a regular friends payment and keep <b>${id}</b> in the note.</p>`}
     <p class="warn">Orders not paid within 72 hours are automatically cancelled.</p>
     <p class="hint">We emailed a copy to ${esc(val("email"))}.</p>`;
   show("done");
