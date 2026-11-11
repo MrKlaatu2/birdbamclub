@@ -357,7 +357,7 @@ function onEditInstalled(e) {
 
 // Reads Venmo "paid you" emails and ticks Paid when the order number and amount match
 function checkVenmoPayments() {
-  try { checkShopifyPayments(); } catch (e) { console.error(e); }
+  try { checkShopifyPayments(); } catch (e) { console.error("Shopify check failed: " + e); }
   const ss = SpreadsheetApp.getActive(), orders = ss.getSheetByName("Orders");
   if (!orders || orders.getLastRow() < 2) return;
   const label = GmailApp.getUserLabelByName("NMJL Venmo matched") || GmailApp.createLabel("NMJL Venmo matched");
@@ -461,23 +461,28 @@ function followUpUnpaid() {
 function checkShopifyPayments() {
   const orders = SpreadsheetApp.getActive().getSheetByName("Orders");
   if (!orders || orders.getLastRow() < 2) return;
-  const label = GmailApp.getUserLabelByName("NMJL Shopify matched") || GmailApp.createLabel("NMJL Shopify matched");
-  const threads = GmailApp.search('in:anywhere -in:trash subject:"placed by" "NMJL" newer_than:30d -label:"NMJL Shopify matched"', 0, 50);
-  if (!threads.length) return;
   const data = orders.getRange(2, 1, orders.getLastRow() - 1, COL.status).getValues();
+  const open = data.filter(r => r[COL.method - 1] === "Card (Shopify)" && r[COL.paid - 1] !== true && r[COL.status - 1] !== "Cancelled");
+  if (!open.length) return;
+  const label = GmailApp.getUserLabelByName("NMJL Shopify matched") || GmailApp.createLabel("NMJL Shopify matched");
+  const threads = GmailApp.search('in:anywhere -in:trash subject:(order "placed by") newer_than:30d -label:"NMJL Shopify matched"', 0, 50);
+  console.log("Shopify order emails to check: " + threads.length + " (unpaid card orders: " + open.length + ")");
   threads.forEach(th => {
     let matched = false;
     th.getMessages().forEach(m => {
-      if (!/shopify/i.test(m.getFrom() + " " + m.getReplyTo() + " " + m.getPlainBody().slice(-2000))) return;
-      const body = m.getPlainBody(), lower = body.toLowerCase();
+      const subj = m.getSubject(), body = m.getPlainBody() + "\n" + m.getBody().replace(/<[^>]+>/g, " ");
+      if (!/order\s*#?\s*\d+\s+placed by/i.test(subj)) return;
+      const lower = body.toLowerCase();
       const amounts = (body.match(/\$\s?([\d,]+\.\d{2})/g) || []).map(x => Number(x.replace(/[$,\s]/g, "")));
       const top = amounts.length ? Math.max.apply(null, amounts) : 0;
-      const shopNo = (m.getSubject().match(/Order\s*#?\s*(\d+)/i) || [])[1] || "";
+      const shopNo = (subj.match(/Order\s*#?\s*(\d+)/i) || [])[1] || "";
       const ids = body.match(/BB-[A-Z0-9]{5}/g) || [];
+      let hit = false;
       data.forEach((r, i) => {
         if (r[COL.method - 1] !== "Card (Shopify)" || r[COL.paid - 1] === true || r[COL.status - 1] === "Cancelled") return;
         const due = Number(r[COL.due - 1]), email = String(r[COL.email - 1] || "").toLowerCase();
-        const byId = ids.indexOf(r[0]) >= 0, byEmail = email && lower.indexOf(email) >= 0 && top + 0.005 >= due;
+        const byId = ids.indexOf(r[0]) >= 0;
+        const byEmail = !!email && lower.indexOf(email) >= 0 && /nmjl/.test(lower) && top + 0.005 >= due;
         if (!byId && !byEmail) return;
         const row = i + 2;
         orders.getRange(row, COL.paid).setValue(true);
@@ -485,9 +490,11 @@ function checkShopifyPayments() {
         orders.getRange(row, COL.paidDate).setValue(m.getDate());
         orders.getRange(row, COL.note).setValue("Shopify order #" + shopNo + (byId ? "" : " (matched by email)"));
         orders.getRange(row, COL.status).setValue("Paid");
-        r[COL.paid - 1] = true; matched = true;
+        r[COL.paid - 1] = true; matched = true; hit = true;
         paymentReceivedEmail_(r, due, "card");
+        console.log("Marked paid: " + r[0] + " from Shopify #" + shopNo);
       });
+      if (!hit) console.log("No match in: " + subj + " | ids: " + ids.join(",") + " | NMJL in email: " + /nmjl/.test(lower) + " | top $: " + top);
     });
     if (matched) th.addLabel(label);
   });
