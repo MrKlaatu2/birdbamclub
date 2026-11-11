@@ -38,8 +38,10 @@ h2{font-family:var(--display);font-weight:800;font-size:1.8rem;text-transform:up
 .products{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .product{background:var(--white);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .product.incart{border-color:var(--burgundy)}
-.pimg{position:relative;aspect-ratio:4/3;background:#FBFBFB;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--line)}
-.pimg img{width:100%;height:100%;object-fit:cover;display:block}
+.pimg{position:relative;aspect-ratio:4/3;background:var(--sand);box-sizing:border-box;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--line)}
+.pimg img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 6px 10px rgba(44,43,40,.25)) drop-shadow(0 1px 3px rgba(44,43,40,.15))}
+.product.sp .pimg{padding:16% 18%}
+.product.lp .pimg{padding:7% 8%}
 .ptag{position:absolute;top:8px;left:8px;background:var(--burgundy);color:var(--cream);font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2px 8px}
 .mini{width:58%;background:var(--white);border:2px solid var(--brown);border-radius:6px;padding:8% 7%;box-shadow:4px 4px 0 var(--gold)}
 .mini b{display:block;font-family:var(--display);font-weight:800;color:var(--burgundy);text-transform:uppercase;line-height:1;text-align:center}
@@ -158,7 +160,7 @@ footer a{color:#D9D4C4}
     </div>
     <div class="products">
       <article class="product sp" data-item="sp">
-        <div class="pimg"><img src="../images/nmjl-2027-standard.jpg" alt="2027 National Mah Jongg League card, 90th year"></div>
+        <div class="pimg"><img src="../images/nmjl-2027-card-flat.png" alt="2027 National Mah Jongg League card, 90th year"></div>
         <div class="pbody">
           <div class="pname">Standard card</div>
           <p class="pdesc">The official 2027 NMJL card, 90th year. Regular size.</p>
@@ -167,7 +169,7 @@ footer a{color:#D9D4C4}
         </div>
       </article>
       <article class="product lp" data-item="lp">
-        <div class="pimg"><img src="../images/nmjl-2027-large-print.jpg" alt="2027 National Mah Jongg League card, large print"></div>
+        <div class="pimg"><img src="../images/nmjl-2027-card-flat.png" alt="2027 National Mah Jongg League card, large print"></div>
         <div class="pbody">
           <div class="pname">Large print card</div>
           <p class="pdesc">Same card with bigger, easier-to-read type.</p>
